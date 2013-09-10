@@ -5,6 +5,7 @@ wp-content/upgrade/*
 wp-content/uploads/*
 sitemap.*
 wp-config.php
+robots.txt
  
 # Hidden system files
 *.DS_Store
