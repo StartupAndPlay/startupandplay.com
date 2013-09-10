@@ -1,0 +1,32 @@
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+
+# Event/Contact Redirects **IMPORTANT FUNCTIONALITY**
+
+redirect 301 /pastevents/ /category/past-events/
+redirect 301 /upcomingevent/ /category/upcoming-event/
+redirect 301 /eventbrite /upcoming-event/
+
+# Page Redirects
+
+redirect 301 /author/pshamp/ /author/patrick/
+redirect 301 /blog/ /
+redirect 301 /aug-22nd-event-wrap-up/ /2012/startup-and-play-localsense-august-22-2012/
+
+# RSS/Feed 404
+
+redirect 301 /comments/feed/ /
+redirect 301 /lorem-ipsum/feed/ /
+redirect 301 /lorem-ipsum/ /
+redirect 301 /water-h2o/feed/ /
+redirect 301 /wp-content/uploads/2013/01/untitled.png/feed/ /
+redirect 301 /wp-content/uploads/2013/01/Will-Hardison.jpg/feed/ /
