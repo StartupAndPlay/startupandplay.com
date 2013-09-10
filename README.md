@@ -1,8 +1,8 @@
 StartupAndPlay
 ==============
 
-Author: Patrick Shampine
-Author URI: http://patrickshampine.com
+Author: Patrick Shampine  
+Author URI: http://patrickshampine.com  
 Description: A community contributed WordPress theme and plugin set built for Startup and Play.
 
 // Installation
