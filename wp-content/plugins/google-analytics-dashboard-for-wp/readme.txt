@@ -1,9 +1,9 @@
 === Google Analytics Dashboard for WP ===
 Contributors: deconf
-Tags: google,analytics,google analytics,dashboard,analytics dashboard,google analytics dashboard,google analytics widget,tracking
+Tags: google, analytics, google analytics, dashboard, analytics dashboard, google analytics dashboard, google analytics widget, tracking
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 4.1.3
+Stable tag: 4.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,9 +21,12 @@ Main benefits:
 - you can access all websites statistics in a single widget (websites within same Google Account)
 - cache feature, this improves loading speed up to 7 times and avoids dailyLimitExceeded, usageLimits.userRateLimitExceededUnreg, userRateLimitExceeded errors from Google Analytics API
 - two themes: Blue Theme and Light Theme
-- access level settings and lock profile feature
+- main dash access level settings and lock profile feature
+- access level settings for Backend statistics and reports
+- access level settings for Frontend data and reports
 - option to display top 24 pages, referrers and searches (sortable by columns)
 - option to display Visitors by Country on Geo Map
+- local websites and business have an option to display cities, instead of countries, on a regional map
 - option to display Traffic Overview in Pie Charts
 - option to display Google Analytics statistics on frontend, at the end of each article
 - simple Authorization process
@@ -83,12 +86,19 @@ A dedicated section for Wordpress Plugins is available here: [Wordpress Plugins 
 5. Google Analytics Dashboard Top Pages, Top Referrers and Top Searches
 6. Google Analytics Dashboard Traffic Overview
 7. Google Analytics Dashboard statistics per page on Frontend
+8. Google Analytics Dashboard cities on region map
 
 == License ==
 
 This plugin it's released under the GPLv2, you can use it free of charge on your personal or commercial website.
 
 == Changelog ==
+
+= 09.09.2013 - v4.1.4 =
+- added access level option to Additional Backend Settings section 
+- added access level option to Additional Frontend Settings section
+- new feature for Geo Map allowing local websites to display cities, instead of countries, on a regional map
+- fixed colors for Geo Chart containing world visits by country
 
 = 16.08.2013 - v4.1.3 =
 - solved WooCommerce conflict using .note class

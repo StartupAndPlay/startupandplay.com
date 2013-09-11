@@ -4,7 +4,7 @@ Plugin Name: Google Analytics Dashboard for WP
 Plugin URI: http://www.deconf.com
 Description: This plugin will display Google Analytics data and statistics into Admin Dashboard. 
 Author: Deconf.com
-Version: 4.1.3
+Version: 4.1.4
 Author URI: http://www.deconf.com
 */  
 
@@ -77,7 +77,7 @@ function ga_dash_tracking($head) {
 
 function ga_dash_front_content($content) {
 	global $post;
-	if (!current_user_can(get_option('ga_dash_access')) OR !get_option('ga_dash_frontend')) {
+	if (!current_user_can(get_option('ga_dash_access_front')) OR !get_option('ga_dash_frontend')) {
 		return $content;
 	}
 
@@ -85,9 +85,7 @@ function ga_dash_front_content($content) {
 
 		require_once 'functions.php';
 		
-		if(!get_option('ga_dash_cachetime') OR get_option('ga_dash_cachetime')==10){
-			update_option('ga_dash_cachetime', "900");	
-		}
+		ga_maintain_compatibility();
 
 		if (!class_exists('Google_Exception')) {
 			require_once 'src/Google_Client.php';
@@ -289,9 +287,7 @@ function ga_dash_content() {
 	
 	require_once 'functions.php';
 	
-	if(!get_option('ga_dash_cachetime') OR get_option('ga_dash_cachetime')==10){
-		update_option('ga_dash_cachetime', "900");	
-	}
+	ga_maintain_compatibility();
 
 	if (!class_exists('Google_Exception')) {
 		require_once 'src/Google_Client.php';
@@ -299,8 +295,6 @@ function ga_dash_content() {
 		
 	require_once 'src/contrib/Google_AnalyticsService.php';
 	
-	//$scriptUri = "http://".$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'];
-
 	$client = new Google_Client();
 	$client->setAccessType('offline');
 	$client->setApplicationName('Google Analytics Dashboard');
@@ -371,8 +365,6 @@ function ga_dash_content() {
 			}else{
 				$profiles = $transient;		
 			}
-			
-			//print_r($profiles);
 			
 			$items = $profiles->getItems();
 			$profile_switch.= '<form><select id="ga_dash_profiles" name="ga_dash_profiles" onchange="this.form.submit()">';
@@ -554,29 +546,37 @@ function ga_dash_content() {
 		chart.draw(data, options);
 		
       }";
-	if (get_option('ga_dash_map')){
+
+	if (get_option('ga_dash_map') AND current_user_can(get_option('ga_dash_access_back'))){
 		$ga_dash_visits_country=ga_dash_visits_country($service, $projectId, $from, $to);
 		if ($ga_dash_visits_country){
+
 		 $code.='
 			google.load("visualization", "1", {packages:["geochart"]})
 			function ga_dash_drawmap() {
 			var data = google.visualization.arrayToDataTable(['."
-			  ['".__("Country",'ga-dash')."', '".__("Visits",'ga-dash')."'],"
+			  ['".__("Country/City",'ga-dash')."', '".__("Visits",'ga-dash')."'],"
 			  .$ga_dash_visits_country.
 			"  
 			]);
 			
-			var options = {
-				colors: ['white', '".$colors."']
-			};
+			var options = {";
 			
-			var chart = new google.visualization.GeoChart(document.getElementById('ga_dash_mapdata'));
+				$code.="colors: ['light".$colors."', '".$colors."'],";
+					
+				if (get_option('ga_target_geomap')){
+				 $code.="\nregion : '".get_option('ga_target_geomap')."',";
+				 $code.="\ndisplayMode : 'markers',"; 
+				 $code.="\ndatalessRegionColor : 'EFEFEF'";
+				}					
+			
+			$code.="\n};\nvar chart = new google.visualization.GeoChart(document.getElementById('ga_dash_mapdata'));
 			chart.draw(data, options);
 			
 		  }";
 		}
 	}
-	if (get_option('ga_dash_traffic')){
+	if (get_option('ga_dash_traffic') AND current_user_can(get_option('ga_dash_access_back'))){
 		$ga_dash_traffic_sources=ga_dash_traffic_sources($service, $projectId, $from, $to);
 		$ga_dash_new_return=ga_dash_new_return($service, $projectId, $from, $to);
 		if ($ga_dash_traffic_sources AND $ga_dash_new_return){
@@ -614,7 +614,7 @@ function ga_dash_content() {
 		  }";
 		}
 	}	
-	if (get_option('ga_dash_pgd')){
+	if (get_option('ga_dash_pgd') AND current_user_can(get_option('ga_dash_access_back'))){
 		$ga_dash_top_pages=ga_dash_top_pages($service, $projectId, $from, $to);
 		if ($ga_dash_top_pages){
 		 $code.='
@@ -638,7 +638,7 @@ function ga_dash_content() {
 		  }";
 		}
 	}
-	if (get_option('ga_dash_rd')){
+	if (get_option('ga_dash_rd') AND current_user_can(get_option('ga_dash_access_back'))){
 		$ga_dash_top_referrers=ga_dash_top_referrers($service, $projectId, $from, $to);
 		if ($ga_dash_top_referrers){
 		 $code.='
@@ -662,7 +662,7 @@ function ga_dash_content() {
 		  }";
 		}
 	}
-	if (get_option('ga_dash_sd')){
+	if (get_option('ga_dash_sd') AND current_user_can(get_option('ga_dash_access_back'))){
 		$ga_dash_top_searches=ga_dash_top_searches($service, $projectId, $from, $to);
 		if ($ga_dash_top_searches){
 		 $code.='
@@ -726,23 +726,30 @@ function ga_dash_content() {
 					
 		</div>';
 		
-	if (get_option('ga_dash_map')){
-		$code.='<br /><h3>'.__("Visits by Country",'ga-dash').'</h3>
+	if (get_option('ga_dash_map') AND current_user_can(get_option('ga_dash_access_back'))){
+		$code.='<br /><h3>';
+		if (get_option('ga_target_geomap')){
+			require 'constants.php';
+			$code.=__("Visits from ",'ga-dash').$country_codes[get_option('ga_target_geomap')];
+		}else{
+			$code.=__("Visits by Country",'ga-dash');
+		}	
+		$code.='</h3>
 		<div id="ga_dash_mapdata"></div>';
 	}
 	
-	if (get_option('ga_dash_traffic')){
+	if (get_option('ga_dash_traffic') AND current_user_can(get_option('ga_dash_access_back'))){
 		$code.='<br /><h3>'.__("Traffic Overview",'ga-dash').'</h3>
 		<table width="100%"><tr><td width="50%"><div id="ga_dash_trafficdata"></div></td><td width="50%"><div id="ga_dash_nvrdata"></div></td></tr></table>';
 	}
 	
 	$code.='</center>		
 	</div>';
-	if (get_option('ga_dash_pgd'))
+	if (get_option('ga_dash_pgd') AND current_user_can(get_option('ga_dash_access_back')))
 		$code .= '<div id="ga_dash_pgddata"></div>';
-	if (get_option('ga_dash_rd'))	
+	if (get_option('ga_dash_rd') AND current_user_can(get_option('ga_dash_access_back')))	
 		$code .= '<div id="ga_dash_rdata"></div>';
-	if (get_option('ga_dash_sd'))	
+	if (get_option('ga_dash_sd') AND current_user_can(get_option('ga_dash_access_back')))	
 		$code .= '<div id="ga_dash_sdata"></div>';
 	
 	echo $code; 

@@ -1,14 +1,19 @@
 <?php
+
 require_once 'functions.php';
+
+ga_maintain_compatibility();
 
 if ( !current_user_can( 'manage_options' ) ) {
 	return;
 }
+
 if (isset($_REQUEST['Clear'])){
 	ga_dash_clear_cache();
 	?><div class="updated"><p><strong><?php _e('Cleared Cache.', 'ga-dash' ); ?></strong></p></div>  
 	<?php
 }
+
 if (isset($_REQUEST['Reset'])){
 
 	ga_dash_reset_token();
@@ -16,23 +21,24 @@ if (isset($_REQUEST['Reset'])){
 	<?php
 }else if(ga_dash_safe_get('ga_dash_hidden') == 'Y') {  
         //Form data sent  
+		
         $apikey = ga_dash_safe_get('ga_dash_apikey');  
-        if ($apikey){
-			update_option('ga_dash_apikey', sanitize_text_field($apikey));  
-        }
+		update_option('ga_dash_apikey', sanitize_text_field($apikey));  
 		
         $clientid = ga_dash_safe_get('ga_dash_clientid');
-        if ($clientid){		
-			update_option('ga_dash_clientid', sanitize_text_field($clientid));  
-        }
+		update_option('ga_dash_clientid', sanitize_text_field($clientid));  
 		
         $clientsecret = ga_dash_safe_get('ga_dash_clientsecret');  
-        if ($clientsecret){			
-			update_option('ga_dash_clientsecret', sanitize_text_field($clientsecret));  
-		}
+		update_option('ga_dash_clientsecret', sanitize_text_field($clientsecret));  
 		
-        $dashaccess = ga_dash_safe_get('ga_dash_access');  
-        update_option('ga_dash_access', $dashaccess);
+        $ga_dash_access = ga_dash_safe_get('ga_dash_access');  
+        update_option('ga_dash_access', $ga_dash_access);
+
+        $ga_dash_access_front = ga_dash_safe_get('ga_dash_access_front');  
+        update_option('ga_dash_access_front', $ga_dash_access_front);
+
+        $ga_dash_access_back = ga_dash_safe_get('ga_dash_access_back');  
+        update_option('ga_dash_access_back', $ga_dash_access_back);		
 		
 		$ga_dash_tableid_jail = ga_dash_safe_get('ga_dash_tableid_jail');  
         update_option('ga_dash_tableid_jail', $ga_dash_tableid_jail); 
@@ -88,27 +94,31 @@ if (isset($_REQUEST['Reset'])){
 		$ga_track_exclude = ga_dash_safe_get('ga_track_exclude');
 		update_option('ga_track_exclude', $ga_track_exclude);		
 
+		$ga_target_geomap =  strtoupper(ga_dash_safe_get('ga_target_geomap'));
+		update_option('ga_target_geomap',  strtoupper($ga_target_geomap));
+
+		$ga_target_number = ga_dash_safe_get('ga_target_number');
+		update_option('ga_target_number', $ga_target_number);
 		
 		if (!isset($_REQUEST['Clear']) AND !isset($_REQUEST['Reset'])){
 			?>  
 			<div class="updated"><p><strong><?php _e('Options saved.', 'ga-dash'); ?></strong></p></div>  
 			<?php
 		}
+		
+		ga_dash_clear_cache();
+		
+		ga_maintain_compatibility();
+		
     }else if(ga_dash_safe_get('ga_dash_hidden') == 'A') {
         $apikey = ga_dash_safe_get('ga_dash_apikey');  
-        if ($apikey){
-			update_option('ga_dash_apikey', sanitize_text_field($apikey));  
-        }
+		update_option('ga_dash_apikey', sanitize_text_field($apikey));  
 		
         $clientid = ga_dash_safe_get('ga_dash_clientid');
-        if ($clientid){		
-			update_option('ga_dash_clientid', sanitize_text_field($clientid));  
-        }
+		update_option('ga_dash_clientid', sanitize_text_field($clientid));  
 		
         $clientsecret = ga_dash_safe_get('ga_dash_clientsecret');  
-        if ($clientsecret){			
-			update_option('ga_dash_clientsecret', sanitize_text_field($clientsecret));  
-		}
+		update_option('ga_dash_clientsecret', sanitize_text_field($clientsecret));  
 
 		$ga_dash_userapi = ga_dash_safe_get('ga_dash_userapi');
 		update_option('ga_dash_userapi', $ga_dash_userapi);			
@@ -119,18 +129,10 @@ if (isset($_REQUEST['Authorize'])){
 	echo '<script> window.location="'.$adminurl.'"; </script> ';
 }
 	
-if(!get_option('ga_dash_access')){
-	update_option('ga_dash_access', "manage_options");	
-}
-
-if(!get_option('ga_dash_style')){
-	update_option('ga_dash_style', "blue");	
-}
-
 $apikey = get_option('ga_dash_apikey');  
 $clientid = get_option('ga_dash_clientid');  
 $clientsecret = get_option('ga_dash_clientsecret');  
-$dashaccess = get_option('ga_dash_access'); 
+$ga_dash_access = get_option('ga_dash_access'); 
 $ga_dash_tableid_jail = get_option('ga_dash_tableid_jail');
 $ga_dash_pgd = get_option('ga_dash_pgd');
 $ga_dash_rd = get_option('ga_dash_rd');
@@ -149,10 +151,10 @@ $ga_dash_userapi = get_option('ga_dash_userapi');
 $ga_event_tracking = get_option('ga_event_tracking');
 $ga_event_downloads = get_option('ga_event_downloads');
 $ga_track_exclude = get_option('ga_track_exclude');
-
-if (!$ga_event_downloads){
-	$ga_event_downloads="zip|mp3|mpeg|pdf|doc*|ppt*|xls*|jpeg|png|gif|tiff";
-}
+$ga_dash_access_front = get_option('ga_dash_access_front');
+$ga_dash_access_back = get_option('ga_dash_access_back');
+$ga_target_geomap = get_option('ga_target_geomap');
+$ga_target_number = get_option('ga_target_number');
 
 if ( is_rtl() ) {
 	$float_main="right";
@@ -215,13 +217,13 @@ if ( is_rtl() ) {
 				return;
 			} ?>
 		</p>  
-		<?php echo "<h3>" . __( 'Access Level', 'ga-dash' ). "</h3>";?>
-		<p><?php _e("View Access Level: ", 'ga-dash' ); ?>
+		<?php echo "<h3>" . __( 'Main Dashboard Settings', 'ga-dash' ). "</h3>";?>
+		<p><?php _e("Access Level: ", 'ga-dash' ); ?>
 		<select id="ga_dash_access" name="ga_dash_access">
-			<option value="manage_options" <?php if (($dashaccess=="manage_options") OR (!$dashaccess)) echo "selected='yes'"; echo ">".__("Administrators", 'ga-dash');?></option>
-			<option value="edit_pages" <?php if ($dashaccess=="edit_pages") echo "selected='yes'"; echo ">".__("Editors", 'ga-dash');?></option>
-			<option value="publish_posts" <?php if ($dashaccess=="publish_posts") echo "selected='yes'"; echo ">".__("Authors", 'ga-dash');?></option>
-			<option value="edit_posts" <?php if ($dashaccess=="edit_posts") echo "selected='yes'"; echo ">".__("Contributors", 'ga-dash');?></option>
+			<option value="manage_options" <?php if (($ga_dash_access=="manage_options") OR (!$ga_dash_access)) echo "selected='yes'"; echo ">".__("Administrators", 'ga-dash');?></option>
+			<option value="edit_pages" <?php if ($ga_dash_access=="edit_pages") echo "selected='yes'"; echo ">".__("Editors", 'ga-dash');?></option>
+			<option value="publish_posts" <?php if ($ga_dash_access=="publish_posts") echo "selected='yes'"; echo ">".__("Authors", 'ga-dash');?></option>
+			<option value="edit_posts" <?php if ($ga_dash_access=="edit_posts") echo "selected='yes'"; echo ">".__("Contributors", 'ga-dash');?></option>
 		</select></p>
 
 		<p><?php
@@ -259,15 +261,31 @@ if ( is_rtl() ) {
 		?></p>
 		
 		<p><input name="ga_dash_jailadmins" type="checkbox" id="ga_dash_jailadmins" value="1"<?php if (get_option('ga_dash_jailadmins')) echo " checked='checked'"; ?>  /><?php _e(" disable dashboard's Switch Profile functionality", 'ga-dash' ); ?></p>
-		<?php echo "<h3>" . __( 'Frontend Settings', 'ga-dash' ). "</h3>";?>
+		<?php echo "<h3>" . __( 'Additional Frontend Settings', 'ga-dash' ). "</h3>";?>
 		<p><input name="ga_dash_frontend" type="checkbox" id="ga_dash_frontend" value="1"<?php if (get_option('ga_dash_frontend')) echo " checked='checked'"; ?>  /><?php _e(" show page visits and top searches in frontend (after each article)", 'ga-dash' ); ?></p>
-		<?php echo "<h3>" . __( 'Backend Settings', 'ga-dash' ). "</h3>";?>
-		<p><input name="ga_dash_map" type="checkbox" id="ga_dash_map" value="1"<?php if (get_option('ga_dash_map')) echo " checked='checked'"; ?>  /><?php _e(" show geo map for visits", 'ga-dash' ); ?></p>
+		<p><?php _e("Access Level: ", 'ga-dash' ); ?>
+		<select id="ga_dash_access_front" name="ga_dash_access_front">
+			<option value="manage_options" <?php if (($ga_dash_access_front=="manage_options") OR (!$ga_dash_access_front)) echo "selected='yes'"; echo ">".__("Administrators", 'ga-dash');?></option>
+			<option value="edit_pages" <?php if ($ga_dash_access_front=="edit_pages") echo "selected='yes'"; echo ">".__("Editors", 'ga-dash');?></option>
+			<option value="publish_posts" <?php if ($ga_dash_access_front=="publish_posts") echo "selected='yes'"; echo ">".__("Authors", 'ga-dash');?></option>
+			<option value="edit_posts" <?php if ($ga_dash_access_front=="edit_posts") echo "selected='yes'"; echo ">".__("Contributors", 'ga-dash');?></option>
+		</select></p>		
+		<?php echo "<h3>" . __( 'Additional Backend Settings', 'ga-dash' ). "</h3>";?>
+		<p><input name="ga_dash_map" type="checkbox" id="ga_dash_map" value="1"<?php if (get_option('ga_dash_map')) echo " checked='checked'"; ?>  /><?php _e(" show Geo Map for visits", 'ga-dash' ); ?></p>
+		<p><?php echo __("Target Geo Map to region:", 'ga-dash'); ?> <input type="text" style="text-align:center;" name="ga_target_geomap" value="<?php echo $ga_target_geomap; ?>" size="3"> <?php _e("and render top",'ga-dash'); ?> <input type="text" style="text-align:center;" name="ga_target_number" value="<?php echo $ga_target_number; ?>" size="3"> <?php _e("cities (find out more", 'ga-dash') ?> <a href="http://www.deconf.com/en/projects/country-codes-for-google-analytics-dashboard/"><?php _e("about this feature", 'ga-dash') ?></a><?php _e(")", 'ga-dash') ?></p>
 		<p><input name="ga_dash_traffic" type="checkbox" id="ga_dash_traffic" value="1"<?php if (get_option('ga_dash_traffic')) echo " checked='checked'"; ?>  /><?php _e(" show traffic overview", 'ga-dash' ); ?></p>
 		<p><input name="ga_dash_pgd" type="checkbox" id="ga_dash_pgd" value="1"<?php if (get_option('ga_dash_pgd')) echo " checked='checked'"; ?>  /><?php _e(" show top pages", 'ga-dash' ); ?></p>
 		<p><input name="ga_dash_rd" type="checkbox" id="ga_dash_rd" value="1"<?php if (get_option('ga_dash_rd')) echo " checked='checked'"; ?>  /><?php _e(" show top referrers", 'ga-dash' ); ?></p>		
-		<p><input name="ga_dash_sd" type="checkbox" id="ga_dash_sd" value="1"<?php if (get_option('ga_dash_sd')) echo " checked='checked'"; ?>  /><?php _e(" show top searches", 'ga-dash' ); ?></p>		
-		<p><?php _e("CSS Settings: ", 'ga-dash' ); ?>
+		<p><input name="ga_dash_sd" type="checkbox" id="ga_dash_sd" value="1"<?php if (get_option('ga_dash_sd')) echo " checked='checked'"; ?>  /><?php _e(" show top searches", 'ga-dash' ); ?></p>
+		<p><?php _e("Access Level: ", 'ga-dash' ); ?>		
+		<select id="ga_dash_access_back" name="ga_dash_access_back">
+			<option value="manage_options" <?php if (($ga_dash_access_back=="manage_options") OR (!$ga_dash_access_back)) echo "selected='yes'"; echo ">".__("Administrators", 'ga-dash');?></option>
+			<option value="edit_pages" <?php if ($ga_dash_access_back=="edit_pages") echo "selected='yes'"; echo ">".__("Editors", 'ga-dash');?></option>
+			<option value="publish_posts" <?php if ($ga_dash_access_back=="publish_posts") echo "selected='yes'"; echo ">".__("Authors", 'ga-dash');?></option>
+			<option value="edit_posts" <?php if ($ga_dash_access_back=="edit_posts") echo "selected='yes'"; echo ">".__("Contributors", 'ga-dash');?></option>
+		</select></p>
+		<?php echo "<h3>" . __( 'CSS Settings', 'ga-dash' ). "</h3>";?>		
+		<p><?php _e("CSS Look: ", 'ga-dash' ); ?>
 		<select id="ga_dash_style" name="ga_dash_style">
 			<option value="blue" <?php if (($ga_dash_style=="blue") OR (!$ga_dash_style)) echo "selected='yes'"; echo ">".__("Blue Theme", 'ga-dash');?></option>
 			<option value="light" <?php if ($ga_dash_style=="light") echo "selected='yes'"; echo ">".__("Light Theme", 'ga-dash');?></option>
@@ -285,8 +303,8 @@ if ( is_rtl() ) {
 
 		<p><?php _e("Enable Tracking: ", 'ga-dash' ); ?>
 		<select id="ga_dash_tracking" name="ga_dash_tracking">
-			<option value="0" <?php if (($ga_dash_tracking=="0") OR (!$ga_dash_tracking)) echo "selected='yes'"; echo ">".__("Disabled", 'ga-dash');?></option>
-			<option value="1" <?php if ($ga_dash_tracking=="1") echo "selected='yes'"; echo ">".__("Single Domain", 'ga-dash');?></option>
+			<option value="0" <?php if ($ga_dash_tracking=="0") echo "selected='yes'"; echo ">".__("Disabled", 'ga-dash');?></option>
+			<option value="1" <?php if (($ga_dash_tracking=="1") OR (!$ga_dash_tracking)) echo "selected='yes'"; echo ">".__("Single Domain", 'ga-dash');?></option>
 			<option value="2" <?php if ($ga_dash_tracking=="2") echo "selected='yes'"; echo ">".__("Domain and Subdomains", 'ga-dash');?></option>
 			<option value="3" <?php if ($ga_dash_tracking=="3") echo "selected='yes'"; echo ">".__("Multiple TLD Domains", 'ga-dash');?></option>			
 		</select>

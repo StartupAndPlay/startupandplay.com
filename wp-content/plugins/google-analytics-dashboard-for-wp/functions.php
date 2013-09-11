@@ -230,13 +230,24 @@
 // Get Visits by Country
 	function ga_dash_visits_country($service, $projectId, $from, $to){
 
-		$metrics = 'ga:visits'; 
-		$dimensions = 'ga:country';
+		$metrics = 'ga:visits';
+		$options="";
+		if (get_option('ga_target_geomap')){
+			$dimensions = 'ga:city';
+			require 'constants.php';
+			$filters = 'ga:country=='.($country_codes[get_option('ga_target_geomap')]);
+		}else{	
+			$dimensions = 'ga:country';
+			$filters = "";
+		}	
 		try{
 			$serial='gadash_qr7'.str_replace(array('ga:',',','-',date('Y')),"",$projectId.$from.$to);
 			$transient = get_transient($serial);
 			if ( empty( $transient ) ){
-				$data = $service->data_ga->get('ga:'.$projectId, $from, $to, $metrics, array('dimensions' => $dimensions));
+				if ($filters)
+					$data = $service->data_ga->get('ga:'.$projectId, $from, $to, $metrics, array('dimensions' => $dimensions, 'filters' => $filters, 'sort' => '-ga:visits', 'max-results' => get_option('ga_target_number')));
+				else	
+					$data = $service->data_ga->get('ga:'.$projectId, $from, $to, $metrics, array('dimensions' => $dimensions));
 				set_transient( $serial, $data, get_option('ga_dash_cachetime') );
 			}else{
 				$data = $transient;		
@@ -248,12 +259,14 @@
 		if (!isset($data['rows'])){
 			return 0;
 		}
-		
-		$ga_dash_data="";
-		for ($i=0;$i<$data['totalResults'];$i++){
-			$ga_dash_data.="['".str_replace(array("'","\\")," ",$data['rows'][$i][0])."',".$data['rows'][$i][1]."],";
-		}
 
+		$ga_dash_data="";
+		$i=0;
+		while (isset($data['rows'][$i][1])){
+			$ga_dash_data.="['".str_replace(array("'","\\")," ",$data['rows'][$i][0])."',".$data['rows'][$i][1]."],";
+			$i++;	
+		}
+				
 		return rtrim($ga_dash_data,',');
 
 	}	
@@ -317,5 +330,30 @@
 
 		return rtrim($ga_dash_data,',');
 
-	}	
+	}
+
+	function ga_maintain_compatibility(){
+		if(!get_option('ga_dash_cachetime') OR get_option('ga_dash_cachetime')==10){
+			update_option('ga_dash_cachetime', "3600");	
+		}
+		if(!get_option('ga_dash_access')){
+			update_option('ga_dash_access', "manage_options");	
+		}
+
+		if(!get_option('ga_dash_style')){
+			update_option('ga_dash_style', "blue");	
+		}
+		if (!get_option('ga_event_downloads')){
+			update_option('ga_event_downloads', "zip|mp3|mpeg|pdf|doc*|ppt*|xls*|jpeg|png|gif|tiff");
+		}
+		if (!get_option('ga_dash_access_front')){
+			update_option('ga_dash_access_front', get_option('ga_dash_access'));
+		}
+		if (!get_option('ga_dash_access_back')){
+			update_option('ga_dash_access_back', get_option('ga_dash_access'));
+		}
+		if (!get_option('ga_target_number') AND get_option('ga_target_geomap')){
+			update_option('ga_target_number', "10");
+		}		
+	}
 ?>
