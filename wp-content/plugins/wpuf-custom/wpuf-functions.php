@@ -748,6 +748,22 @@ function wpuf_get_image_sizes() {
     return $image_sizes;
 }
 
+/**
+ * Add image sizes for uploader
+ */
+add_image_size ('single-content-width', 1000, 300, true);
+add_image_size ('single-full-width', 1680, 600, true);
+
+/**
+ * Add classes to body
+ *
+ * @return class names
+ */
+add_filter('body_class','wpuf_add_body_class_grande');
+function wpuf_add_body_class_grande($classes) {
+	$classes[] = 'grande';
+	return $classes;
+}
 
 /**
  * Get the value of a settings field
