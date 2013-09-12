@@ -108,21 +108,7 @@ class WPUF_Add_Post {
                     <li class="grande">
                         <article contenteditable="true" class="content" id="new-post-desc-p" data-placeholder="Type your article"></article>
                                                         
-                                                        <div class="text-menu hide">
-                                                            <div class="options">
-                                                                <span class="no-overflow">
-                                                                    <span class="ui-inputs">
-                                                                        <button class="bold">B</button>
-                                                                        <button class="italic">i</button>
-                                                                        <button class="header1">h1</button>
-                                                                        <button class="header2">h2</button>
-                                                                        <button class="quote">&rdquo;</button>
-                                                                        <button class="url"><i class="icon-link"></i></button>
-                                                                        <input class="url-input" type="text" placeholder="Paste or type a link"/>
-                                                                    </span>
-                                                                </span>
-                                                            </div>
-                                                        </div>
+
                     </li>
                 </ul>
                 

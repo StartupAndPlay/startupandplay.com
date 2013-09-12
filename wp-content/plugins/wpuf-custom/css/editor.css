@@ -1,3 +1,16 @@
+@font-face {
+  font-family: medium-icons;
+  src: url("fonts/medium-icons.woff");
+}
+
+.grande h1,
+.grande p,
+.grande blockquote,
+.grande ol,
+.grande ul {
+  margin-bottom: 15px;
+}
+
 .grande article {
   outline-style: none;
 }
@@ -28,4 +41,42 @@
 .grande a {
   text-decoration: underline;
   color: #333332;
+}
+
+.grande ol, .grande ul {
+  list-style: none;
+  list-style-image: none;
+  margin-left: 0;
+  margin-top: 0;
+  padding-left: 0;
+}
+
+.grande ol li:before,
+.grande ul li:before {
+  width: 30px;
+  display: inline-block;
+}
+
+.grande ol {
+  counter-reset: post;
+}
+
+.grande ol li:before {
+  font-weight: bold;
+  counter-increment: post;
+  content: counter(post) ".";
+}
+
+.grande ul li:before {
+  font-family: "medium-icons";
+  /*content: "\e028";*/
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.grande hr {
+  display: block;
+  width: 20%;
+  margin: 30px auto 20px auto;
+  border: 1px solid #dededc;
 }
