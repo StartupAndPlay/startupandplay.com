@@ -118,6 +118,14 @@ ul, menu, dir {
     margin-top: 10px;
 }
 
+
+hr {
+    display: block;
+    width: 20%;
+    margin: 30px auto 20px auto;
+    border: 1px solid #dededc;
+}
+
 cite {
     font-style: normal;
 }
