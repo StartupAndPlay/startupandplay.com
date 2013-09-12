@@ -71,8 +71,6 @@ add_filter( 'wp_nav_menu', 'remove_ul' );
 // Adds post thumbnails to theme
 add_theme_support ('post-thumbnails');
 add_image_size ('dashboard-thumbnail', 200, 200, true);
-add_image_size ('single-content-width', 970, 300, true);
-add_image_size ('single-full-width', 1680, 600, true);
 
 // Removes manifest from wp_head
 remove_action('wp_head', 'wlwmanifest_link');
