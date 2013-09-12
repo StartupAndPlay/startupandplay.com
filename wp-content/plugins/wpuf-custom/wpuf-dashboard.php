@@ -101,7 +101,7 @@ class WPUF_Dashboard {
                     while ($dashboard_query->have_posts()) {
                         $dashboard_query->the_post();
                         ?>
-                
+                <div class="wrapper-single-dashboard-posts-wrap">
                     
                     <?php if ( 'on' == $featured_img ) { ?>
                     
@@ -126,7 +126,7 @@ class WPUF_Dashboard {
                         
                         <?php } else { ?>
                         
-                        <h3><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'wpuf' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h3>
+                        <h2><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'wpuf' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 
                         <?php } ?>
                         
@@ -139,8 +139,8 @@ class WPUF_Dashboard {
 
 
 
-
-
+                    </div>
+                    <div class="wrapper-single-dashboard-info-actions">
                                 <?php if ( wpuf_get_option( 'enable_post_edit', 'wpuf_others', 'yes' ) == 'yes' ) { ?>
                                     <?php
                                     $edit_page = (int) wpuf_get_option( 'edit_page_id', 'wpuf_others' );
@@ -154,10 +154,12 @@ class WPUF_Dashboard {
                                 <?php if ( wpuf_get_option( 'enable_post_del', 'wpuf_others', 'yes' ) == 'yes' ) { ?>
                                     <a href="<?php echo wp_nonce_url( "?action=del&pid=" . $post->ID, 'wpuf_del' ) ?>" onclick="return confirm('Are you sure to delete this post?');"><span style="color: red;"><?php _e( 'Delete', 'wpuf' ); ?></span></a>
                                 <?php } ?>
-
-                    <?php } ?>
+                        
                     </div>
-            </div>
+                </div>
+                    <?php } ?>
+            </div>     
+            
 
 
             <div class="wrapper-single-dashboard-pagination">

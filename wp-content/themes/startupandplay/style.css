@@ -951,11 +951,28 @@ input[type="search"]::-webkit-search-results-decoration {
 
 /* Dashboard - Posts */
 
-.wrapper-single-dashboard-posts {}
+.wrapper-single-dashboard-posts {
+    overflow: hidden;
+    border-bottom: 1px #e5e5e5 solid;
+    padding: 5px 5px;
+}
 
-.wrapper-single-dashboard-featured {}
+.wrapper-single-dashboard-posts-wrap {
+    overflow: hidden;
+    clear: both;
+}
+
+.wrapper-single-dashboard-featured {
+    max-width: 220px;
+    padding-right: 20px;
+    float: left;
+}
 
 .wrapper-single-dashboard-info {}
+
+.wrapper-single-dashboard-info-actions {
+
+}
 
 .wrapper-single-dashboard-pagination {
     margin: 0 auto;
