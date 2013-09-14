@@ -23,10 +23,10 @@ History
 Roadmap
 -------
 
-- Live beta by Oct 1
--- Add multiple image upload support (figures)
--- Add collections support a la medium style
--- Add social sharing 
-- Stable Project Jan 1
--- Break out plugin into public repos
--- Move theme to public repo
+- Live beta by Oct 1  
+-- Add multiple image upload support (figures)  
+-- Add collections support a la medium style  
+-- Add social sharing   
+- Stable Project Jan 1  
+-- Break out plugin into public repos  
+-- Move theme to public repo  
