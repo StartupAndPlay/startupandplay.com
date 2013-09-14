@@ -59,8 +59,8 @@
 
                 
                 <?php } else { ?>
-                    
-                <li><a href="/wp-login.php?loginTwitter=1&redirect=http://startupandplay.dev" onclick="window.location = 'http://startupandplay.dev/wp-login.php?loginTwitter=1&redirect='+window.location.href; return false;"><i class="icon-twitter fontawesome"></i>Sign in with Twitter</a></li>
+                                
+                <li><a href="<?php echo get_bloginfo('url'); ?>/wp-login.php?loginTwitter=1&redirect=<?php echo get_bloginfo('url'); ?>" onclick="window.location = '<?php echo get_bloginfo('url'); ?>/wp-login.php?loginTwitter=1&redirect='+window.location.href; return false;"><i class="icon-twitter fontawesome"></i>Sign in with Twitter</a></li>
                                 
                 <?php } ?>
                 
