@@ -14,8 +14,6 @@ add_action( 'wp_enqueue_scripts', 'styles' );
 function startupandplay_scripts() {
 if ( !is_admin() ) { // keeps scripts from loading to admin panel
 	// Custom Scripts
-		// wp_register_script('custom', ( get_bloginfo('template_url') . '/js/custom.js'), array('jquery'));
-		// wp_enqueue_script('custom');
         wp_register_script('mmenu', ( get_bloginfo('template_url') . '/js/jquery.mmenu.min.js'), array('jquery'));
 		wp_enqueue_script('mmenu');
 		wp_register_script('youtube-resize', ( get_bloginfo('template_url') . '/js/youtube.resize.js'), array('jquery')); 
