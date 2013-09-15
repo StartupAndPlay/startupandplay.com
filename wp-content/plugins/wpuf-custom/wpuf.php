@@ -95,9 +95,13 @@ class WPUF_Main {
             wp_enqueue_script( 'plupload-handlers' );
             wp_enqueue_script( 'divPlaceholder', $path . '/js/divPlaceholder.js', array('jquery') );
             wp_enqueue_script( 'editable', $path . '/js/editable.js' );
-            wp_enqueue_script( 'grande', $path . '/js/grande.js', array(), false, true );
+            wp_enqueue_script( 'grande', $path . '/js/grande.js', array(), false, false );
             wp_enqueue_style( 'grande_menu', $path . '/css/menu.css' );
             wp_enqueue_style( 'grande_editor', $path . '/css/editor.css' );
+            function grande_bind() {
+                echo '<script type="text/javascript"> grande.bind(); </script>';
+            }
+            add_action('wp_footer','grande_bind');
         }
         
         if ( is_page('Edit Post') ) {
