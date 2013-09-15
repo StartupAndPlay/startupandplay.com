@@ -68,7 +68,7 @@ var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.a
 ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';
 var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);
 })();
-</script>-->'
+</script>-->';}
 add_action('wp_head','google_analytics');
 
 // Removes ul class from wp_nav_menu
