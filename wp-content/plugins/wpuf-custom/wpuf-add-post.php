@@ -26,7 +26,8 @@ class WPUF_Add_Post {
         if ( is_user_logged_in() ) {
             $this->post_form( $post_type );
         } else {
-            printf( __( "This page is restricted. Please %s to view this page.", 'wpuf' ), wp_loginout( get_permalink(), false ) );
+            wp_redirect( '/404/', 301 );
+            exit;
         }
 
         $content = ob_get_contents();
