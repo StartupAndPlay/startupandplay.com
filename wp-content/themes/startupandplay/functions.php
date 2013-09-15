@@ -18,11 +18,6 @@ if ( !is_admin() ) { // keeps scripts from loading to admin panel
 		wp_enqueue_script('mmenu');
 		wp_register_script('youtube-resize', ( get_bloginfo('template_url') . '/js/youtube.resize.js'), array('jquery')); 
 		wp_enqueue_script('youtube-resize');
-
-		/* if ( is_page('contact') ) { // keeps script(s) to load only on specific page
-		wp_register_script('gmap', ( get_bloginfo('template_url') . '/js/gmap.js'), array('jquery')); 
-		wp_enqueue_script('gmap'); 
-		} */
 	}
 }
 add_action( 'wp_print_scripts', 'startupandplay_scripts');
