@@ -664,6 +664,16 @@ input[type="search"]::-webkit-search-results-decoration {
     padding: 20px 0;
 }
 
+.wrapper-single-post-content ul {
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
+.wrapper-single-post-content ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+}
+
 .wrapper-single-post-tags {
     border-top: 1px solid #e5e5e5;
     padding: 15px 0;
