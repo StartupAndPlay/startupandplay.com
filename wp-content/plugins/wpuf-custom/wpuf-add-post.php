@@ -73,47 +73,40 @@ class WPUF_Add_Post {
                 <form id="wpuf_new_post_form" name="wpuf_new_post_form" action="" onsubmit='return editableContent()' enctype="multipart/form-data" method="POST">
                     <?php wp_nonce_field( 'wpuf-add-post' ) ?>
 
-                    <ul class="post-form">
+                    <div class="post-form">
 
                         <?php do_action( 'wpuf_add_post_form_top', $post_type ); //plugin hook   ?>
 
                         <?php if ( $featured_image == 'yes' ) { ?>
                             
-                                <li>
+                                <div>
                                     <div id="wpuf-ft-upload-container">
                                         <div id="wpuf-ft-upload-filelist"></div>
                                         <a id="wpuf-ft-upload-pickfiles" class="btn btn-small" href="#"><i class="icon-picture fontawesome"></i>Upload Image</a>
                                     </div>
                                     <div class="clear"></div>
-                                </li>
+                                </div>
 
                         <?php } ?>
 
-                                <li style="display: none;"><input type="hidden" class="requiredField" type="text" name="wpuf_post_title" id="new-post-title" minlength="2" maxlength="50"></li>
-                                <li style="display: none;"><input type="hidden" class="requiredField" type="text" name="cf_Tagline" id="cf_Tagline" minlength="2" maxlength="140"></li>                       
-                                <li style="display: none;"><textarea type="hidden" name="wpuf_post_content" class="requiredField" id="new-post-desc" cols="60" rows="8"><?php echo esc_textarea( $description ); ?></textarea></li>
+                                <div style="display: none;"><input type="hidden" class="requiredField" type="text" name="wpuf_post_title" id="new-post-title" minlength="2" maxlength="50"></div>
+                                <div style="display: none;"><input type="hidden" class="requiredField" type="text" name="cf_Tagline" id="cf_Tagline" minlength="2" maxlength="140"></div>                       
+                                <div style="display: none;"><textarea type="hidden" name="wpuf_post_content" class="requiredField" id="new-post-desc" cols="60" rows="8"><?php echo esc_textarea( $description ); ?></textarea></div>
 
                         <?php do_action( 'wpuf_add_post_form_tags', $post_type ); ?>
 
-                        <li id="submit" class="wrapper-single-create-post-submit">
+                        <div id="submit" class="wrapper-single-create-post-submit">
                             <input class="wpuf-submit btn btn-small" type="submit" name="wpuf_new_post_submit" value="Publish">
                             <input type="hidden" name="wpuf_post_type" value="<?php echo $post_type; ?>" />
                             <input type="hidden" name="wpuf_post_new_submit" value="yes" />
-                        </li>
+                        </div>
 
-                    </ul>
+                    </div>
                 </form>
-                <ul>
-                    <li><h1 contenteditable="true" id="new-post-title-h1" class="" data-max-length="50" data-placeholder="Type your title"></h1></li>
-                    <li><h2 contenteditable="true" id="new-post-cf_Tagline-p" class="cf_Tagline" data-max-length="140" data-placeholder="Type your subtitle"></h2></li>
-                    <li class="grande">
-                        <article contenteditable="true" class="content" id="new-post-desc-p" data-placeholder="Type your article"></article>
-                                                        
-
-                    </li>
-                </ul>
-                
-            </div>
+                <div>
+                    <h1 contenteditable="true" id="new-post-title-h1" class="" data-max-length="50" data-placeholder="Type your title"></h1>
+                    <h2 contenteditable="true" id="new-post-cf_Tagline-p" class="cf_Tagline" data-max-length="140" data-placeholder="Type the post description"></h2>                                   <article contenteditable="true" class="content" id="new-post-desc-p" data-placeholder="Type the post"></article>                        
+                </div>
         </div>
             <?php
         } else {
