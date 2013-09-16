@@ -93,7 +93,7 @@ class WPUF_Main {
     
         if ( is_page('New Post') ) {
             wp_enqueue_script( 'plupload-handlers' );
-            wp_enqueue_script( 'divPlaceholder', $path . '/js/divPlaceholder.js', array('jquery') );
+            wp_enqueue_script( 'placeholder', $path . '/js/placeholder.js', array('jquery') );
             wp_enqueue_script( 'editable', $path . '/js/editable.js' );
             wp_enqueue_script( 'grande', $path . '/js/grande.js', array(), false, false );
             wp_enqueue_style( 'grande_menu', $path . '/css/menu.css' );
