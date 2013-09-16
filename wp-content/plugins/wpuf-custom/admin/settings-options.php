@@ -215,13 +215,6 @@ function wpuf_settings_fields() {
                 'default' => 'on'
             ),
             array(
-                'name' => 'att_show_front',
-                'label' => __( 'Show attachments in the post', 'wpuf' ),
-                'desc' => __( 'If you want to show the uploaded attachments in the post', 'wpuf' ),
-                'type' => 'checkbox',
-                'default' => 'on'
-            ),
-            array(
                 'name' => 'override_editlink',
                 'label' => __( 'Override the post edit link', 'wpuf' ),
                 'desc' => __( 'Users see the edit link in post if s/he is capable to edit the post/page. Selecting <strong>Yes</strong> will override the default WordPress link', 'wpuf' ),
@@ -231,12 +224,6 @@ function wpuf_settings_fields() {
                     'yes' => __( 'Yes', 'wpuf' ),
                     'no' => __( 'No', 'wpuf' )
                 )
-            ),
-            array(
-                'name' => 'custom_css',
-                'label' => __( 'Custom CSS codes', 'wpuf' ),
-                'desc' => __( 'If you want to add your custom CSS code, it will be added on page header wrapped with style tag', 'wpuf' ),
-                'type' => 'textarea'
             ),
         ) ),
 
