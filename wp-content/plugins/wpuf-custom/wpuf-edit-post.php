@@ -18,7 +18,8 @@ class WPUF_Edit_Post {
         if ( is_user_logged_in() ) {
             $this->prepare_form();
         } else {
-            printf( __( "This page is restricted. Please %s to view this page.", 'wpuf' ), wp_loginout( '', false ) );
+            wp_redirect( '/404/', 301 );
+            exit;
         }
 
         $content = ob_get_contents();
