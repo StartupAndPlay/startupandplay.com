@@ -3,6 +3,11 @@
 Template Name: Contact
  */
 
+if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
+		wpcf7_enqueue_scripts();
+		wpcf7_enqueue_styles();
+	}
+
 get_header(); ?>
 
 <?php include 'main-aside.php'; ?>
