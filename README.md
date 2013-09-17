@@ -9,13 +9,14 @@ Testing:
 
 ### Installation
 
-Clone repo to public_html as it contains the WordPress core files.
-Files not included:
--.htaccess (required)
--wp-config.php (required)
--robots.txt
--MySQL Database (required)
--sitemap.xml
+Clone repo to public_html as it contains the WordPress core files.  
+  
+Files not included:  
+-.htaccess (required)  
+-wp-config.php (required)  
+-robots.txt  
+-MySQL Database (required)  
+-sitemap.xml  
 
 History
 -------
