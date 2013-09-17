@@ -21,7 +21,7 @@ Files not included:
 History
 -------
 
-.01 (Alpha) - 09/10/2013 - GitHub commit of entire project to private repo -- ps
+0.0.1 (Alpha) - 09/10/2013 - GitHub commit of entire project to private repo & staging server  
 
 Roadmap
 -------
