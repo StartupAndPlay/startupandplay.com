@@ -31,11 +31,7 @@ class WPUF_Attachment {
 
         wp_enqueue_script( 'jquery' );
         
-        /*if ( wpuf_has_shortcode( 'wpuf_addpost' ) || wpuf_has_shortcode( 'wpuf_edit' ) ) {
-            wp_enqueue_script( 'plupload-handlers' );
-        }*/
-        
-        if ( is_page('Create') ) {
+        if ( is_page('New Post') ) {
             wp_enqueue_script( 'plupload-handlers' );
         }
         
@@ -43,7 +39,7 @@ class WPUF_Attachment {
             wp_enqueue_script( 'plupload-handlers' );
         }
         
-        wp_enqueue_script( 'jquery-ui-sortable' );
+        //wp_enqueue_script( 'jquery-ui-sortable' );
         wp_enqueue_script( 'wpuf_attachment', plugins_url( 'js/attachment.js', __FILE__ ), array('jquery') );
 
         wp_localize_script( 'wpuf_attachment', 'wpuf_attachment', array(
@@ -51,13 +47,12 @@ class WPUF_Attachment {
             'number' => $max_upload,
             'attachment_enabled' => ($attachment_enabled == 'yes') ? true : false,
             'plupload' => array(
-                'runtimes' => 'html5,silverlight,flash,html4',
+                'runtimes' => 'html5',
                 'browse_button' => 'wpuf-attachment-upload-pickfiles',
                 'container' => 'wpuf-attachment-upload-container',
                 'file_data_name' => 'wpuf_attachment_file',
                 'max_file_size' => $max_file_size . 'b',
                 'url' => admin_url( 'admin-ajax.php' ) . '?action=wpuf_attach_upload&nonce=' . wp_create_nonce( 'wpuf_audio_track' ),
-                'flash_swf_url' => includes_url( 'js/plupload/plupload.flash.swf' ),
                 'filters' => array(array('title' => __( 'Allowed Files' ), 'extensions' => '*')),
                 'multipart' => true,
                 'urlstream_upload' => true,
@@ -66,18 +61,16 @@ class WPUF_Attachment {
     }
 
     function add_post_fields( $post_type, $post_obj = null ) {
-        //var_dump($post_type, $post_obj);
         $attachments = array();
         if ( $post_obj ) {
             $attachments = wpuf_get_attachments( $post_obj->ID );
         }
         ?>
     
-        <li style="display: none">
-            <div id="wpuf-attachment-upload-container">
-                <div id="wpuf-attachment-upload-filelist">
-                    <ul class="wpuf-attachment-list">
-                        <script>window.wpufFileCount = 0;</script>
+        <div id="wpuf-attachment-upload-container" style="display: none">
+            <div id="wpuf-attachment-upload-filelist">
+                <div class="wpuf-attachment-list">
+                    <script>window.wpufFileCount = 0;</script>
                         <?php
                         if ( $attachments ) {
                             foreach ($attachments as $attach) {
@@ -86,12 +79,10 @@ class WPUF_Attachment {
                             }
                         }
                         ?>
-                    </ul>
                 </div>
-                <a id="wpuf-attachment-upload-pickfiles" class="btn btn-small" href="#"><?php echo wpuf_get_option( 'attachment_btn_label', 'wpuf_labels', 'Add another' ); ?></a>
             </div>
-            <div class="clear"></div>
-        </li>
+        </div>
+
         <?php
     }
 
@@ -126,7 +117,7 @@ class WPUF_Attachment {
         exit;
     }
 
-    function attach_html( $attach_id ) {
+    /*function attach_html( $attach_id ) {
 
         $attachment = get_post( $attach_id );
 
@@ -142,7 +133,7 @@ class WPUF_Attachment {
         $html .= '</li>';
 
         return $html;
-    }
+    }*/
 
     function delete_file() {
         check_ajax_referer( 'wpuf_attachment', 'nonce' );
