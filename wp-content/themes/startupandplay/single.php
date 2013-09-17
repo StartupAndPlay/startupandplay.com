@@ -50,7 +50,7 @@ get_currentuserinfo();
                 <div class="wrapper-single-post-title"><h1><?php the_title(); ?></h1></div>
                 <div class="wrapper-single-post-title-link"><a href="<?php comments_link(); ?>"><?php comments_number( '<i class="icon-comments fontawesome"></i>0', '<i class="icon-comments fontawesome"></i>1', '<i class="icon-comments fontawesome"></i>%' ); ?></a></div>
                 
-                <div contentEditable="true" class="wrapper-single-post-content"><?php the_content(); ?></div>
+                <div class="wrapper-single-post-content"><?php the_content(); ?></div>
                 <div class="wrapper-single-post-tags">
                     <p>Also found in <?php the_category(', '); ?></p>
                     <p><?php the_tags('<i class="icon-tags fontawesome" style="color: #68c6c5;"></i>', ', ', '<br />'); ?></p>
