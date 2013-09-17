@@ -52,6 +52,29 @@ function my_login_logo_url_title() {
     return 'Startup and Play';
 }
 add_filter( 'login_headertitle', 'my_login_logo_url_title' );
+// Custom jQuery Scripts
+function class_hidden() {
+    echo '
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $(function () {
+        $(\'#menu\').removeClass(\'hidden\');
+    });
+});        
+</script>';}
+add_action('wp_head','class_hidden');
+function mmenu_options() {
+    echo '
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(function() {
+            $(\'nav#menu\').mmenu( {
+                hardwareAcceleration : true
+            });
+        });
+    });
+</script>';}
+add_action('wp_head','mmenu_options');
 
 // Loads Google Analytics
 function google_analytics() {
