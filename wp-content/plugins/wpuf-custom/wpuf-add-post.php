@@ -79,19 +79,19 @@ class WPUF_Add_Post {
 
                         <?php if ( $featured_image == 'yes' ) { ?>
                             
-                                <div>
-                                    <div id="wpuf-ft-upload-container">
-                                        <div id="wpuf-ft-upload-filelist"></div>
-                                        <a id="wpuf-ft-upload-pickfiles" class="btn btn-small" href="#"><i class="icon-picture fontawesome"></i>Upload Image</a>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
+                        <div id="wpuf-ft-upload-container">
+                            <div id="wpuf-ft-upload-filelist"></div>
+                            <a id="wpuf-ft-upload-pickfiles" class="btn btn-small" href="#"><i class="icon-picture fontawesome"></i>Upload Image</a>
+                        </div>
+                        <div class="clear"></div>
 
                         <?php } ?>
 
-                                <div style="display: none;"><input type="hidden" class="requiredField" type="text" name="wpuf_post_title" id="new-post-title" minlength="2" maxlength="50"></div>
-                                <div style="display: none;"><input type="hidden" class="requiredField" type="text" name="cf_Tagline" id="cf_Tagline" minlength="2" maxlength="140"></div>                       
-                                <div style="display: none;"><textarea type="hidden" name="wpuf_post_content" class="requiredField" id="new-post-desc" cols="60" rows="8"><?php echo esc_textarea( $description ); ?></textarea></div>
+                        <div style="display: none;">
+                            <input type="hidden" class="requiredField" type="text" name="wpuf_post_title" id="new-post-title" minlength="2" maxlength="50">
+                            <input type="hidden" class="requiredField" type="text" name="cf_Tagline" id="cf_Tagline" minlength="2" maxlength="140">
+                            <textarea type="hidden" class="requiredField" name="wpuf_post_content"  id="new-post-desc"><?php echo esc_textarea( $description ); ?></textarea>
+                        </div>
 
                         <?php do_action( 'wpuf_add_post_form_tags', $post_type ); ?>
 
@@ -105,7 +105,8 @@ class WPUF_Add_Post {
                 </form>
                 <div>
                     <h1 contenteditable="true" id="new-post-title-h1" class="" data-max-length="50" data-placeholder="Type your title"></h1>
-                    <h2 contenteditable="true" id="new-post-cf_Tagline-p" class="cf_Tagline" data-max-length="140" data-placeholder="Type the post description"></h2>                                   <article contenteditable="true" class="content" id="new-post-desc-p" data-placeholder="Type the post"></article>                        
+                    <h2 contenteditable="true" id="new-post-cf_Tagline-p" class="cf_Tagline" data-max-length="140" data-placeholder="Type the post description"></h2>
+                    <article contenteditable="true" class="content" id="new-post-desc-p" data-placeholder="Type the post"></article>                        
                 </div>
         </div>
             <?php
