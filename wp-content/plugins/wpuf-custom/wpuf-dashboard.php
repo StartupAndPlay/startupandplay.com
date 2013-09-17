@@ -192,29 +192,6 @@ class WPUF_Dashboard {
         $this->user_info();
     }
 
-
-    /**
-     * Show user info on dashboard
-     */
-    function user_info() {
-        global $userdata;
-
-        if ( wpuf_get_option( 'show_user_bio', 'wpuf_dashboard', 'on' ) == 'on' ) {
-            ?>
-            <div class="wpuf-author">
-                <h3><?php _e( 'Author Info', 'wpuf' ); ?></h3>
-                <div class="wpuf-author-inside odd">
-                    <div class="wpuf-user-image"><?php echo get_avatar( $userdata->user_email, 80 ); ?></div>
-                    <div class="wpuf-author-body">
-                        <p class="wpuf-user-name"><a href="<?php echo get_author_posts_url( $userdata->ID ); ?>"><?php printf( esc_attr__( '%s', 'wpuf' ), $userdata->display_name ); ?></a></p>
-                        <p class="wpuf-author-info"><?php echo $userdata->description; ?></p>
-                    </div>
-                </div>
-            </div><!-- .author -->
-            <?php
-        }
-    }
-
     /**
      * Delete a post
      *
