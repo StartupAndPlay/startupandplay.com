@@ -43,15 +43,15 @@ echo '<link rel="stylesheet" type="text/css" href="'.get_stylesheet_directory_ur
 }
 add_action('login_head', 'login_css');
 add_action('registration_head', 'login_css');
-function my_login_logo_url() {
+function login_logo_url() {
     return get_bloginfo( 'url' );
 }
-add_filter( 'login_headerurl', 'my_login_logo_url' );
+add_filter( 'login_headerurl', 'login_logo_url' );
 
-function my_login_logo_url_title() {
+function login_logo_url_title() {
     return 'Startup and Play';
 }
-add_filter( 'login_headertitle', 'my_login_logo_url_title' );
+add_filter( 'login_headertitle', 'login_logo_url_title' );
 // Custom jQuery Scripts
 function class_hidden() {
     echo '
