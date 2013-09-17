@@ -6,6 +6,7 @@ wp-content/uploads/*
 sitemap.*
 wp-config.php
 robots.txt
+.htaccess
  
 # Hidden system files
 *.DS_Store
