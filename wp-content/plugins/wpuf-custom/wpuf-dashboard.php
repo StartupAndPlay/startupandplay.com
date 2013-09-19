@@ -185,11 +185,6 @@ class WPUF_Dashboard {
             do_action( 'wpuf_dashboard_nopost', $userdata->ID, $post_type_obj );
         }
 
-        do_action( 'wpuf_dashboard_bottom', $userdata->ID, $post_type_obj );
-        ?>
-
-        <?php
-        $this->user_info();
     }
 
     /**
