@@ -6,10 +6,6 @@ jQuery(document).ready(function($) {
             this.maxFiles = parseInt(wpuf_attachment.number);
 
             $('#wpuf-attachment-upload-filelist').on('click', 'a.track-delete', this.removeTrack);
-            $('#wpuf-attachment-upload-filelist ul.wpuf-attachment-list').sortable({
-                cursor: 'crosshair',
-                handle: '.handle'
-            });
 
             this.attachUploader();
             this.hideUploadBtn();
