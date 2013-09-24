@@ -10,8 +10,8 @@
 .htaccess
 .svn
 *.Trashes
-robots.txt
 readme.html
+robots.txt
 sitemap*.*
 sitemap.*
 sitemap.xml
