@@ -27,9 +27,7 @@ wp-content/backup-db/
 wp-content/blogs.dir/
 wp-content/cache/*
 wp-content/cache/supercache/*
-wp-content/upgrade/
 wp-content/upgrade/*
-wp-content/uploads/
 wp-content/uploads/*
 wp-content/wp-cache-config.php
 
