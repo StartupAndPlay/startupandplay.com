@@ -1,17 +1,19 @@
 <?php 
 // Loads CSS
 function styles() {
+if ( !is_admin() ) {
     wp_enqueue_style( 'style', get_stylesheet_uri() );
     wp_register_style('mmenu', ( get_bloginfo('template_url') . '/css/mmenu.css'));
     wp_enqueue_style('mmenu');
     wp_register_style('font-awesome', ( get_bloginfo('template_url') . '/css/font-awesome.min.css'));
     wp_enqueue_style('font-awesome');
+    }
 }
 add_action( 'wp_enqueue_scripts', 'styles' );
 
 // Loads Javascript
-function startupandplay_scripts() {
-if ( !is_admin() ) { // keeps scripts from loading to admin panel
+function javascript() {
+if ( !is_admin() ) {
 	// Custom Scripts
         wp_register_script('mmenu', ( get_bloginfo('template_url') . '/js/jquery.mmenu.min.js'), array('jquery'));
 		wp_enqueue_script('mmenu');
@@ -19,12 +21,14 @@ if ( !is_admin() ) { // keeps scripts from loading to admin panel
 		wp_enqueue_script('youtube-resize');
 	}
 }
-add_action( 'wp_print_scripts', 'startupandplay_scripts');
+add_action( 'wp_print_scripts', 'javascript');
 
 // Loads Google Webfonts
 function webfonts() {
+if ( !is_admin() ) {
     wp_register_style('webfonts', 'http://fonts.googleapis.com/css?family=Open+Sans:300,400,600');
     wp_enqueue_style( 'webfonts');
+    }
 }
 add_action('wp_print_styles', 'webfonts');
 
