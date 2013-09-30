@@ -3,9 +3,8 @@
 StartupAndPlay
 ==============
 
-Developers: Patrick Shampine (http://patrickshampine.com);
-
-Testing: 
+Devs: 
+    Patrick Shampine (http://patrickshampine.com); 
 
 ### Installation
 
@@ -21,15 +20,20 @@ Files not included:
 History
 -------
 
-0.0.1 (Alpha) - 09/10/2013 - GitHub commit of entire project to private repo & staging server  
+0.0.2 - 09/29/2013 - Moved entire project to public repo
+
+0.0.1 (Alpha) - 09/10/2013 - GitHub commit of entire project to repo & staging server  
 
 Roadmap
 -------
 
-- Live beta by Oct 1  
+- Live beta by Oct 31
 -- Add multiple image upload support (figures)  
 -- Add collections support a la medium style  
--- Add social sharing   
-- Stable Project Jan 1  
--- Break out plugin into public repos  
--- Move theme to public repo  
+-- Add social sharing
+-- SSL integration
+
+- Stable Project Jan 15  
+-- Break out plugin(s) into public repos via submodules
+-- Release (fixed/simplified) Twitter Connect and WP Grande as WordPress plugins (GPL)
+-- Move theme to public repo
