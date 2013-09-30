@@ -82,14 +82,14 @@ add_action('wp_head','mmenu_options');
 // Loads Google Analytics
 function google_analytics() {
     echo '
-<!-- Google Analytics UA-XXXXXXXX-X -->
+<!-- Google Analytics UA-32869524-3 -->
 <script type="text/javascript">
 if([\'startupandplay.com\',\'www.startupandplay.com\']
    .indexOf(window.location.hostname) > -1
    && window.location.search.search(\'&preview=true\') == -1
 ) { 
 var _gaq = _gaq || [];
-_gaq.push([\'_setAccount\', \'UA-XXXXXXXX-X\']);
+_gaq.push([\'_setAccount\', \'UA-32869524-3\']);
 _gaq.push([\'_setDomainName\', \'startupandplay.com\']);
 _gaq.push([\'_trackPageview\']);
 
@@ -119,9 +119,9 @@ remove_action('wp_head', 'rsd_link');
 remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
 
 // Disables admin bar everywhere for ALL users
-if (!function_exists('df_disable_admin_bar')) {
+if (!function_exists('disable_admin_bar')) {
 
-	function df_disable_admin_bar() {
+	function disable_admin_bar() {
 		
 		// for the admin page
 		remove_action('admin_footer', 'wp_admin_bar_render', 1000);
@@ -144,13 +144,13 @@ if (!function_exists('df_disable_admin_bar')) {
 		add_filter('wp_head','remove_admin_bar_style_frontend', 99);
   	}
 }
-add_action('init','df_disable_admin_bar');
+add_action('init','disable_admin_bar');
 
 // Registers Main Navigation Menu
 register_nav_menu( 'secondary', 'main-navigation' );
 
 // Changes default contact fields
-function wd_edit_fields( $contactmethods ) {
+function edit_user_fields( $contactmethods ) {
         //new fields
         $contactmethods['twitter'] = 'Twitter (without @)';
         $contactmethods['googleplus'] = 'Google+ (entire url)';
@@ -161,7 +161,7 @@ function wd_edit_fields( $contactmethods ) {
 
         return $contactmethods;
     }
-add_filter('user_contactmethods','wd_edit_fields',10,1);
+add_filter('user_contactmethods','edit_user_fields',10,1);
 
 // Get custom field template values
 function getCustomField($theField) {
