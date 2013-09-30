@@ -27,7 +27,7 @@ History
 Roadmap
 -------
 
-- Live beta by Oct 31
+- Live beta by Oct 31  
 -- Add multiple image upload support (figures)  
 -- Add collections support a la medium style  
 -- Add social sharing  
