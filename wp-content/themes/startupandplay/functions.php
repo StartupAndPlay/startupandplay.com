@@ -1,6 +1,6 @@
 <?php 
 // Loads CSS
-function styles() {
+function stylesheet() {
 if ( !is_admin() ) {
     wp_enqueue_style( 'style', get_stylesheet_uri() );
     wp_register_style('mmenu', ( get_bloginfo('template_url') . '/css/mmenu.css'));
@@ -9,19 +9,18 @@ if ( !is_admin() ) {
     wp_enqueue_style('font-awesome');
     }
 }
-add_action( 'wp_enqueue_scripts', 'styles' );
+add_action('wp_enqueue_scripts','stylesheet');
 
 // Loads Javascript
 function javascript() {
 if ( !is_admin() ) {
-	// Custom Scripts
-        wp_register_script('mmenu', ( get_bloginfo('template_url') . '/js/jquery.mmenu.min.js'), array('jquery'));
-		wp_enqueue_script('mmenu');
-		wp_register_script('youtube-resize', ( get_bloginfo('template_url') . '/js/youtube.resize.js'), array('jquery')); 
-		wp_enqueue_script('youtube-resize');
+    wp_register_script('mmenu', ( get_bloginfo('template_url') . '/js/jquery.mmenu.min.js'), array('jquery'));
+    wp_enqueue_script('mmenu');
+    wp_register_script('youtube-resize', ( get_bloginfo('template_url') . '/js/youtube.resize.js'), array('jquery')); 
+    wp_enqueue_script('youtube-resize');
 	}
 }
-add_action( 'wp_print_scripts', 'javascript');
+add_action('wp_print_scripts','javascript');
 
 // Loads Google Webfonts
 function webfonts() {
@@ -30,7 +29,7 @@ if ( !is_admin() ) {
     wp_enqueue_style( 'webfonts');
     }
 }
-add_action('wp_print_styles', 'webfonts');
+add_action('wp_print_styles','webfonts');
 
 // Loads CSS & Webfonts for WP login/registration pages
 function login_scripts() {
@@ -84,7 +83,11 @@ add_action('wp_head','mmenu_options');
 function google_analytics() {
     echo '
 <!-- Google Analytics UA-XXXXXXXX-X -->
-<!-- <script type="text/javascript">
+<script type="text/javascript">
+if([\'startupandplay.com\',\'www.startupandplay.com\']
+   .indexOf(window.location.hostname) > -1
+   && window.location.search.search(\'&preview=true\') == -1
+) { 
 var _gaq = _gaq || [];
 _gaq.push([\'_setAccount\', \'UA-XXXXXXXX-X\']);
 _gaq.push([\'_setDomainName\', \'startupandplay.com\']);
@@ -95,7 +98,7 @@ var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.a
 ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';
 var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);
 })();
-</script>-->';}
+</script>';}
 add_action('wp_head','google_analytics');
 
 // Removes ul class from wp_nav_menu
