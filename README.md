@@ -30,10 +30,10 @@ Roadmap
 - Live beta by Oct 31
 -- Add multiple image upload support (figures)  
 -- Add collections support a la medium style  
--- Add social sharing
--- SSL integration
+-- Add social sharing  
+-- SSL integration  
 
 - Stable Project Jan 15  
--- Break out plugin(s) into public repos via submodules
--- Release (fixed/simplified) Twitter Connect and WP Grande as WordPress plugins (GPL)
--- Move theme to public repo
+-- Break out plugin(s) into public repos via submodules  
+-- Release (fixed/simplified) Twitter Connect and WP Grande as WordPress plugins (GPL)  
+-- Move theme to public repo  
