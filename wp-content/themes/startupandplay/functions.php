@@ -3,6 +3,8 @@
 function stylesheet() {
 if ( !is_admin() ) {
     wp_enqueue_style( 'style', get_stylesheet_uri() );
+    wp_register_style('reset', ( get_bloginfo('template_url') . '/css/reset.css'));
+    wp_enqueue_style('reset');
     wp_register_style('mmenu', ( get_bloginfo('template_url') . '/css/mmenu.css'));
     wp_enqueue_style('mmenu');
     wp_register_style('font-awesome', ( get_bloginfo('template_url') . '/css/font-awesome.min.css'));

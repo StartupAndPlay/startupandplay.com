@@ -9,8 +9,6 @@ Author URI: http://patrickshampine.com
 
 /*----------------------------------------------------------------------------*/
 
-@import url('/wp-content/themes/startupandplay/css/font-awesome.min.css');
-
 /* General */
 
 @-ms-viewport { width: device-width; }
@@ -178,6 +176,7 @@ blockquote p {
     border: 1px solid transparent;
     border-radius: 4px;
     text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 .btn:hover {
