@@ -12,4 +12,9 @@ RewriteRule . /index.php [L]
 # BEGIN Custom
 Options -Indexes
 RewriteRule .git /404 [L,R=302]
+
+<Files wp-config.php>
+    Order allow,deny
+    Deny from all
+</Files>
 # END Custom
