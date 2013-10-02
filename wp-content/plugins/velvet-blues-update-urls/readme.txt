@@ -3,8 +3,8 @@ Contributors: VelvetBlues.com
 Donate link: http://www.velvetblues.com/go/updateurlsdonate/
 Tags: permalinks, urls, links, update links, move wordpress, location, update urls, update permalinks, move, link, url, permalink, excerpt, content links, excerpt links, custom field links
 Requires at least: 2.5
-Tested up to: 3.5
-Stable tag: 3.1
+Tested up to: 3.6.1
+Stable tag: 3.2.1
 License: GPLv2 or later
 
 Updates all urls and content links in your website.
@@ -63,6 +63,10 @@ Get support for this plugin by going to the [Velvet Blues Update URLs plugin pag
 
    Thanks, donations help us to continue improving our plugins. [Donate Here via PayPal.](http://www.velvetblues.com/go/updateurlsdonate/)     
 
+= I'm afraid to screw this up. Will you do it for me? =
+
+   Of course! Velvet Blues will backup your website and replace your URLs for only $29. If you need your website moved, we charge a flat fee of $65 and will finish your move within 48 hours - week days only. For same-day or weekend jobs, we charge a flat rate of $105. Contact us at info@velvetblues.com for more information.
+
 
 == Screenshots ==
 
@@ -70,8 +74,17 @@ Get support for this plugin by going to the [Velvet Blues Update URLs plugin pag
 
 == Change Log ==
 
+= 3.2.1 =
+* Bug fixes.
+* Added Turkish language file.
+
+= 3.2 =
+* Confirmed compatibility with WordPress 3.6.x releases.
+* Added option to replace urls within Links.
+* Updated success and error dialogs and other text throught plugin.
+
 = 3.1 =
-* Confirmed compatibility with WordPress 3.5 release
+* Confirmed compatibility with WordPress 3.5 release.
 
 = 3.0 =
 * Confirmed compatibility with latest WordPress releases and added support for future versions.
