@@ -205,10 +205,21 @@ function new_twitter_login_action() {
           $user_info = get_userdata($ID);
           do_action('wp_login', $user_info->user_login, $user_info);
                       
-            // Twitter User Profile Picture -- FIXED VERSION
+            // Twitter User Profile Picture -- FIXED FIXED VERSION
+            // Properly calls full size images, needs and if statement for jpeg... :tableflip:
             $profile_img_url = $resp->profile_image_url_https; // Calls 48x48 https URL
-            $original_img_short = substr($profile_img_url, 0, -11); //deletes 11 chars from end
-            $original_img_final = $original_img_short .".png"; // Adds .png back to URL
+                $url_info = pathinfo($profile_img_url); //puts the url info into a variable
+                $url_ext = $url_info['extension']; // decides profile image extension (.png/.jpg/.jpeg)
+            
+            if ($url_ext === jpeg) {
+                $original_img_short = substr($profile_img_url, 0, -12); //deletes 12 chars from end for jpeg
+            }
+            else {
+                $original_img_short = substr($profile_img_url, 0, -11); //deletes 11 chars from end for jpg/png
+            }
+            
+            $original_img_final = $original_img_short.'.'.$url_ext; // Adds extension back to URL
+            
             
         update_user_meta($ID, 'twitter_profile_picture', $original_img_final);
 
