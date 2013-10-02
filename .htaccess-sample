@@ -8,3 +8,8 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 </IfModule>
 # END WordPress
+
+# BEGIN Custom
+Options -Indexes
+RewriteRule .git /404 [L,R=302]
+# END Custom
