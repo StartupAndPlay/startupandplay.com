@@ -504,7 +504,7 @@ input[type="search"]::-webkit-search-results-decoration {
 
 @media (min-width: 1660px) {
     .main {
-        position: fixed;
+        position: absolute;
         z-index: 100;
         margin-top: 0; /* top: 0; */
         margin-left: 0; /* left: 0; */
