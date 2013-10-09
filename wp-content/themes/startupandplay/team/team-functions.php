@@ -1,5 +1,12 @@
 <?php
-
+// Register team-stylesheet
+function team_stylesheet() {
+if ( is_page('team') ) {
+    wp_register_style('team-stylesheet', ( get_bloginfo('template_url') . '/team/team-stylesheet.css'));
+    wp_enqueue_style('team-stylesheet');
+    }
+}
+add_action('wp_enqueue_scripts','team_stylesheet');
 /**
  * Register `team` post type
  */
