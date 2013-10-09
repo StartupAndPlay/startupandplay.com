@@ -1,4 +1,7 @@
-<?php 
+<?php
+// Asset Includes
+require_once('/team/team-functions.php');
+
 // Loads CSS
 function stylesheet() {
 if ( !is_admin() ) {
@@ -217,18 +220,17 @@ function save_taxonomy_data($post_id) {
     if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) 
         return $post_id;
 
-
     if ( 'page' == $_POST['wpuf_post_type'] ) { // post type is a hidden field in wpuf_
         if ( !current_user_can( 'edit_page', $post_id ) )
             return $post_id;
-    } else {
+    } 
+	else {
         if ( !current_user_can( 'edit_post', $post_id ) )
         return $post_id;
     }
 
     if ( isset( $_POST['cf_Collection'] ) ) 
         wp_set_object_terms( $post_id, $_POST['cf_Collection'], 'collections' );
-
 }
 
 // Add actions for both create & edit posts to save taxonomy
@@ -243,29 +245,17 @@ function my_comment_defaults($defaults) {
 	$aria_req = ( $req ? " aria-required='true'" : '' );
  
 	$defaults = array(
-		
         'comment_field'        => '<div class="comment-box">' . '<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="Comment"></textarea></div>',
- 
         'must_log_in'          => '<p class="must-log-in">' .  sprintf( __( 'You must be <a href="/wp-login.php?loginTwitter=1&redirect=http://startupandplay.dev" onclick="window.location = \'/wp-login.php?loginTwitter=1&redirect=\'+window.location.href; return false;">logged in</a> to post a comment.' ), wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '</p>',
- 
         'logged_in_as'         => '',
- 
 		'comment_notes_before' => '<fieldset>',
- 
 		'comment_notes_after'  => '</fieldset>',
- 
 		'id_form'              => 'commentform',
- 
 		'id_submit'            => 'submit',
- 
 		'title_reply'          => __( '' ),
- 
 		'title_reply_to'       => __( '' ),
- 
 		'cancel_reply_link'    => __( 'Cancel Reply' ),
- 
 		'label_submit'         => __( 'Comment' ),
- 
         );
  
     return $defaults;
@@ -300,7 +290,6 @@ function users_table_modify_row( $val, $column_name, $user_id ) {
  
     return $return;
 }
- 
 add_filter( 'manage_users_custom_column', 'users_table_modify_row', 10, 3 );
 
 ?>
