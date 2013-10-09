@@ -1685,6 +1685,10 @@ a img.aligncenter {
     margin-right: auto
 }
 
+.img-circle {
+	border-radius: 50%;
+}
+
 .wp-caption {
     background: #fff;
     border: 1px solid #f0f0f0;
