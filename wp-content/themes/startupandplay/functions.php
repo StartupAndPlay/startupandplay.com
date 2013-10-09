@@ -17,6 +17,8 @@ add_action('wp_enqueue_scripts','stylesheet');
 // Loads Javascript
 function javascript() {
 if ( !is_admin() ) {
+	wp_register_script('modernizr', ( get_bloginfo('template_url') . '/js/modernizr.min.js'));
+	wp_enqueue_script('modernizr');
     wp_register_script('mmenu', ( get_bloginfo('template_url') . '/js/jquery.mmenu.min.js'), array('jquery'));
     wp_enqueue_script('mmenu');
     wp_register_script('youtube-resize', ( get_bloginfo('template_url') . '/js/youtube.resize.js'), array('jquery')); 
