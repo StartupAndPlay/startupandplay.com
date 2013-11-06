@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<?php include 'main-aside.php'; ?>
+<?php include './asides/main-aside.php'; ?>
 
         <article class="wrapper">
             <div class="wrapper-content">

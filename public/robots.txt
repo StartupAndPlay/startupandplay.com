@@ -1,0 +1,7 @@
+User-Agent: *
+Sitemap: http://startupandplay.com/sitemap_index.xml
+
+User-Agent: *
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /wp-content/plugins

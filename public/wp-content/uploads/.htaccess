@@ -4,5 +4,5 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   # Replace url with your production/staging site's domain name
-  RewriteRule (.*) http://sp.patrickshampine.com/wp-content/uploads/$1
+  RewriteRule (.*) http://startupandplay.com/wp-content/uploads/$1
 </IfModule>

@@ -570,7 +570,7 @@ function wpuf_feat_img_html( $attach_id ) {
  *
  * @since 0.8
  */
-class WPUF_Walker_Category_Checklist extends Walker {
+/*class WPUF_Walker_Category_Checklist extends Walker {
 
     var $tree_type = 'category';
     var $db_fields = array('parent' => 'parent', 'id' => 'term_id'); //TODO: decouple this
@@ -603,7 +603,7 @@ class WPUF_Walker_Category_Checklist extends Walker {
         $output .= "</li>\n";
     }
 
-}
+}*/
 
 /**
  * Displays checklist of a taxonomy
