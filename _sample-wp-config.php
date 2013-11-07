@@ -38,8 +38,8 @@ $staging = array_merge($default, array(
         'name'     => 'staging',
         'hostname' => 'not_versioned',
         'debug'    => true,
-				'db_name'  => 'not_versioned',
-				'password_protect'  => true
+		'db_name'  => 'not_versioned',
+		'password_protect'  => true
 		
 ));
 
@@ -58,16 +58,16 @@ if ( file_exists( dirname( __FILE__ ) . '/env_local' ) ) {
         // Staging Environment
         $environment = $staging;
 	
-				define('FS_METHOD', 'direct');
+		define('FS_METHOD', 'direct');
 
 } else {        
         
         // Production Environment
         $environment = $production;
-	
-				define('FS_METHOD', 'direct');
-				define('WP_CACHE', true);
-				define('WPCACHEHOME', 'not_versioned');
+
+		define('FS_METHOD', 'direct');
+		define('WP_CACHE', true);
+		define('WPCACHEHOME', 'not_versioned');
 
 }
 
@@ -78,14 +78,14 @@ define('WP_PASSWORD_PROTECT', $environment['password_protect']);
 define('WP_HOME',    $environment['hostname']);
 define('WP_SITEURL', $environment['hostname']);
 
-/** Stop CF7 from loading on every page */
-define('WPCF7_LOAD_JS', false);
-define('WPCF7_LOAD_CSS', false);
-
 define('DB_NAME',  $environment['db_name']);
 define('DB_USER',  $environment['db_user']);
 define('DB_HOST',  $environment['db_host']);
 define('DB_PASSWORD', $environment['db_pass']);
+
+/** Stop CF7 from loading on every page */
+define('WPCF7_LOAD_JS', false);
+define('WPCF7_LOAD_CSS', false);
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
