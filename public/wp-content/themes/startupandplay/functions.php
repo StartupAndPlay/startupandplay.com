@@ -1,6 +1,6 @@
 <?php
 // Asset Includes
-require_once('/team/team-functions.php');
+require_once('team/team-functions.php');
 
 // Password Protect Staging
 if( WP_PASSWORD_PROTECT == true ){     
