@@ -103,7 +103,7 @@ add_action('login_init', 'new_twitter_login');
 
 function new_twitter_login() {
 
-  if ($_REQUEST['loginTwitter'] == '1') {
+  if (isset($_REQUEST['loginTwitter']) == '1') {
     new_twitter_login_action();
   }
 }
