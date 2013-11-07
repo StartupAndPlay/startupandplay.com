@@ -1,69 +1,5 @@
 <?php
 
-// vars
-$GLOBALS['acf_field'] = array();
-
-
-/*
-*  acf_filter_post_id()
-*
-*  A helper function to filter the post_id variable.
-*
-*  @type	function
-*  @since	3.6
-*  @date	29/01/13
-*
-*  @param	mixed	$post_id
-*
-*  @return	mixed	$post_id
-*/
-
-function acf_filter_post_id( $post_id )
-{
-	// set post_id to global
-	if( !$post_id )
-	{
-		global $post;
-		
-		if( $post )
-		{
-			$post_id = $post->ID;
-		}
-	}
-	
-	
-	// allow for option == options
-	if( $post_id == "option" )
-	{
-		$post_id = "options";
-	}
-	
-	
-	/*
-	*  Override for preview
-	*  
-	*  If the $_GET['preview_id'] is set, then the user wants to see the preview data.
-	*  There is also the case of previewing a page with post_id = 1, but using get_field
-	*  to load data from another post_id.
-	*  In this case, we need to make sure that the autosave revision is actually related
-	*  to the $post_id variable. If they match, then the autosave data will be used, otherwise, 
-	*  the user wants to load data from a completely different post_id
-	*/
-	
-	if( isset($_GET['preview_id']) )
-	{
-		$autosave = wp_get_post_autosave( $_GET['preview_id'] );
-		if( $autosave->post_parent == $post_id )
-		{
-			$post_id = $autosave->ID;
-		}
-	}
-	
-	
-	// return
-	return $post_id;
-}
-
 
 /*
 *  get_field_reference()
@@ -394,6 +330,219 @@ function the_field( $field_name, $post_id = false )
 
 
 /*
+*  have_rows
+*
+*  This function will instantiate a global variable containing the rows of a repeater or flexible content field,
+*  afterwhich, it will determin if another row exists to loop through
+*
+*  @type	function
+*  @date	2/09/13
+*  @since	4.3.0
+*
+*  @param	$field_name (string) the name of the field - 'images'
+*  @return	$post_id (mixed) the post_id of which the value is saved against
+*/
+
+function have_rows( $field_name, $post_id = false )
+{
+	
+	// vars
+	$depth = 0;
+	$row = array();
+	$new_parent_loop = false;
+	$new_child_loop = false;
+	$no_post_id = (!$post_id) ? true : false;
+	
+	
+	// filter post_id
+	$post_id = apply_filters('acf/get_post_id', $post_id );
+	
+	
+	// empty?
+	if( empty($GLOBALS['acf_field']) )
+	{
+		// reset
+		reset_rows( true );
+		
+		
+		// create a new loop
+		$new_parent_loop = true;
+	}
+	else
+	{
+		// vars
+		$row = end( $GLOBALS['acf_field'] );
+		$prev = prev( $GLOBALS['acf_field'] );
+		
+		
+		// detect a change in params?
+		if( $post_id != $row['post_id'] || $field_name != $row['name'] )
+		{
+			// case: previous have_rows loop was terminated early and template is now loading row data from another $post
+			// case: previous have_rows loop was terminated early and template is now loading row data from another $field_name
+			// case: nested have_rows loop
+			$new_parent_loop = true;
+			
+			if( isset($row['value'][ $row['i'] ][ $field_name ]) )
+			{
+				// Inception: Repeater within repeater
+				// Note: Sit back and enter the next level of dream
+				$new_child_loop = true;
+				
+				
+				// It is possible that the origional have_rows function used a custom $post_id param, but this sub loop did not use one. If so, remove the potential to create a new parent loop due to the $post_id change!
+				if( $no_post_id || $post_id == $row['post_id'] )
+				{
+					$new_parent_loop = false;
+				}
+				
+			}
+			elseif( $prev && $prev['name'] == $field_name )
+			{
+				// Inception: Ride kick up one level
+				// Note: This can happen if someone used break or ran out of rows
+				reset_rows();
+				$new_parent_loop = false;
+			}
+
+			
+		}
+	}
+	
+	
+	if( $new_parent_loop )
+	{
+		// vars
+		$f = get_field_object( $field_name, $post_id );
+		$v = $f['value'];
+		unset( $f['value'] );
+		
+		
+		// add row
+		$GLOBALS['acf_field'][] = array(
+			'name'		=> $field_name,
+			'value'		=> $v,
+			'field'		=> $f,
+			'i'			=> -1,
+			'post_id'	=> $post_id,
+		);
+		
+	}
+	elseif( $new_child_loop )
+	{
+		// vars
+		$f = acf_get_child_field_from_parent_field( $field_name, $row['field'] );
+		$v = $row['value'][ $row['i'] ][ $field_name ];
+		
+		$GLOBALS['acf_field'][] = array(
+			'name'		=> $field_name,
+			'value'		=> $v,
+			'field'		=> $f,
+			'i'			=> -1,
+			'post_id'	=> $post_id,
+		);
+
+	}	
+	
+	
+	// update vars
+	$row = end( $GLOBALS['acf_field'] );
+	
+	
+	if( is_array($row['value']) && array_key_exists( $row['i']+1, $row['value'] ) )
+	{
+		// next row exists
+		return true;
+	}
+	
+	
+	// no newxt row!
+	reset_rows();
+	
+	
+	// return
+	return false;
+  
+}
+
+
+/*
+*  the_row
+*
+*  This function will progress the global repeater or flexible content value 1 row
+*
+*  @type	function
+*  @date	2/09/13
+*  @since	4.3.0
+*
+*  @param	N/A
+*  @return	N/A
+*/
+
+function the_row() {
+	
+	// vars
+	$depth = count( $GLOBALS['acf_field'] ) - 1;
+	
+	
+	// increase row
+	$GLOBALS['acf_field'][ $depth ]['i']++;
+	
+	
+	// get row
+	$value = $GLOBALS['acf_field'][ $depth ]['value'];
+	$i = $GLOBALS['acf_field'][ $depth ]['i'];
+
+	
+	// return
+	return $value[ $i ];
+}
+
+
+/*
+*  reset_rows
+*
+*  This function will find the current loop and unset it from the global array.
+*  To bo used when loop finishes or a break is used
+*
+*  @type	function
+*  @date	26/10/13
+*  @since	5.0.0
+*
+*  @param	$post_id (int)
+*  @return	$post_id (int)
+*/
+
+function reset_rows( $hard_reset = false ) {
+	
+	// completely destroy?
+	if( $hard_reset )
+	{
+		$GLOBALS['acf_field'] = array();
+	}
+	else
+	{
+		// vars
+		$depth = count( $GLOBALS['acf_field'] ) - 1;
+		
+		
+		// remove
+		unset( $GLOBALS['acf_field'][$depth] );
+		
+		
+		// refresh index
+		$GLOBALS['acf_field'] = array_values($GLOBALS['acf_field']);
+	}
+	
+	
+	// return
+	return true;
+	
+	
+}
+
+
+/*
 *  has_sub_field()
 *
 *  This function is used inside a while loop to return either true or false (loop again or stop).
@@ -412,115 +561,19 @@ function the_field( $field_name, $post_id = false )
 
 function has_sub_field( $field_name, $post_id = false )
 {
-
-	// filter post_id
-	$post_id = apply_filters('acf/get_post_id', $post_id );
-	
-	
-	// empty?
-	if( empty($GLOBALS['acf_field']) )
-	{
-		// vars
-		$f = get_field_object( $field_name, $post_id );
-		$v = $f['value'];
-		unset( $f['value'] );
-		
-		
-		$GLOBALS['acf_field'][] = array(
-			'name'	=>	$field_name,
-			'value'	=>	$v,
-			'field'	=>	$f,
-			'row'	=>	-1,
-			'post_id' => $post_id,
-		);
-	}
-	
-
 	// vars
-	$depth = count( $GLOBALS['acf_field'] ) - 1;
-	$name = $GLOBALS['acf_field'][$depth]['name'];
-	$value = $GLOBALS['acf_field'][$depth]['value'];
-	$field = $GLOBALS['acf_field'][$depth]['field'];
-	$row = $GLOBALS['acf_field'][$depth]['row'];
-	$id = $GLOBALS['acf_field'][$depth]['post_id'];
+	$r = have_rows( $field_name, $post_id );
 	
 	
-	// if ID has changed, this is a new repeater / flexible field!
-	if( $post_id != $id )
+	// if has rows, progress through 1 row for the while loop to work
+	if( $r )
 	{
-		// vars
-		$f = get_field_object( $field_name, $post_id );
-		$v = $f['value'];
-		unset( $f['value'] );
-		
-		
-		$GLOBALS['acf_field'][] = array(
-			'name'	=>	$field_name,
-			'value'	=>	$v,
-			'field'	=>	$f,
-			'row'	=>	-1,
-			'post_id' => $post_id,
-		);
-		
-		return has_sub_field($field_name, $post_id);
-	}
-
-	
-	// does the given $field_name match the current field?
-	if( $field_name != $name )
-	{
-		// is this a "new" while loop refering to a sub field?
-		if( isset($value[ $row ][ $field_name ]) )
-		{
-			$GLOBALS['acf_field'][] = array(
-				'name'	=>	$field_name,
-				'value'	=>	$value[ $row ][ $field_name ],
-				'field' => acf_get_child_field_from_parent_field( $field_name, $field ),
-				'row'	=>	-1,
-				'post_id' => $post_id,
-			);
-		}
-		elseif( isset($GLOBALS['acf_field'][$depth-1]) && $GLOBALS['acf_field'][$depth-1]['name'] == $field_name )
-		{
-			// if someone used break; We should see if the parent value has this field_name as a value.
-			unset( $GLOBALS['acf_field'][$depth] );
-			$GLOBALS['acf_field'] = array_values($GLOBALS['acf_field']);
-		}
-		else
-		{
-			// this was a break; (probably to get the first row only). Clear the repeater
-			$GLOBALS['acf_field'] = array();
-			return has_sub_field($field_name, $post_id);
-		}
-		
+		the_row();
 	}
 	
 	
-	// update vars
-	$depth = count( $GLOBALS['acf_field'] ) - 1;
-	$value = $GLOBALS['acf_field'][$depth]['value'];
-	$field = $GLOBALS['acf_field'][$depth]['field'];
-	$row = $GLOBALS['acf_field'][$depth]['row'];
-
-		
-	// increase row number
-	$GLOBALS['acf_field'][$depth]['row']++;
-	$row++;
-	
-	
-	if( isset($value[$row]) )
-	{
-		// next row exists
-		return true;
-	}
-	
-	
-	// no next row! Unset this array and return false to stop while loop
-	unset( $GLOBALS['acf_field'][$depth] );
-	$GLOBALS['acf_field'] = array_values($GLOBALS['acf_field']);
-
-	return false;
-	
+	// return
+	return $r;
 }
 
 
@@ -559,9 +612,8 @@ function has_sub_fields( $field_name, $post_id = false )
 *  @return	mixed	$value
 */
 
-function get_sub_field( $field_name )
-{
-
+function get_sub_field( $field_name ) {
+	
 	// no field?
 	if( empty($GLOBALS['acf_field']) )
 	{
@@ -570,20 +622,18 @@ function get_sub_field( $field_name )
 	
 	
 	// vars
-	$depth = count( $GLOBALS['acf_field'] ) - 1;
-	$value = $GLOBALS['acf_field'][$depth]['value'];
-	$field = $GLOBALS['acf_field'][$depth]['field'];
-	$row = $GLOBALS['acf_field'][$depth]['row'];
-
-
-	// no value at i
-	if( !isset($value[ $row ][ $field_name ]) )
-	{
-		return false;
-	}
-
+	$row = end( $GLOBALS['acf_field'] );
 	
-	return $value[ $row ][ $field_name ];
+	
+	// return value
+	if( isset($row['value'][ $row['i'] ][ $field_name ]) )
+	{
+		return $row['value'][ $row['i'] ][ $field_name ];
+	}
+	
+	
+	// return false
+	return false;
 }
 
 
@@ -1162,6 +1212,9 @@ function acf_form( $options = array() )
 	<?php endif; ?>
 	
 	<div style="display:none">
+		<script type="text/javascript">
+			acf.o.post_id = <?php echo is_numeric($options['post_id']) ? $options['post_id'] : '"' . $options['post_id'] . '"'; ?>;
+		</script>
 		<input type="hidden" name="acf_nonce" value="<?php echo wp_create_nonce( 'input' ); ?>" />
 		<input type="hidden" name="post_id" value="<?php echo $options['post_id']; ?>" />
 		<input type="hidden" name="return" value="<?php echo $options['return']; ?>" />
@@ -1459,5 +1512,23 @@ function the_flexible_field($field_name, $post_id = false)
 	return has_sub_field($field_name, $post_id);
 }
 
+/*
+*  acf_filter_post_id()
+*
+*  This is a deprecated function which is now run through a filter
+*
+*  @type	function
+*  @since	3.6
+*  @date	29/01/13
+*
+*  @param	mixed	$post_id
+*
+*  @return	mixed	$post_id
+*/
+
+function acf_filter_post_id( $post_id )
+{
+	return apply_filters('acf/get_post_id', $post_id );
+}
 
 ?>
