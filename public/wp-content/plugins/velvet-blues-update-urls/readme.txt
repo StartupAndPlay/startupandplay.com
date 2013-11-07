@@ -1,10 +1,10 @@
 === Velvet Blues Update URLs ===
 Contributors: VelvetBlues.com
 Donate link: http://www.velvetblues.com/go/updateurlsdonate/
-Tags: permalinks, urls, links, update links, move wordpress, location, update urls, update permalinks, move, link, url, permalink, excerpt, content links, excerpt links, custom field links
+Tags: permalinks, urls, links, update links, move wordpress, location, update urls, update permalinks, move, link, url, permalink, excerpt, content links, excerpt links, custom field links, meta, post meta
 Requires at least: 2.5
 Tested up to: 3.6.1
-Stable tag: 3.2.1
+Stable tag: 3.2.2
 License: GPLv2 or later
 
 Updates all urls and content links in your website.
@@ -39,7 +39,7 @@ Installation and uninstallation are extremely simple. You can use WordPress' aut
 
 = Usage: =
 
-Using this plugin is very simple. Once it has been activated, navigate to Settings -> Update URLs and follow the instructions.
+Using this plugin is very simple. Once it has been activated, navigate to Tools -> Update URLs and follow the instructions.
 
 
 Get support for this plugin by going to the [Velvet Blues Update URLs plugin page](http://www.velvetblues.com/web-development-blog/wordpress-plugin-update-urls/). Post all questions as comments.
@@ -73,6 +73,10 @@ Get support for this plugin by going to the [Velvet Blues Update URLs plugin pag
 1. The Admin screen for the plugin. screenshot-1.png
 
 == Change Log ==
+
+= 3.2.2 =
+* Relocated Update URLs tab to Tools section. It is now found under Tools->Update URLs
+* Added additional serialization checks for postmeta.
 
 = 3.2.1 =
 * Bug fixes.
