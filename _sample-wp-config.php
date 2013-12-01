@@ -29,7 +29,7 @@ $local = array_merge($default, array(
         'name'     => 'local',
         'hostname' => 'http://startupandplay.dev',
         'debug'    => true,
-				'db_name'  => 'startupandplay_dev',
+	'db_name'  => 'startupandplay_dev',
         'db_user'  => 'root',
         'db_pass'  => 'password'
 ));
@@ -38,8 +38,8 @@ $staging = array_merge($default, array(
         'name'     => 'staging',
         'hostname' => 'not_versioned',
         'debug'    => true,
-		'db_name'  => 'not_versioned',
-		'password_protect'  => true
+	'db_name'  => 'not_versioned',
+	'password_protect'  => true
 		
 ));
 
@@ -53,21 +53,20 @@ if ( file_exists( dirname( __FILE__ ) . '/env_local' ) ) {
         // Local Environment
         $environment = $local;
 
+        define('FS_METHOD', 'direct');
+
 } elseif ( file_exists( dirname( __FILE__ ) . '/env_staging' ) ) {        
         
         // Staging Environment
         $environment = $staging;
 	
-		define('FS_METHOD', 'direct');
-
 } else {        
         
         // Production Environment
         $environment = $production;
 
-		define('FS_METHOD', 'direct');
-		define('WP_CACHE', true);
-		define('WPCACHEHOME', 'not_versioned');
+	define('WP_CACHE', true);
+	define('WPCACHEHOME', 'not_versioned');
 
 }
 
