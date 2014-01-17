@@ -258,7 +258,7 @@ function my_comment_defaults($defaults) {
  
 	$defaults = array(
         'comment_field'        => '<div class="comment-box">' . '<textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="Comment"></textarea></div>',
-        'must_log_in'          => '<p class="must-log-in">' .  sprintf( __( 'You must be <a href="/wp-login.php?loginTwitter=1&redirect=http://startupandplay.dev" onclick="window.location = \'/wp-login.php?loginTwitter=1&redirect=\'+window.location.href; return false;">logged in</a> to post a comment.' ), wp_login_url( apply_filters( 'the_permalink', get_permalink( $post_id ) ) ) ) . '</p>',
+        'must_log_in'          => '<p class="must-log-in">' .  sprintf( __( 'You must be <a href="/wp-login.php?loginTwitter=1&redirect=http://startupandplay.dev" onclick="window.location = \'/wp-login.php?loginTwitter=1&redirect=\'+window.location.href; return false;">logged in</a> to post a comment.' ), wp_login_url( apply_filters( 'the_permalink', get_permalink( ) ) ) ) . '</p>',
         'logged_in_as'         => '',
 		'comment_notes_before' => '<fieldset>',
 		'comment_notes_after'  => '</fieldset>',

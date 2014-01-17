@@ -15,7 +15,7 @@ get_currentuserinfo();
                     <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php echo get_avatar( get_the_author_meta( 'ID' ), 100 ); ?></a></div>
                     <h2><?php the_author_posts_link(); ?></h2>
                 <div class="wrapper-single-info-vcard">
-                <?php $url = get_the_author_meta('user_url', $author_id); ?><a href="<?php echo $url; ?>" target="_blank"><?php echo str_replace('http://', '', $url);?></a>
+                <?php $url = get_the_author_meta('user_url', ''); ?><a href="<?php echo $url; ?>" target="_blank"><?php echo str_replace('http://', '', $url);?></a>
                 <p><a href="<?php the_author_meta('googleplus'); ?>" target="_blank"><i class="icon-google-plus-sign fontawesome"></i></a><a href="https://twitter.com/<?php the_author_meta('twitter'); ?>" target="_blank"><i class="icon-twitter-sign fontawesome"></i></a></p>
                 <p><?php the_author_meta('description'); ?></p>
                 </div>
@@ -46,7 +46,7 @@ get_currentuserinfo();
             </aside>
             
             <article class="wrapper-single-post">
-                <div class="wrapper-single-post-image"><?php echo get_the_post_thumbnail( $post_id, 'single-content-width', '' ); ?></div>
+                <div class="wrapper-single-post-image"><?php echo get_the_post_thumbnail( '', 'single-content-width', '' ); ?></div>
                 <div class="wrapper-single-post-title"><h1><?php the_title(); ?></h1></div>
                 <div class="wrapper-single-post-title-link"><a href="<?php comments_link(); ?>"><?php comments_number( '<i class="icon-comments fontawesome"></i>0', '<i class="icon-comments fontawesome"></i>1', '<i class="icon-comments fontawesome"></i>%' ); ?></a></div>
                 
