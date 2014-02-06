@@ -68,6 +68,7 @@ function login_logo_url_title() {
     return 'Startup and Play';
 }
 add_filter( 'login_headertitle', 'login_logo_url_title' );
+
 // Custom jQuery Scripts
 function class_hidden() {
     echo '
