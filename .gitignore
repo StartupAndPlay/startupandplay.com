@@ -12,7 +12,6 @@
 *.Trashes
 env_local
 env_staging
-readme.html
 sitemap*.*
 sitemap.*
 sitemap.xml
