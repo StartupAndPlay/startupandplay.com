@@ -8,6 +8,7 @@
 .cvs
 .DS_Store
 .htaccess
+.sass-cache
 .svn
 *.Trashes
 env_local

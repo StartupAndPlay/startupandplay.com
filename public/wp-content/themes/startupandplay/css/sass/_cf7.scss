@@ -1,0 +1,95 @@
+#contact {
+	list-style:none;
+	margin:0;
+    height: 100%;
+    padding: 0;
+}
+
+#contact li {
+	float: left;
+    clear: both;
+	margin:0 0 10px;
+    position: relative;
+    width: 100%;
+}
+
+#contact li .text {
+	background: #F0EFEF;
+	padding:15px 10px 10px 0;
+	position: relative;
+	z-index:100;
+	min-width:85px;
+	border-bottom-right-radius: 5px;
+	-moz-border-radius-bottomright:5px;
+	-webkit-border-bottom-right-radius:5px;
+	border-top-left-radius: 5px;
+	-moz-border-radius-topleft:5px;
+	-webkit-border-top-left-radius:5px;
+	text-indent: 5px;
+}
+#contact li .required {
+	position: relative;
+	right:10px;
+	top:10px;
+	z-index:100;
+}
+
+#contact li .wpcf7-form-control-wrap {
+	position: relative;
+}
+
+#contact li .wpcf7-form-control-wrap input, #contact li .wpcf7-form-control-wrap textarea {
+	background:#fff;
+	border:solid 5px #F0EFEF;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	padding:15px 10px 25px;
+	width: 100%;
+	z-index:100;
+	margin:0;
+    font-size: 16px;
+}
+
+#contact li .wpcf7-form-control-wrap input:focus, #contact li .wpcf7-form-control-wrap textarea:focus {
+	background:#F0EFEF;
+    border:solid 3px #68c6c5;
+    outline: none !important;
+    box-shadow: 0 0 5px #68c6c5;
+}
+
+#contact li .wpcf7-form-control-wrap textarea {
+	line-height: 28px;
+    padding: 10px;
+	height:200px;
+}
+
+#contact li#message {
+	min-height:220px;
+}
+
+#contact li#submit input {
+    color: #ffffff;
+    background-color: #68c6c5;
+    border-color: #e5e5e5;
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 10px 0px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+#contact li#submit input:hover {
+	background-color: #68bfc4;
+}
+
+div.wpcf7-validation-errors {
+    clear: left;
+}

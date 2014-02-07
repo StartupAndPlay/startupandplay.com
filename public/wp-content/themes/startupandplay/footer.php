@@ -1,8 +1,13 @@
-            </div><!-- closes container-screen-content -->
-        </div><!-- closes container-screen -->
-    </div><!-- closes container -->
-<footer>
+
+  
+		<footer class="container">
+			<nav>
+				<ul>
+		      <?php wp_nav_menu(array('menu' => 'main-navigation','container' => 'false' )); ?>
+		    </ul>
+			</nav>
+		</footer>
+	</div>
 <?php wp_footer(); ?>
-</footer>
 </body>
 </html>
