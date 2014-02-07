@@ -64,7 +64,6 @@ body.login div#login form#loginform input,
 body.login div#login form#lostpasswordform input,
 body.login div#login form#registerform input {
   background: #fff;
-  border: solid 5px #F0EFEF;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -77,10 +76,7 @@ body.login div#login form#registerform input {
 body.login div#login form#loginform input:focus, 
 body.login div#login form#lostpasswordform input:focus,
 body.login div#login form#registerform input:focus {
-  background: #F0EFEF;
-  border: solid 3px #68c6c5;
   outline: none !important;
-  box-shadow: 0 0 5px #68c6c5;
 }
 
 body.login div#login form#loginform input#user_login {}
@@ -98,7 +94,6 @@ body.login div#login form#lostpasswordform p.submit input#wp-submit,
 body.login div#login form#registerform p.submit input#wp-submit {
   color: #ffffff;
   background-color: #68c6c5;
-  border-color: #e5e5e5;
   display: inline-block;
   padding: 8px 12px;
   margin: 20px 0px;
@@ -134,7 +129,12 @@ body.login div#login p#nav {
   padding: 0px 5px;
 }
 
-body.login div#login p#nav a {}
+body.login div#login p#nav a {
+  color: #777777;
+}
+body.login div#login p#nav a:hover {
+  color: #68bfc4;
+}
 
 body.login div#login p#backtoblog {
   display: none;
@@ -152,6 +152,11 @@ body.login div#login p#backtoblog a {
   -webkit-border-radius: 0px;
   border-radius: 0px;
   margin: 0 0 10px 0;
+}
+
+.login .message, .press-this #message {
+  box-shadow: none;
+  -webkit-box-shadow: none;
 }
 
 .register {
