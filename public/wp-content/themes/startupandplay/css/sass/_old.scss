@@ -1,14 +1,4 @@
 
-/* General */
-
-@-ms-viewport { width: device-width; }
-
-* {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
 html, body, * {
     padding: 0;
     margin: 0;
@@ -34,12 +24,6 @@ html, body, textarea, input {
     font-size: 100%;
     font-family: 'Open Sans', 'Segoe UI', 'Helvetica Neue', Arial;
     font-weight: 400;
-}
-
-.container {
-    background-color: #ffffff;
-    overflow: hidden;
-    height: 100%;
 }
 
 .container-screen {
@@ -239,60 +223,6 @@ blockquote p {
 
 .main-nav li a:hover {
     color: #68c6c5;
-}
-
-/* Front page // Author Pages // Category Pages // 404 */
-
-.main {
-    background-color: #000000;
-    position: absolute;
-    z-index: 100;
-    top: 0;
-    left: 0;
-    width: 30%;
-    height: 100%;
-    max-width: 500px;
-}
-
-.main-img {
-    background: url('/wp-content/themes/startupandplay/rotate/rotate.php');
-    position: absolute;
-    -webkit-background-size: cover;
-    background-size: cover;
-    background-position: center;
-    width: 100%;
-    height: 100%;
-    -webkit-box-shadow: inset -1px 0 0 rgba(0,0,0,0.3);
-    -moz-box-shadow: inset -1px 0 0 rgba(0,0,0,0.3);
-    box-shadow: inset -1px 0 0 rgba(0,0,0,0.3);
-}
-
-.main-body {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
-.main-body-content {
-    padding: 30px 15px 10px;
-    position: relative;
-    z-index: 100;
-}
-
-.main-body-title, .main-body-description {
-    color: #ffffff;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-    padding: 2px 0;
-}
-
-.wrapper {
-    color: #333;
-}
-
-.wrapper-content {
-    display: block;
-    padding: 50px 15%;
-    width: 100%;
 }
 
 .wrapper-content h1 {

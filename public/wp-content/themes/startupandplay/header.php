@@ -13,16 +13,19 @@
     $style_path = get_template_directory() . $stylesheet;
     $style_uri  = get_bloginfo('template_url') . $stylesheet . '?' . filemtime($style_path);
     ?>
-
+    <link href='http://fonts.googleapis.com/css?family=Bitter:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="<?php echo $style_uri; ?>" />
 
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-  <div class="wrapper">
-    <header>
-      <nav>
-        <div class="container">
-        </div>
-      </nav>
-    </header>
+  <div class="wrapper"><?php
+    if (!is_page('home')) { ?>
+      <header>
+        <nav>
+          <div class="container">
+          </div>
+        </nav>
+      </header><?php
+    } ?>

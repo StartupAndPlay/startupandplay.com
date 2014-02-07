@@ -1,7 +1,5 @@
 <?php get_header(); ?>
 
-<?php include 'asides/aside-main.php'; ?>
-
         <section class="wrapper">
             <div class="wrapper-content">
                 

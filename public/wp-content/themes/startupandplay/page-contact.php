@@ -10,8 +10,6 @@ if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
 
 get_header(); ?>
 
-<?php include 'asides/aside-main.php'; ?>
-
 <article class="wrapper">
     <div class="wrapper-content">
 
