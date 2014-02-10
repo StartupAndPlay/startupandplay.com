@@ -2,13 +2,22 @@ body {
 	@include sans;
 	div.wrapper {
 		position: relative;
-		header {
-			nav {
-				ul {
-					li {
-						display: block;
-						float: left;
-					}
+		h1.logo {
+			position: fixed;
+			overflow: hidden;
+			height: 50px;
+			width: 50px;
+			top: 10px;
+			left: 10px;
+			margin: 0px;
+			z-index: 100;
+			a {
+				display: block;
+				height: 100%;
+				width: 100%;
+				img {
+					height: auto;
+					width: 100%;
 				}
 			}
 		}

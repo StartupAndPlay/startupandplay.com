@@ -20,8 +20,9 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-  <div class="wrapper"><?php
-    if (!is_page('home')) { ?>
+  <div class="wrapper"><?php /*
+    // Add later -- not crucial for relaunch
+    if (!is_page('home')) {
       <header>
         <nav>
           <div class="container">
@@ -30,5 +31,9 @@
             </ul>
           </div>
         </nav>
-      </header><?php
-    } ?>
+      </header>
+    }*/ 
+    if (!is_page('home')) {
+      echo '<h1 class="logo"><a href="/"><img src="/wp-content/themes/startupandplay/img/startup-and-play-square.png" alt="Startup and Play" /></a></h1>';
+    }
+    ?>

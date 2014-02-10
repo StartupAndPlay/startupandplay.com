@@ -3,7 +3,7 @@ body {
 		div.main {
 			section.main-single {
 				div.single-content {
-			    padding: 50px 15%;
+			    padding: 10px 15%;
 			    width: 100%;
 			    background-color: $white;
 					article.single-post {
@@ -12,7 +12,10 @@ body {
 			    	margin: 0 auto;
 			    	padding-bottom: 20px;
 						div.single-post-image {
-
+							img {
+								width: 100%;
+								height: auto;
+							}
 						}
 						div.single-post-title {
 
@@ -22,14 +25,29 @@ body {
 						}
 					}
 					aside.single-info {
+						overflow: hidden;
+						max-width: 800px;
+						margin: 0 auto;
+						border-top: 1px solid $gray;
 						div.single-info-avatar {
-
+							position: relative;
+							float: left;
+							height: 220px;
+							width: 100px;
+							padding: 10px;
+							img {
+								@include vendor-prefix(border-radius, 50%);
+							}
 						}
 						div.single-info-vcard {
-
-						}
-						div.single-info-published {
-
+							position: relative;
+							float: left;
+							max-width: 700px;
+							height: 220px;
+							padding: 10px;
+							h2 {
+								margin: 0;
+							}
 						}
 					}
 				}
