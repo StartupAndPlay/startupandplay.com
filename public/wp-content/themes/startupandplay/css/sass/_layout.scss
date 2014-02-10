@@ -174,8 +174,6 @@ body {
 				}
 			}
 		}
-
-
 		footer {
 			position: relative;
 			padding: 10px 15%;
@@ -200,6 +198,18 @@ body {
 					}
 				}
 			}
+		}
+		.fourOHfour { 
+    text-align: center;
+    margin: 0 auto;
+    	h1 {
+    		color: #68c6c5;
+    		margin-top: 50px;
+    		font-size: 72px;
+    	}
+    	p {
+    		padding: 10px 5px 20px;
+    	}
 		}
 	}
 }
