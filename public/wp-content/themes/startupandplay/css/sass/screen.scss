@@ -22,8 +22,12 @@ $rgbapng_px_size: 1;
 /* SCSS Modules */
 @import "typography";
 @import "colors";
+@import "mixins";
 
 /* Custom Project Files */
 @import "layout";
-@import "old";
+@import "single";
 @import "cf7";
+
+/* To be Deleted */
+@import "old";

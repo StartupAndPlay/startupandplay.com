@@ -4,7 +4,7 @@
     <div class="blur"></div>
   </div>
   <div class="main">
-    <section class="">
+    <section class="main-front">
       <div class="meta">
         <h1><a href="/"><img src="/wp-content/themes/startupandplay/img/startup-and-play-square.png" alt="Startup and Play" /></a></h1>
       </div>
@@ -48,7 +48,7 @@
               </p>
             </div>
             <div class="content-excerpt">
-                <?php echo get_excerpt(210) ?> 
+                <p><?php echo get_excerpt(210) ?></p>
             </div>
                       
           </article>
@@ -60,6 +60,5 @@
                   
       </div>
     </section>
-  </div>
 
 <?php get_footer(); ?>

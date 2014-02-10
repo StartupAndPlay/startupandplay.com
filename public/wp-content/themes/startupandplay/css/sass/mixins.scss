@@ -1,0 +1,25 @@
+@mixin vendor-prefix($name, $argument) {
+  -webkit-#{$name}: #{$argument};
+  -ms-#{$name}: #{$argument};
+  -moz-#{$name}: #{$argument};
+  -o-#{$name}: #{$argument};
+  #{$name}: #{$argument};
+}
+
+@mixin breakpoint($point) {
+  @if $point == max-small {
+    @media (max-width: 767px) { @content; }
+  }
+  @else if $point == min-small {
+    @media (max-width: 768px) { @content; }
+  }
+  @else if $point == max-med {
+    @media (max-width: 991px)  { @content; }
+  }
+  @else if $point == min-med {
+    @media (max-width: 992px)  { @content; }
+  }
+  @else if $point == large {
+    @media (max-width: 1200px)  { @content; }
+  }
+}

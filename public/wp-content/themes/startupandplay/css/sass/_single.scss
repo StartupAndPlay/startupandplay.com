@@ -1,0 +1,39 @@
+body {
+	div.wrapper {
+		div.main {
+			section.main-single {
+				div.single-content {
+			    padding: 50px 15%;
+			    width: 100%;
+			    background-color: $white;
+					article.single-post {
+			    	overflow: hidden;
+			    	max-width: 800px;
+			    	margin: 0 auto;
+			    	padding-bottom: 20px;
+						div.single-post-image {
+
+						}
+						div.single-post-title {
+
+						}
+						div.single-post-content {
+
+						}
+					}
+					aside.single-info {
+						div.single-info-avatar {
+
+						}
+						div.single-info-vcard {
+
+						}
+						div.single-info-published {
+
+						}
+					}
+				}
+			}
+		}
+	}
+}
