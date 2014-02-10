@@ -1,178 +1,3 @@
-
-html, body, * {
-    padding: 0;
-    margin: 0;
-}
-
-html, body {
-    width: 100%;
-    height: 100%;
-    font-size: 100%;
-    font-family: 'Open Sans', 'Segoe UI', 'Helvetica Neue', Arial;
-    font-weight: 400;
-}
-
-body {
-    text-rendering: optimizelegibility;
-    -webkit-font-smoothing: antialiased;
-}
-
-html, body, textarea, input {
-    color: #333333;
-    font-size: 16px;
-    line-height: 1.4;
-    font-size: 100%;
-    font-family: 'Open Sans', 'Segoe UI', 'Helvetica Neue', Arial;
-    font-weight: 400;
-}
-
-.container-screen {
-    top: 0;
-    height: 100%;
-    width: 100%;
-    display: block;
-    visibility: visible;
-    background-color: #ffffff;
-    position: absolute;
-}
-
-.container-screen-content {
-    position: relative;
-    height: 100%;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-/*----------------------------------------------------------------------------*/
-
-/* Typography // Buttons */
-
-.fontawesome {
-    margin-right: 3px;
-    text-decoration: none; 
-    padding-right: 3px;
-}
-
-h1, h2, h3, h4, h5, h6, p {
-    font-weight: 400;
-    color: #333333;
-}
-
-h1 {
-    font-size: 30px;
-    font-weight: bold;
-}
-
-h2 {
-    font-size: 24px;
-}
-
-h3 {
-    font-size: 20px;
-}
-
-h4 {
-    font-size: 18px;
-}    
-
-p {
-    font-size: 16px;
-    padding: 5px 0;
-}
-
-a {
-    text-decoration: none;
-    color: #333333;
-}
-
-ul, menu, dir {
-    display: block;
-    list-style-type: disc;
-    padding-left: 60px;
-    margin-top: 10px;
-}
-
-
-hr {
-    display: block;
-    width: 20%;
-    margin: 30px auto 20px auto;
-    border: 1px solid #dededc;
-}
-
-cite {
-    font-style: normal;
-}
-
-blockquote {
-    background:#f9f9f9;
-    border-left: 6px solid #68c6c5;
-    font-style: italic;
-    margin:1.5em 10px;
-    padding:.5em 10px;
-}
-
-blockquote:before {
-    color:#ccc;
-    font-size:4em;
-    line-height:.1em;
-    margin-right:.25em;
-    vertical-align:-.4em;
-}
-
-blockquote p {
-    display:inline;
-}
-
-.sticky-featured {
-    font-size: 10px;
-    color: #ff9640;
-}
-
-.sticky-featured i {
-    padding-right: 1px;
-    padding-left: 3px;
-    margin-right: 0;
-}
-
-.btn {
-    color: #ffffff;
-    background-color: #68c6c5;
-    border-color: #e5e5e5;
-    display: inline-block;
-    padding: 8px 12px;
-    margin: 10px 0px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.428571429;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-}
-
-.btn:hover {
-    background-color: #68bfc4;
-}
-
-.btn-small {
-    padding: 7px 8px;
-    font-size: 14px;
-    border-radius: 2px;
-}
-
-.btn-large {
-    padding: 14px 16px;
-    font-size: 18px;
-    border-radius: 4px;
-}
-
-/*----------------------------------------------------------------------------*/
-
 /* Navigation */
 
 .nav-img {
@@ -236,7 +61,7 @@ blockquote p {
     color: #ffffff;
     margin: 20px 0;
 }
-
+/*
 .wrapper-content-post {
     padding-bottom: 20px;
     overflow: hidden;
@@ -296,7 +121,7 @@ blockquote p {
     border-bottom: 1px solid #e5e5e5;
     padding: 20px 0 20px 0;
     margin-bottom: 20px;
-}
+}*/
 
 .fourOHfour { 
     text-align: center;
@@ -314,7 +139,7 @@ blockquote p {
 }
 
 /* Front page < 960px */
-
+/*
 @media (max-width: 960px) {
     .main {
         position: relative;
@@ -357,15 +182,15 @@ blockquote p {
         font-size: 22px;
     }
 }
-
+*/
 /* Front page > 1660px */
-
+/*
 @media (min-width: 1660px) {
     .main {
         position: absolute;
         z-index: 100;
-        margin-top: 0; /* top: 0; */
-        margin-left: 0; /* left: 0; */
+        margin-top: 0;
+        margin-left: 0;
         width: 30%;
         height: 100%;
         max-width: 500px;
@@ -385,7 +210,7 @@ blockquote p {
         max-width: 1000px;
     }
 }
-
+*/
 
 /*----------------------------------------------------------------------------*/
 

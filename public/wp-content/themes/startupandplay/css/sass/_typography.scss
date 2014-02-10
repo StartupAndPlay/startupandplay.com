@@ -1,11 +1,140 @@
-body {     
-        /* Improves font rendering, fixes "chunky" fonts */
-        -webkit-font-smoothing: antialiased;
-        font-style: normal;
+html, body, textarea, input {
+	color: #333333;
+	font-size: 16px;
+	line-height: 1.4;
+	font-size: 100%;
+	font-family: 'Open Sans', 'Segoe UI', 'Helvetica Neue', Arial;
+	font-weight: 400;
+}
+body {
+	text-rendering: optimizelegibility;
+	-webkit-font-smoothing: antialiased;
+	font-style: normal;
 }
 @mixin serif {
-        font-family: 'Bitter',serif;
+  font-family: 'Bitter',serif;
 }
 @mixin sans {
-        font-family: 'Open Sans', 'Segoe UI', 'Helvetica Neue', sans-serif;
+	font-family: 'Open Sans', 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+/* Typography // Buttons */
+
+.fontawesome {
+  margin-right: 3px;
+  text-decoration: none; 
+  padding-right: 3px;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-weight: 400;
+  color: #333333;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+h4 {
+  font-size: 18px;
+}    
+
+p {
+  font-size: 16px;
+  padding: 5px 0;
+}
+
+a {
+  text-decoration: none;
+  color: #333333;
+}
+
+ul, menu, dir {
+  display: block;
+  list-style-type: disc;
+  padding-left: 60px;
+  margin-top: 10px;
+}
+
+hr {
+  display: block;
+  width: 20%;
+  margin: 30px auto 20px auto;
+  border: 1px solid #dededc;
+}
+
+cite {
+  font-style: normal;
+}
+
+blockquote {
+  background:#f9f9f9;
+  border-left: 6px solid #68c6c5;
+  font-style: italic;
+  margin:1.5em 10px;
+  padding:.5em 10px;
+}
+
+blockquote:before {
+  color:#ccc;
+  font-size:4em;
+  line-height:.1em;
+  margin-right:.25em;
+  vertical-align:-.4em;
+}
+
+blockquote p {
+  display:inline;
+}
+
+.sticky-featured {
+  font-size: 10px;
+  color: #ff9640;
+}
+
+.sticky-featured i {
+  padding-right: 1px;
+  padding-left: 3px;
+  margin-right: 0;
+}
+
+.btn {
+  color: #ffffff;
+  background-color: transparent;
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 10px 0px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.btn:hover {}
+
+.btn-small {
+  padding: 7px 8px;
+  font-size: 14px;
+  border-radius: 2px;
+}
+
+.btn-large {
+  padding: 14px 16px;
+  font-size: 18px;
+  border-radius: 4px;
 }

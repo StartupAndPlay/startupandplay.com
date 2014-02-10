@@ -23,4 +23,15 @@ register_nav_menus( array(
   'main' => 'Main Navigation'
 ) );
 
+function get_excerpt($count){
+	global $post;
+	$permalink = $post->ID;
+	$excerpt = get_the_content();
+	$excerpt = strip_tags($excerpt);
+	$excerpt = substr($excerpt, 0, $count);
+	$excerpt = substr($excerpt, 0, strripos($excerpt, " "));
+	$excerpt = $excerpt.'...';
+	return $excerpt;
+}
+
 ?>

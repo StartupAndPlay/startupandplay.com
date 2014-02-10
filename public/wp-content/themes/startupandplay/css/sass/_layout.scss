@@ -20,9 +20,18 @@ body {
 	@include sans;
 	div.wrapper {
 		position: relative;
-		header {}
+		header {
+			nav {
+				ul {
+					li {
+						display: block;
+						float: left;
+					}
+				}
+			}
+		}
 		div.masthead {
-			position: absolute;
+			position: fixed;
 			width: 100%;
 			height: 450px;
 			top: 0;
@@ -54,23 +63,58 @@ body {
 			section {
 				div.meta {
 					height: 65px;
+					h1 {
+						position: fixed;
+						overflow: hidden;
+						height: 50px;
+						width: 50px;
+						top: 10px;
+						left: 10px;
+						margin: 0px;
+						a {
+							display: block;
+							height: 100%;
+							width: 100%;
+							img {
+								height: auto;
+								width: 100%;
+							}
+						}
+					}
 				}
 				div.brand {
+					position: relative;
 					height: 300px;
 					text-align: center;
-					h1 {
-						@include serif;
-						font-size: 50px;
-						font-weight: 700;
-						text-shadow: 1px 1px 3px #333;
-						color: $white;
-					}
-					p {
-						@include serif;
-						font-size: 18px;
-						font-weight: 400;
-						text-shadow: 1px 1px 3px #333;
-						color: $white;
+					div.brand-wrapper {
+						position: absolute;
+						width: 100%;
+						top: 100px;
+						h1 {
+							@include serif;
+							font-size: 50px;
+							font-weight: 700;
+							text-shadow: 1px 1px 3px #333;
+							color: $white;
+						}
+						p {
+							@include serif;
+							font-size: 18px;
+							font-weight: 400;
+							text-shadow: 1px 1px 3px #333;
+							color: $white;
+						}
+						div.btn {
+							a {
+								display: block;
+								height: 100%;
+								width: 100%;
+								color: $white;
+								&:hover {
+									text-decoration: none;
+								}
+							}
+						}
 					}
 				}
 				nav.metanav {
@@ -80,6 +124,59 @@ body {
 			    padding: 50px 15%;
 			    width: 100%;
 			    background-color: $white;
+			    article {
+			    	overflow: hidden;
+			    	max-width: 800px;
+			    	margin: 0 auto;
+			    	padding-bottom: 20px;
+			    	div.content-title {
+			    		float: left;
+					    max-width: 75%;
+			    		a {
+			    			&:hover { text-decoration: none; }
+			    			h2 {
+	    				    color: $h-gray;
+							    font-size: 28px;
+							    font-weight: 600;
+							    line-height: 1.2;
+							    -webkit-margin-before: 0em;
+							    -webkit-margin-after: 0em;
+			    			}
+			    		}
+			    		p.content-byline {
+	    			    float: left;
+						    clear: both;
+						    min-width: 100%;
+						    line-height: 1.2;
+						    padding: 4px 0;
+			    		}
+			    	}
+			    	div.content-avatar {
+	    		    float: right;
+					    text-align: center;
+					    min-width: 72px;
+					    img {
+				        -moz-border-radius: 50%;
+						    -webkit-border-radius: 50%;
+						    border-radius: 50%;
+					    }
+			    		p {
+			    			padding: 0;
+			    			span.sticky-featured {
+			    				color: $play-blue;
+			    				i {}
+			    			}
+			    		}
+			    	}
+			    	div.content-excerpt {
+	    		    float: left;
+					    min-width: 100%;
+					    border-bottom: 1px solid #e5e5e5;
+					    padding: 20px 0 20px 0;
+					    margin-bottom: 20px;
+			    		p {}
+			    	}
+			    }
 				}
 			}
 		}

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width" initial-scale="1.0" />
-
+    <link rel="icon" href="/wp-content/themes/startupandplay/img/favicon.png" />
     <title><?php wp_title('|'); ?></title>
 
     <?php
@@ -25,6 +25,9 @@
       <header>
         <nav>
           <div class="container">
+            <ul>
+              <?php wp_nav_menu(array('container' => 'false' )); ?>
+            </ul>
           </div>
         </nav>
       </header><?php
