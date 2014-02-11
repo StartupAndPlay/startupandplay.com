@@ -115,7 +115,7 @@ blockquote p {
 }
 
 .btn {
-  color: #ffffff;
+  color: $h-gray;
   background-color: transparent;
   display: inline-block;
   padding: 8px 12px;
@@ -127,7 +127,7 @@ blockquote p {
   white-space: nowrap;
   vertical-align: middle;
   cursor: pointer;
-  border: 1px solid #e5e5e5;
+  border: 1px solid $h-gray;
   border-radius: 4px;
   text-decoration: none;
 }
@@ -176,6 +176,5 @@ img.alignleft {
 
 img.aligncenter {
   display: block; 
-  margin-left: 0 auto;
-  margin: 10px;
+  margin: 10px auto;
 }
