@@ -1,7 +1,18 @@
-<?php get_header(); ?>
+<?php 
+get_header(); 
 
-        <article class="wrapper">
-            <div class="wrapper-content">
+if(is_page('contact') OR is_page('apply-to-showcase')) {
+  if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
+    wpcf7_enqueue_scripts();
+    wpcf7_enqueue_styles();
+  }
+}
+?>
+  <div class="main">
+    <section class="main-page">
+      <div class="page-content">
+
+        <article class="page-post">
 
                 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
     
@@ -14,7 +25,9 @@
                 
                 <?php endif; ?>
 
-            </div>
         </article>
+      </div>
+    </section>
+  </div>
 
 <?php get_footer(); ?>

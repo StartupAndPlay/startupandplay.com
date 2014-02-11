@@ -50,12 +50,19 @@ h4 {
 
 p {
   font-size: 16px;
-  padding: 5px 0;
+  font-weight: 300;
+  line-height: 1.6;
+  padding: px 0;
 }
 
 a {
   text-decoration: none;
   color: #333333;
+}
+
+a:hover {
+  color: #666666;
+  text-decoration: none;
 }
 
 ul, menu, dir {
@@ -141,29 +148,34 @@ blockquote p {
 
 .alignright {
   float:right;
+  padding: 15px;
+  margin: 10px;
 }
 
 .alignleft {
   float:left;
+  padding: 15px;
+  margin: 10px;
 }
 
 .aligncenter {
   display: block; 
   margin: 0 auto;
+  padding: 15px;
 }
 
 img.alightright {
   float: right;
-  padding: 15px;
+  margin: 10px;
 }
 
 img.alignleft {
   float: left;
-  padding: 15px;
+  margin: 10px;
 }
 
 img.aligncenter {
   display: block; 
   margin-left: 0 auto;
-  padding: 15px;
+  margin: 10px;
 }

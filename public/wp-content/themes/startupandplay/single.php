@@ -21,9 +21,11 @@ get_header(); ?>
               <?php echo get_avatar( get_the_author_meta( 'ID' ), 72 ); ?>
             </div>
             <div class="single-info-vcard">
-                <h2><?php the_author(); ?></h2>
-                <?php $url = get_the_author_meta('user_url'); ?><a href="<?php echo $url; ?>" target="_blank"><?php echo str_replace('http://', '', $url);?></a>
-                <p><a href="<?php the_author_meta('googleplus'); ?>" target="_blank"><i class="fa-google-plus-square fa"></i></a><a href="https://twitter.com/<?php the_author_meta('twitter'); ?>" target="_blank"><i class="fa-twitter-square fa"></i></a></p>
+              <h2><?php the_author(); ?></h2>
+              <?php $url = get_the_author_meta('user_url'); ?><a href="<?php echo $url; ?>" target="_blank"><?php echo str_replace('http://', '', $url);?></a>
+              <p><a href="<?php the_author_meta('googleplus'); ?>" target="_blank"><i class="fa-google-plus-square fa"></i></a><a href="https://twitter.com/<?php the_author_meta('twitter'); ?>" target="_blank"><i class="fa-twitter-square fa"></i></a></p>
+            </div>
+            <div class="single-info-description">
                 <p><?php the_author_meta('description'); ?></p>
                 <p>Published <?php the_date(); ?></p>
             </div>

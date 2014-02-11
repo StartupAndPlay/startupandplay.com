@@ -21,7 +21,20 @@ body {
 
 						}
 						div.single-post-content {
-
+							p {
+								font-size: 16px;
+								font-weight: 300;
+							}
+							img {
+								margin: 10px;
+								border: 1px solid $h-gray;
+							}
+							a {
+								color: #666666;
+								&:hover {
+									color: #333333;
+								}
+							}
 						}
 					}
 					aside.single-info {
@@ -32,7 +45,7 @@ body {
 						div.single-info-avatar {
 							position: relative;
 							float: left;
-							height: 220px;
+							height: 100px;
 							width: 100px;
 							padding: 10px;
 							img {
@@ -43,11 +56,14 @@ body {
 							position: relative;
 							float: left;
 							max-width: 700px;
-							height: 220px;
 							padding: 10px;
 							h2 {
 								margin: 0;
 							}
+						}
+						div.single-info-description {
+							clear: both;
+							padding: 10px;
 						}
 					}
 				}
