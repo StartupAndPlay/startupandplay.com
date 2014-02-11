@@ -138,3 +138,32 @@ blockquote p {
   font-size: 18px;
   border-radius: 4px;
 }
+
+.alignright {
+  float:right;
+}
+
+.alignleft {
+  float:left;
+}
+
+.aligncenter {
+  display: block; 
+  margin: 0 auto;
+}
+
+img.alightright {
+  float: right;
+  padding: 15px;
+}
+
+img.alignleft {
+  float: left;
+  padding: 15px;
+}
+
+img.aligncenter {
+  display: block; 
+  margin-left: 0 auto;
+  padding: 15px;
+}

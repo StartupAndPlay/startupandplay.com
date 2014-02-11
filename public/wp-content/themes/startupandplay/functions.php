@@ -4,7 +4,7 @@ include('inc/assets.php');
 include('inc/login.php');
 include('inc/admin.php');
 
-$google_analytics_id = 'UA-XXXXXXXX-X';
+$google_analytics_id = 'UA-47970028-1';
 
 
 // Changes default contact fields

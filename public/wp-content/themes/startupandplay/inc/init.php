@@ -1,8 +1,7 @@
 <?php
 
 // Password protect staging environments
-if( WP_PASSWORD_PROTECT == true ){
-
+if( WP_PASSWORD_PROTECT === true ){
 	function password_protect() {
 		if ( !is_user_logged_in() ) {
 			auth_redirect();
@@ -14,27 +13,21 @@ if( WP_PASSWORD_PROTECT == true ){
 // Loads Google Analytics
 $google_analytics_id = 'UA-XXXXXXXX-X'; // override this value in functions.php
 function google_analytics() {
-		global $env_default, $google_analytics_id;
+		global $env_default, $google_analytics_id, $environment;
+		$environment = $environment['name'];
 		$default_hostname = preg_replace('/^https?:\/\//', '', $env_default['hostname']);
-		?>
+		if (WP_ENV === 'production') { ?>
 		<!-- Google Analytics -->
-		<script type="text/javascript">
-		if(['<?php echo $default_hostname ?>','www.<?php echo $default_hostname ?>']
-			 .indexOf(window.location.hostname) > -1
-			 && window.location.search.search('&preview=true') == -1
-		) {
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', '<?php echo $google_analytics_id ?>']);
-		_gaq.push(['_setDomainName', '<?php echo $default_hostname ?>']);
-		_gaq.push(['_trackPageview']);
+			<script type="text/javascript">
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-		(function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();}
-		</script>
-<?php
+		  ga('create', '<?php echo $google_analytics_id ?>', '<?php echo $default_hostname ?>');
+		  ga('send', 'pageview');
+			</script><?php
+		}
 } // google_analytics
 add_action('wp_head','google_analytics');
 
