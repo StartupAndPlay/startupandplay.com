@@ -1,4 +1,4 @@
-![image](http://startupandplay.com/wp-content/uploads/2012/10/cropped-logo_path.png)
+![image](http://startupandplay.com/wp-content/themes/startupandplay/img/startup-and-play-wide.png)
 
 StartupAndPlay
 ==============
