@@ -1,5 +1,17 @@
 <?php
-get_header(); ?>
+
+// Calls previous post, sets up for prerendering
+$prevPost = get_previous_post();
+ $prevArray = (array) $prevPost;
+ global $prevArray;
+ //var_dump($prevArray);
+ $prevID = $prevArray['ID'];
+ $prevTitle = $prevArray['post_title'];
+
+get_header();
+
+?>
+
   <div class="main">      
     <section class="main-single">
       <div class="single-content">

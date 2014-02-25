@@ -16,8 +16,18 @@
     <link href='http://fonts.googleapis.com/css?family=Bitter:700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="<?php echo $style_uri; ?>" />
-
-    <?php wp_head(); ?>
+    <?php
+    if (is_single()) {
+      echo "single true";
+      global $prevArray;
+      $prevID = $prevArray['ID'];
+      $prevID = get_permalink($prevID);
+      var_dump($prevID);
+      echo '<link rel="prefetch" href="'.$prevID.'">';
+      echo '<link rel="prerender" href="'.$prevID.'">';
+    }
+    wp_head();
+    ?>
 </head>
 <body <?php body_class(); ?>>
   <div class="wrapper"><?php /*

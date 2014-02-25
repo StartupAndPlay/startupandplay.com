@@ -11,15 +11,18 @@
     @media (max-width: 767px) { @content; }
   }
   @else if $point == min-small {
-    @media (max-width: 768px) { @content; }
+    @media (min-width: 768px) { @content; }
   }
   @else if $point == max-med {
     @media (max-width: 991px)  { @content; }
   }
   @else if $point == min-med {
-    @media (max-width: 992px)  { @content; }
+    @media (min-width: 992px)  { @content; }
   }
-  @else if $point == large {
-    @media (max-width: 1200px)  { @content; }
+  @else if $point = max-large {
+    @media (max-width: 1199px) { @content; }
+  }
+  @else if $point == min-large {
+    @media (min-width: 1200px)  { @content; }
   }
 }
