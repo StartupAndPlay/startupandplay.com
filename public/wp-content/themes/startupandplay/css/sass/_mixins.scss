@@ -19,7 +19,7 @@
   @else if $point == min-med {
     @media (min-width: 992px)  { @content; }
   }
-  @else if $point = max-large {
+  @else if $point == max-large {
     @media (max-width: 1199px) { @content; }
   }
   @else if $point == min-large {

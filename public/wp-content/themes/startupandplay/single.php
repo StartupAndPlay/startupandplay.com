@@ -2,14 +2,17 @@
 
 // Calls previous post, sets up for prerendering
 $prevPost = get_previous_post();
- $prevArray = (array) $prevPost;
- global $prevArray;
- //var_dump($prevArray);
- $prevID = $prevArray['ID'];
- $prevTitle = $prevArray['post_title'];
+$prevArray = (array) $prevPost;
+global $prevArray;
+
+if(isset($prevArray['ID'])) {
+  $prevID = $prevArray['ID'];
+}
+if(isset($prevArray['post_title'])) {
+  $prevTitle = $prevArray['post_title'];
+}
 
 get_header();
-
 ?>
 
   <div class="main">      
@@ -51,6 +54,7 @@ get_header();
 
         <?php endif; ?>
         
+        <?php comments_template(); ?>
       </div>
     </section>
   </div>

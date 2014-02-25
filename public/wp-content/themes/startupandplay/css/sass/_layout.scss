@@ -117,6 +117,9 @@ body {
 			    padding: 50px 15% 10px;
 			    width: 100%;
     			background-color: $white;
+    			@include breakpoint(max-small) {
+    				padding: 50px 10% 10px;
+    			}
 			    article {
 			    	overflow: hidden;
 			    	max-width: 800px;
@@ -125,6 +128,10 @@ body {
 			    	div.content-title {
 			    		float: left;
 					    max-width: 75%;
+					    @include breakpoint(max-small) {
+					    	float: none;
+					    	max-width: 100%;
+					    }
 			    		a {
 			    			&:hover { text-decoration: none; }
 			    			h2 {
@@ -148,6 +155,9 @@ body {
 	    		    float: right;
 					    text-align: center;
 					    min-width: 72px;
+					    @include breakpoint(max-small) {
+					    	float: none;
+					    }
 					    img {
 				        -moz-border-radius: 50%;
 						    -webkit-border-radius: 50%;

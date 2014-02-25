@@ -1,11 +1,14 @@
 <?php
 	global $prevArray;
-	$prevID = $prevArray['ID'];
-	var_dump($prevID);
+	if (isset($prevArray['ID'])) {
+		$prevID = $prevArray['ID'];
+	} else {
+		$prevID = false;
+	}
 ?>
   
 			<footer><?php
-				if (is_single()) { ?>
+				if (is_single() && $prevID) { ?>
 					<div class="preload-post">
 						<a href="<?php echo get_permalink($prevID); ?>">Click Me!</a>
 					</div><?php

@@ -6,6 +6,9 @@ body {
 			    padding: 10px 15%;
 			    width: 100%;
 			    background-color: $white;
+			    @include breakpoint(max-small) {
+			    	padding: 50px 10%;
+			    }
 					article.single-post {
 			    	overflow: hidden;
 			    	max-width: 800px;
