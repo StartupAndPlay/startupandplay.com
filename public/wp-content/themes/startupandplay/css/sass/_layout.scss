@@ -188,6 +188,10 @@ body {
 			position: relative;
 			padding: 10px 15%;
 			background-color: $white;
+			min-height: 50px;
+			@include breakpoint(max-small) {
+				padding: 10px 10%;
+			}
 			nav {
 				ul {
 					height: 30px;
