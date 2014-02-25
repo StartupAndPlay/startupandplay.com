@@ -1,7 +1,19 @@
-<?php get_header(); ?>
+<?php 
+get_header(); 
+
+if ( have_posts() ) : while ( have_posts() ) : the_post();
+
+$masthead = get_field('home_masthead');
+  $mastheadURL = $masthead['url'];
+$mastheadBlur = get_field('home_masthead_blur');
+  $mastheadBlurURL = $mastheadBlur['url'];
+
+endwhile; endif;
+
+?>
   <div class="masthead">
-    <div class="clear"></div>
-    <div class="blur"></div>
+    <div class="clear" style="background-image:url('<?php echo $mastheadURL; ?>')"></div>
+    <div class="blur" style="background-image:url('<?php echo $mastheadBlurURL; ?>')"></div>
   </div>
   <div class="main">
     <section class="main-front">

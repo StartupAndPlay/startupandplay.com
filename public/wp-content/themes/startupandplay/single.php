@@ -13,14 +13,36 @@ if(isset($prevArray['post_title'])) {
 }
 
 get_header();
-?>
+
+if ( have_posts() ) : while ( have_posts() ) : the_post();
+  // Custom Fields (Default Post Set)
+  $add_post_masthead = get_field('add_post_masthead');
+  if ($add_post_masthead) {
+    $masthead = get_field('post_masthead');
+      $mastheadURL = $masthead['url'];
+    $mastheadBlur = get_field('post_masthead_blur');
+      $mastheadBlurURL = $mastheadBlur['url'];
+  }
+  $add_post_eventbrite = get_field('add_post_eventbrite');
+  if ($add_post_eventbrite) {
+    $eventbrite = get_field('post_eventbrite');
+  }
+
+  // Controls the masthead
+  if ($add_post_masthead) { ?>
+  <div class="masthead">
+    <div class="clear" style="background-image:url('<?php echo $mastheadURL; ?>')"></div>
+    <div class="blur" style="background-image:url('<?php echo $mastheadBlurURL; ?>')"></div>
+  </div><?php
+  } ?>
 
   <div class="main">      
-    <section class="main-single">
+    <section class="main-single"><?php
+      if($add_post_masthead) {
+        echo '<div class="blocker"></div>';
+      }?>
       <div class="single-content">
         
-        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-
           <article class="single-post">
             <?php if (get_field('deprecated_featured_image')) { ?>
               <div class="single-post-image">
@@ -28,7 +50,10 @@ get_header();
               </div>
             <?php } ?>
               <div class="single-post-title"><h1><?php the_title(); ?></h1></div>                
-              <div class="single-post-content"><?php the_content(); ?></div>
+              <div class="single-post-content"><?php 
+                the_content(); 
+                if ($add_post_eventbrite) { echo $eventbrite; } ?>
+              </div>
           </article>
 
           <aside class="single-info">
@@ -44,17 +69,20 @@ get_header();
                 <p><?php the_author_meta('description'); ?></p>
                 <p>Published <?php the_date(); ?></p>
             </div>
-          </aside>
+          </aside><?php
         
-        <?php endwhile; else: ?>
+        endwhile; else: ?>
           
           <article class="single-post"
             <p><?php _e('Sorry, this post does not exist.'); ?></p>
-          </article>
+          </article><?php
 
-        <?php endif; ?>
+        endif;
+
+        if ($environment === 'production') {
+          comments_template();
+        } ?>
         
-        <?php comments_template(); ?>
       </div>
     </section>
   </div>

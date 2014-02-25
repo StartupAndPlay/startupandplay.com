@@ -15,8 +15,8 @@
     ?>
     <link href='http://fonts.googleapis.com/css?family=Bitter:700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="<?php echo $style_uri; ?>" />
-    <?php
+    <link rel="stylesheet" href="<?php echo $style_uri; ?>" /><?php
+
     if (is_single()) {
       global $prevArray;
       if(isset($prevArray['ID'])) {
@@ -26,8 +26,8 @@
         echo '<link rel="prerender" href="'.$prevID.'">';
       }
     }
-    wp_head();
-    ?>
+    wp_head(); ?>
+    
 </head>
 <body <?php body_class(); ?>>
   <div class="wrapper"><?php /*

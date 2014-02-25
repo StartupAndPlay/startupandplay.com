@@ -10,7 +10,7 @@
 			<footer><?php
 				if (is_single() && $prevID) { ?>
 					<div class="preload-post">
-						<a href="<?php echo get_permalink($prevID); ?>">Click Me!</a>
+						<a href="<?php echo get_permalink($prevID); ?>" style="float:right;margin-bottom:5px;">Next Post &raquo;</a>
 					</div><?php
 				} else { ?>
 					<nav>

@@ -33,7 +33,6 @@ body {
 				position: absolute;
 				height: 100%;
 				width: 100%;
-				background-image: url('../img/lake-crabtree-clear.jpg');
 				@include vendor-prefix(background-size, cover);
 				background-position: center;
 			}
@@ -41,7 +40,6 @@ body {
 				position: absolute;
 				height: 100%;
 				width: 100%;
-				background-image: url('../img/lake-crabtree-blur.jpg');
 				@include vendor-prefix(background-size, cover);
 				background-position: center;
 				opacity: 0;

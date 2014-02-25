@@ -2,6 +2,9 @@ body {
 	div.wrapper {
 		div.main {
 			section.main-single {
+				div.blocker {
+					height: 430px;
+				}
 				div.single-content {
 			    padding: 10px 15%;
 			    width: 100%;
@@ -27,6 +30,10 @@ body {
 							p {
 								font-size: 16px;
 								font-weight: 300;
+							}
+							img {
+								max-width: 100%;
+								height: auto;
 							}
 						}
 					}
