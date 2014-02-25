@@ -213,7 +213,8 @@ body {
 				}
 			}
 		}
-		.fourOHfour { 
+		.fourOHfour {
+		max-width: 800px;
     text-align: center;
     margin: 0 auto;
     	h1 {
@@ -222,7 +223,7 @@ body {
     		font-size: 72px;
     	}
     	p {
-    		padding: 10px 5px 20px;
+    		padding: 20px 5px 20px;
     	}
 		}
 	}
