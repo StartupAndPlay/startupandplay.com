@@ -7,9 +7,10 @@ A custom theme for Startup and Play, a startup social, inspired by Medium.com.
 
 ## Installation
 
-Clone repo, create WordPress database and configure _sample* files.
+Clone repo, run `bin/clone.sh`, create WordPress database && configure _sample* files
 
 `npm install` to configure grunt dependencies
+
 
 ## History
 
