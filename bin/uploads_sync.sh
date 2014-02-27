@@ -19,7 +19,7 @@ fi
 
 webroot=`dirname $0`/../public
 
-rsync -ruvPz $options $remote_ssh:$remote_webroot/shared $webroot/
+rsync -ruvPz -e 'ssh -p 14000' $options $remote_ssh:$remote_webroot/wp-content/uploads $webroot/wp-content/
 
 if [ "$1" = "go" ]; then
   echo -n "(Making uploads writable by the group) "
