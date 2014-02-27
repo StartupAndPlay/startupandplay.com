@@ -20,6 +20,7 @@ sitemap.xml
 sitemap.xml.gz
 Thumbs.db
 wp-config.php
+bin/config.sh
 public/.htaccess
 public/wp-content/advanced-cache.php
 public/wp-content/cache/
@@ -38,6 +39,7 @@ public/wp-content/upgrade/
 public/wp-content/upgrade/*
 public/wp-content/uploads/*
 public/wp-content/wp-cache-config.php
+
 
 # Include these files in previously blocked directories
 !public/wp-content/uploads/.htaccess
