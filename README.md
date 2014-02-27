@@ -3,17 +3,17 @@
 StartupAndPlay
 ==============
 
-A custom theme & build for Startup and Play, a startup social, inspired by Medium.com.
+A custom theme for Startup and Play, a startup social, inspired by Medium.com.
 
 ## Installation
 
 Clone repo, create WordPress database and configure _sample* files.
 
-`npm install` to configure Grunt
+`npm install` to configure grunt dependencies
 
 ## History
 
-v0.1 (Alpha) - 02/10/2014 - Project scrapped and re-release as WordPress theme, frontend content editable posting and WordPress membership moved to plugins
+v0.1 (Alpha) - 02/10/2014 - Project scrapped and re-released as WordPress theme, frontend content editable posting and WordPress membership moved to plugins
 
 v0.0.2 - 09/29/2013 - Moved entire project to public repo
 
