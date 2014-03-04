@@ -7,6 +7,7 @@ $masthead = get_field('home_masthead');
   $mastheadURL = $masthead['url'];
 $mastheadBlur = get_field('home_masthead_blur');
   $mastheadBlurURL = $mastheadBlur['url'];
+$eventLink = get_field('view_event_link');
 
 endwhile; endif;
 
@@ -24,7 +25,7 @@ endwhile; endif;
         <div class="brand-wrapper">
           <h1>Startup and Play</h1>
           <p>A Raleigh-Durham startup social.</p>
-          <div class="btn"><a href="/p/february-social-crank-arm-brewery/">View Event</a></div>
+          <div class="btn"><a href="<?php echo $eventLink; ?>">View Event</a></div>
         </div>
       </div>
       <nav class="metanav"></nav>
