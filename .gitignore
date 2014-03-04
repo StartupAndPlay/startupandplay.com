@@ -31,6 +31,8 @@ public/wp-content/backup-db/*
 public/wp-content/blogs.dir/*
 public/wp-content/cache/*
 public/wp-content/cache/supercache/*
+public/wp-content/plugins/acf-repeater/
+public/wp-content/plugins/acf-repeater/*
 public/wp-content/plugins/better-wp-security/
 public/wp-content/plugins/better-wp-security/*
 public/wp-content/plugins/wp-super-cache/
