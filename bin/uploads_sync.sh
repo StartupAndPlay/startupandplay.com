@@ -23,5 +23,5 @@ rsync -ruvPz -e 'ssh -p 14000' $options $remote_ssh:$remote_webroot/wp-content/u
 
 if [ "$1" = "go" ]; then
   echo -n "(Making uploads writable by the group) "
-  sudo chmod -R g+w $webroot/shared
+  sudo chmod -R g+w $webroot/wp-content/uploads
 fi
