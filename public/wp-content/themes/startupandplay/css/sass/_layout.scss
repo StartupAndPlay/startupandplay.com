@@ -29,6 +29,9 @@ body {
 			right: 0;
 			left: 0;
 			bottom: 0;
+			@include breakpoint(max-med) {
+				position: absolute;
+			}
 			div.clear {
 				position: absolute;
 				height: 100%;
