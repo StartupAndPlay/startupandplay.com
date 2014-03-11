@@ -190,27 +190,60 @@ body {
 		}
 		footer {
 			position: relative;
-			padding: 10px 15%;
 			background-color: $white;
 			min-height: 50px;
 			@include breakpoint(max-small) {
 				padding: 10px 10%;
 			}
-			nav {
-				ul {
-					height: 30px;
-					max-width: 800px;
-					border-top: 1px solid $gray;
-					margin: 0 auto;
-					padding: 0;
-					li {
-						display: block;
-						float: left;
-						padding: 5px;
+			&.preload {
+				position: relative;
+				padding: 0px;
+				div.preload-image {
+					min-height: 430px;
+					background-position: center;
+					@include vendor-prefix(background-size, cover);
+				}
+				div.preload-overlay {
+					position: absolute;
+					width: 100%;
+					min-height: 430px;
+					top: 0;
+					@include vendor-prefix(opacity, .8);
+					background-color: $black;
+				}
+				div.preload-title {
+					position: absolute;
+					top: 30%;
+					width: 100%;
+					text-align: center;
+					h2 {
+						font-size: 2em;
+						padding: 0px 5px;
 						a {
-							font-size: .75em;
-							&:hover {
+							color: $white;
+							@include serif;
+						}
+					}
+				}
+			}
+			&.no-preload {
+				padding: 10px 15%;
+				nav {
+					ul {
+						height: 30px;
+						max-width: 800px;
+						border-top: 1px solid $gray;
+						margin: 0 auto;
+						padding: 0;
+						li {
+							display: block;
+							float: left;
+							padding: 5px;
+							a {
+								font-size: .75em;
+								&:hover {
 
+								}
 							}
 						}
 					}
