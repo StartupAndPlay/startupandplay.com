@@ -1,267 +1,267 @@
 body {
-	@include sans;
-	div.wrapper {
-		position: relative;
-		h1.logo {
-			position: fixed;
-			overflow: hidden;
-			height: 50px;
-			width: 50px;
-			top: 10px;
-			left: 10px;
-			margin: 0px;
-			z-index: 100;
-			a {
-				display: block;
-				height: 100%;
-				width: 100%;
-				img {
-					height: auto;
-					width: 100%;
-				}
-			}
-		}
-		div.masthead {
-			position: fixed;
-			width: 100%;
-			height: 450px;
-			top: 0;
-			right: 0;
-			left: 0;
-			bottom: 0;
-			@include breakpoint(max-med) {
-				position: absolute;
-			}
-			div.clear {
-				position: absolute;
-				height: 100%;
-				width: 100%;
-				@include vendor-prefix(background-size, cover);
-				background-position: center;
-			}
-			div.blur {
-				position: absolute;
-				height: 100%;
-				width: 100%;
-				@include vendor-prefix(background-size, cover);
-				background-position: center;
-				opacity: 0;
-			}
-		}
-		div.main {
-			position: relative;
-			clear: both;
-			color: #333;
-			section.main-front {
-				div.meta {
-					height: 65px;
-					h1 {
-						position: fixed;
-						overflow: hidden;
-						z-index: 100;
-						height: 50px;
-						width: 50px;
-						top: 10px;
-						left: 10px;
-						margin: 0px;
-						a {
-							display: block;
-							height: 100%;
-							width: 100%;
-							img {
-								height: auto;
-								width: 100%;
-							}
-						}
-					}
-				}
-				div.brand {
-					position: relative;
-					height: 300px;
-					text-align: center;
-					div.brand-wrapper {
-						position: absolute;
-						width: 100%;
-						top: 100px;
-						h1 {
-							@include serif;
-							font-size: 50px;
-							font-weight: 700;
-							text-shadow: 1px 1px 3px #333;
-							color: $white;
-						}
-						p {
-							@include serif;
-							font-size: 18px;
-							font-weight: 400;
-							text-shadow: 1px 1px 3px #333;
-							color: $white;
-						}
-						div.btn {
-							color: $white;
-							border-color: $white;
-							a {
-								display: block;
-								height: 100%;
-								width: 100%;
-								color: $white;
-								&:hover {
-									text-decoration: none;
-								}
-							}
-						}
-					}
-				}
-				nav.metanav {
-					height: 65px;
-				}
-				div.main-content {
-			    padding: 50px 15% 10px;
-			    width: 100%;
-    			background-color: $white;
-    			@include breakpoint(max-small) {
-    				padding: 50px 10% 10px;
-    			}
-			    article {
-			    	overflow: hidden;
-			    	max-width: 800px;
-			    	margin: 0 auto;
-			    	padding-bottom: 10px;
-			    	div.content-title {
-			    		float: left;
-					    max-width: 75%;
-					    @include breakpoint(max-small) {
-					    	float: none;
-					    	max-width: 100%;
-					    }
-			    		a {
-			    			&:hover { text-decoration: none; }
-			    			h2 {
-	    				    color: $h-gray;
-							    font-size: 28px;
-							    font-weight: 600;
-							    line-height: 1.2;
-							    -webkit-margin-before: 0em;
-							    -webkit-margin-after: 0em;
-			    			}
-			    		}
-			    		p.content-byline {
-	    			    float: left;
-						    clear: both;
-						    min-width: 100%;
-						    line-height: 1.2;
-						    padding: 4px 0;
-			    		}
-			    	}
-			    	div.content-avatar {
-	    		    float: right;
-					    text-align: center;
-					    min-width: 72px;
-					    @include breakpoint(max-small) {
-					    	float: none;
-					    }
-					    img {
-				        -moz-border-radius: 50%;
-						    -webkit-border-radius: 50%;
-						    border-radius: 50%;
-					    }
-			    		p {
-			    			padding: 0;
-			    			span.sticky-featured {
-			    				color: $play-blue;
-			    				i {}
-			    			}
-			    		}
-			    	}
-			    	div.content-excerpt {
-	    		    float: left;
-					    min-width: 100%;
-					    padding: 0px;
-					    margin-bottom: 10px;
-			    		p {
-			    			padding: 10px 0;
-			    			font-color: lighter;
-			    			font-weight: 300;
-			    		}
-			    	}
-			    }
-				}
-			}
-		}
-		footer {
-			position: relative;
-			background-color: $white;
-			min-height: 50px;
-			@include breakpoint(max-small) {
-				padding: 10px 10%;
-			}
-			&.preload {
-				position: relative;
-				padding: 0px;
-				div.preload-image {
-					min-height: 430px;
-					background-position: center;
-					@include vendor-prefix(background-size, cover);
-				}
-				div.preload-overlay {
-					position: absolute;
-					width: 100%;
-					min-height: 430px;
-					top: 0;
-					@include vendor-prefix(opacity, .8);
-					background-color: $black;
-				}
-				div.preload-title {
-					position: absolute;
-					top: 30%;
-					width: 100%;
-					text-align: center;
-					h2 {
-						font-size: 2em;
-						padding: 0px 5px;
-						a {
-							color: $white;
-							@include serif;
-						}
-					}
-				}
-			}
-			&.no-preload {
-				padding: 10px 15%;
-				nav {
-					ul {
-						height: 30px;
-						max-width: 800px;
-						border-top: 1px solid $gray;
-						margin: 0 auto;
-						padding: 0;
-						li {
-							display: block;
-							float: left;
-							padding: 5px;
-							a {
-								font-size: .75em;
-								&:hover {
+  @include sans;
+  div.wrapper {
+    position: relative;
+    h1.logo {
+      position: fixed;
+      overflow: hidden;
+      height: 50px;
+      width: 50px;
+      top: 10px;
+      left: 10px;
+      margin: 0px;
+      z-index: 100;
+      a {
+        display: block;
+        height: 100%;
+        width: 100%;
+        img {
+          height: auto;
+          width: 100%;
+        }
+      }
+    }
+    div.masthead {
+      position: fixed;
+      width: 100%;
+      height: 450px;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      @include breakpoint(max-med) {
+        position: absolute;
+      }
+      div.clear {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        @include vendor-prefix(background-size, cover);
+        background-position: center;
+      }
+      div.blur {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        @include vendor-prefix(background-size, cover);
+        background-position: center;
+        opacity: 0;
+      }
+    }
+    div.main {
+      position: relative;
+      clear: both;
+      color: #333;
+      section.main-front {
+        div.meta {
+          height: 65px;
+          h1 {
+            position: fixed;
+            overflow: hidden;
+            z-index: 100;
+            height: 50px;
+            width: 50px;
+            top: 10px;
+            left: 10px;
+            margin: 0px;
+            a {
+              display: block;
+              height: 100%;
+              width: 100%;
+              img {
+                height: auto;
+                width: 100%;
+              }
+            }
+          }
+        }
+        div.brand {
+          position: relative;
+          height: 300px;
+          text-align: center;
+          div.brand-wrapper {
+            position: absolute;
+            width: 100%;
+            top: 100px;
+            h1 {
+              @include serif;
+              font-size: 50px;
+              font-weight: 700;
+              text-shadow: 1px 1px 3px #333;
+              color: $white;
+            }
+            p {
+              @include serif;
+              font-size: 18px;
+              font-weight: 400;
+              text-shadow: 1px 1px 3px #333;
+              color: $white;
+            }
+            div.btn {
+              color: $white;
+              border-color: $white;
+              a {
+                display: block;
+                height: 100%;
+                width: 100%;
+                color: $white;
+                &:hover {
+                  text-decoration: none;
+                }
+              }
+            }
+          }
+        }
+        nav.metanav {
+          height: 65px;
+        }
+        div.main-content {
+          padding: 50px 15% 10px;
+          width: 100%;
+          background-color: $white;
+          @include breakpoint(max-small) {
+            padding: 50px 10% 10px;
+          }
+          article {
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 10px;
+            div.content-title {
+              float: left;
+              max-width: 75%;
+              @include breakpoint(max-small) {
+                float: none;
+                max-width: 100%;
+              }
+              a {
+                &:hover { text-decoration: none; }
+                h2 {
+                  color: $h-gray;
+                  font-size: 28px;
+                  font-weight: 600;
+                  line-height: 1.2;
+                  -webkit-margin-before: 0em;
+                  -webkit-margin-after: 0em;
+                }
+              }
+              p.content-byline {
+                float: left;
+                clear: both;
+                min-width: 100%;
+                line-height: 1.2;
+                padding: 4px 0;
+              }
+            }
+            div.content-avatar {
+              float: right;
+              text-align: center;
+              min-width: 72px;
+              @include breakpoint(max-small) {
+                float: none;
+              }
+              img {
+                -moz-border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+              }
+              p {
+                padding: 0;
+                span.sticky-featured {
+                  color: $play-blue;
+                  i {}
+                }
+              }
+            }
+            div.content-excerpt {
+              float: left;
+              min-width: 100%;
+              padding: 0px;
+              margin-bottom: 10px;
+              p {
+                padding: 10px 0;
+                font-color: lighter;
+                font-weight: 300;
+              }
+            }
+          }
+        }
+      }
+    }
+    footer {
+      position: relative;
+      background-color: $white;
+      min-height: 50px;
+      @include breakpoint(max-small) {
+        padding: 10px 10%;
+      }
+      &.preload {
+        position: relative;
+        padding: 0px;
+        div.preload-image {
+          min-height: 430px;
+          background-position: center;
+          @include vendor-prefix(background-size, cover);
+        }
+        div.preload-overlay {
+          position: absolute;
+          width: 100%;
+          min-height: 430px;
+          top: 0;
+          @include vendor-prefix(opacity, .8);
+          background-color: $black;
+        }
+        div.preload-title {
+          position: absolute;
+          top: 30%;
+          width: 100%;
+          text-align: center;
+          h2 {
+            font-size: 2em;
+            padding: 0px 5px;
+            a {
+              color: $white;
+              @include serif;
+            }
+          }
+        }
+      }
+      &.no-preload {
+        padding: 10px 15%;
+        nav {
+          ul {
+            height: 30px;
+            max-width: 800px;
+            border-top: 1px solid $gray;
+            margin: 0 auto;
+            padding: 0;
+            li {
+              display: block;
+              float: left;
+              padding: 5px;
+              a {
+                font-size: .75em;
+                &:hover {
 
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		.fourOHfour {
-		max-width: 800px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .fourOHfour {
+    max-width: 800px;
     text-align: center;
     margin: 0 auto;
-    	h1 {
-    		color: #68c6c5;
-    		margin-top: 50px;
-    		font-size: 72px;
-    	}
-    	p {
-    		padding: 20px 5px 20px;
-    	}
-		}
-	}
+      h1 {
+        color: #68c6c5;
+        margin-top: 50px;
+        font-size: 72px;
+      }
+      p {
+        padding: 20px 5px 20px;
+      }
+    }
+  }
 }
