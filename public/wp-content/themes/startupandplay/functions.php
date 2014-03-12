@@ -24,8 +24,6 @@ register_nav_menus( array(
 ) );
 
 function get_excerpt($count){
-	global $post;
-	$permalink = $post->ID;
 	$excerpt = get_the_content();
 	$excerpt = strip_tags($excerpt);
 	$excerpt = substr($excerpt, 0, $count);

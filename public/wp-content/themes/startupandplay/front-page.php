@@ -61,7 +61,7 @@ endwhile; endif;
               </p>
             </div>
             <div class="content-excerpt">
-                <p><?php echo get_excerpt(210) ?></p>
+              <p><?php echo get_excerpt(210) ?></p>
             </div>
                       
           </article>
