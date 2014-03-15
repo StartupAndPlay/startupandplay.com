@@ -15,7 +15,7 @@ if(is_page('contact') OR is_page('apply-to-showcase')) {
         <article class="page-post">
 
                 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-    
+
                     <h1><?php the_title(); ?></h1>
                     <?php the_content(); ?>
                 

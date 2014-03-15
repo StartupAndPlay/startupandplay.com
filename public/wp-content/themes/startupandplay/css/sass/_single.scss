@@ -1,78 +1,81 @@
 body {
-	div.wrapper {
-		div.main {
-			section.main-single {
-				div.blocker {
-					height: 430px;
-				}
-				div.single-content {
-			    padding: 10px 15%;
-			    width: 100%;
-			    background-color: $white;
-			    @include breakpoint(max-small) {
-			    	padding: 50px 10%;
-			    }
-					article.single-post {
-			    	overflow: hidden;
-			    	max-width: 800px;
-			    	margin: 0 auto;
-			    	padding-bottom: 20px;
-						div.single-post-image {
-							img {
-								width: 100%;
-								height: auto;
-							}
-						}
-						div.single-post-title {
+  div.wrapper {
+    div.main {
+      section.main-single {
+        div.blocker {
+          height: 430px;
+          @include breakpoint(max-small) {
+            height: 300px;
+          }
+        }
+        div.single-content {
+          padding: 10px 15%;
+          width: 100%;
+          background-color: $white;
+          @include breakpoint(max-small) {
+            padding: 50px 10%;
+          }
+          article.single-post {
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 20px;
+            div.single-post-image {
+              img {
+                width: 100%;
+                height: auto;
+              }
+            }
+            div.single-post-title {
 
-						}
-						div.single-post-content {
-							p {
-								font-size: 16px;
-								font-weight: 300;
-							}
-							img {
-								max-width: 100%;
-								height: auto;
-							}
-						}
-					}
-					aside.single-info {
-						overflow: hidden;
-						max-width: 800px;
-						margin: 25px auto;
-						padding: 15px 0px;
-						border-top: 1px solid $gray;
-						div.single-info-avatar {
-							position: relative;
-							float: left;
-							height: 100px;
-							width: 100px;
-							padding: 10px;
-							img {
-								@include vendor-prefix(border-radius, 50%);
-							}
-						}
-						div.single-info-vcard {
-							position: relative;
-							float: left;
-							max-width: 700px;
-							padding: 10px;
-							h2 {
-								margin: 0;
-							}
-						}
-						div.single-info-description {
-							clear: both;
-							padding: 10px;
-						}
-					}
-					div#disqus_thread {
-						max-width: 800px;
-						margin: 0 auto;
-					}
-				}
-			}
-		}
-	}
+            }
+            div.single-post-content {
+              p {
+                font-size: 16px;
+                font-weight: 300;
+              }
+              img {
+                max-width: 100%;
+                height: auto;
+              }
+            }
+          }
+          aside.single-info {
+            overflow: hidden;
+            max-width: 800px;
+            margin: 25px auto;
+            padding: 15px 0px;
+            border-top: 1px solid $gray;
+            div.single-info-avatar {
+              position: relative;
+              float: left;
+              height: 100px;
+              width: 100px;
+              padding: 10px;
+              img {
+                @include vendor-prefix(border-radius, 50%);
+              }
+            }
+            div.single-info-vcard {
+              position: relative;
+              float: left;
+              max-width: 700px;
+              padding: 10px;
+              h2 {
+                margin: 0;
+              }
+            }
+            div.single-info-description {
+              clear: both;
+              padding: 10px;
+            }
+          }
+          div#disqus_thread {
+            max-width: 800px;
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+  }
 }

@@ -1,24 +1,24 @@
 body {
-	div.main {
-		section.main-page {
-			div.page-content {
-				width: 100%;
-				padding: 10px 15%;
-				background-color: #fff;
-				article.page-post {
-					overflow: hidden;
-					max-width: 800px;
-					margin: 0 auto;
-					padding-bottom: 20px;
-					h1 {}
-					p {
-						font-weight: 300;
-					}
-					div {
-						font-weight: 300;
-					}
-				}
-			}
-		}
-	}
+  div.main {
+    section.main-page {
+      div.page-content {
+        width: 100%;
+        padding: 10px 15%;
+        background-color: #fff;
+        article.page-post {
+          overflow: hidden;
+          max-width: 800px;
+          margin: 0 auto;
+          padding-bottom: 20px;
+          h1 {}
+          p {
+            font-weight: 300;
+          }
+          div {
+            font-weight: 300;
+          }
+        }
+      }
+    }
+  }
 }

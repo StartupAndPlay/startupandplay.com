@@ -30,7 +30,7 @@ endwhile; endif;
       </div>
       <nav class="metanav"></nav>
       <div class="main-content">
-                        
+
         <?php
         $args = array(
             'post_type'      => 'post',
@@ -38,7 +38,7 @@ endwhile; endif;
             'order'          => 'DESC',
             'orderby'        => 'date',
         );
-                  
+
         $wp_query = new WP_Query( $args );
         if ( $wp_query->have_posts() ) :
       
@@ -49,11 +49,11 @@ endwhile; endif;
               <a href="<?php the_permalink(); ?>">
                 <h2><?php the_title(); ?></h2>
               </a>
-                          
+
               <p class="content-byline"><?php the_author(); ?></p>
                       
             </div>
-            <div class="content-avatar"><?php echo get_avatar( get_the_author_meta( 'ID' ), 72 ); ?>                    
+            <div class="content-avatar"><?php echo get_avatar( get_the_author_meta( 'ID' ), 72 ); ?>
               <p>
                 <?php if ( is_sticky() ) : ?>
                 <span class="sticky-featured"><i class="fa fa-bookmark"></i>Featured</span>
@@ -63,14 +63,12 @@ endwhile; endif;
             <div class="content-excerpt">
               <p><?php echo get_excerpt(210) ?></p>
             </div>
-                      
           </article>
-                  
+
         <?php
         endwhile;
-        endif; wp_reset_query(); 
-        ?>
-                  
+        endif; wp_reset_query(); ?>
+
       </div>
     </section>
 

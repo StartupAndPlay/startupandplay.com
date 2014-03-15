@@ -1,70 +1,70 @@
 #contact {
-	list-style:none;
-	margin:0;
+  list-style:none;
+  margin:0;
   height: 100%;
   padding: 0;
 }
 
 #contact li {
-	float: left;
+  float: left;
   clear: both;
-	margin:0 0 10px;
+  margin:0 0 10px;
   position: relative;
   width: 100%;
 }
 
 #contact li .text {
-	background: #F0EFEF;
-	padding:15px 10px 10px 0;
-	position: relative;
-	z-index:100;
-	min-width:85px;
-	border-bottom-right-radius: 5px;
-	-moz-border-radius-bottomright:5px;
-	-webkit-border-bottom-right-radius:5px;
-	border-top-left-radius: 5px;
-	-moz-border-radius-topleft:5px;
-	-webkit-border-top-left-radius:5px;
-	text-indent: 5px;
+  background: #F0EFEF;
+  padding:15px 10px 10px 0;
+  position: relative;
+  z-index:100;
+  min-width:85px;
+  border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomright:5px;
+  -webkit-border-bottom-right-radius:5px;
+  border-top-left-radius: 5px;
+  -moz-border-radius-topleft:5px;
+  -webkit-border-top-left-radius:5px;
+  text-indent: 5px;
 }
 #contact li .required {
-	position: relative;
-	right:10px;
-	top:10px;
-	z-index:100;
+  position: relative;
+  right:10px;
+  top:10px;
+  z-index:100;
 }
 
 #contact li .wpcf7-form-control-wrap {
-	position: relative;
+  position: relative;
 }
 
 #contact li .wpcf7-form-control-wrap input, #contact li .wpcf7-form-control-wrap textarea {
-	background:#fff;
-	border:solid 1px $h-gray;
-	border-radius:5px;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	padding:15px 10px 25px;
-	width: 100%;
-	z-index:100;
-	margin:0;
+  background:#fff;
+  border:solid 1px $h-gray;
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  padding:15px 10px 25px;
+  width: 100%;
+  z-index:100;
+  margin:0;
   font-size: 16px;
 }
 
 #contact li .wpcf7-form-control-wrap input:focus, #contact li .wpcf7-form-control-wrap textarea:focus {
-	background: $white;
+  background: $white;
   border:solid 1px $h-gray;
   outline: none !important;
 }
 
 #contact li .wpcf7-form-control-wrap textarea {
-	line-height: 28px;
+  line-height: 28px;
   padding: 10px;
-	height:200px;
+  height:200px;
 }
 
 #contact li#message {
-	min-height:220px;
+  min-height:220px;
 }
 
 #contact li#submit input {
@@ -85,7 +85,7 @@
 }
 
 #contact li#submit input:hover {
-	background-color: $white;
+  background-color: $white;
 }
 
 div.wpcf7-validation-errors {

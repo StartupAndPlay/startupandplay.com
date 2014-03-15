@@ -38,6 +38,9 @@ body {
         width: 100%;
         @include vendor-prefix(background-size, cover);
         background-position: center;
+        @include breakpoint(max-small) {
+          max-height: 300px;
+        }
       }
       div.blur {
         position: absolute;
@@ -46,6 +49,9 @@ body {
         @include vendor-prefix(background-size, cover);
         background-position: center;
         opacity: 0;
+        @include breakpoint(max-small) {
+          display: none;
+        }
       }
     }
     div.main {
@@ -79,16 +85,25 @@ body {
           position: relative;
           height: 300px;
           text-align: center;
+          @include breakpoint(max-small) {
+            height: 200px;
+          }
           div.brand-wrapper {
             position: absolute;
             width: 100%;
             top: 100px;
+            @include breakpoint(max-small) {
+              top: 0px;
+            }
             h1 {
               @include serif;
               font-size: 50px;
               font-weight: 700;
               text-shadow: 1px 1px 3px #333;
               color: $white;
+              @include breakpoint(max-small) {
+                margin: 0;
+              }
             }
             p {
               @include serif;
@@ -114,6 +129,9 @@ body {
         }
         nav.metanav {
           height: 65px;
+          @include breakpoint(max-small){
+            height: 40px;
+          }
         }
         div.main-content {
           padding: 50px 15% 10px;
