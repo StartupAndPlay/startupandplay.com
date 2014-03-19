@@ -105,7 +105,7 @@ body {
             width: 100%;
             top: 100px;
             @include breakpoint(max-small) {
-              top: 0px;
+              top: 25px;
             }
             h1 {
               @include serif;
