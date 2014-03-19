@@ -27,23 +27,25 @@
       }
     }
     wp_head(); ?>
-    
+
 </head>
 <body <?php body_class(); ?>>
-  <div class="wrapper"><?php /*
-    // Add later -- not crucial for relaunch
-    if (!is_page('home')) {
-      <header>
-        <nav>
-          <div class="container">
-            <ul>
-              <?php wp_nav_menu(array('container' => 'false' )); ?>
-            </ul>
-          </div>
-        </nav>
-      </header>
-    }*/ 
-    if (!is_page('home')) {
-      echo '<h1 class="logo"><a href="/"><img src="/wp-content/themes/startupandplay/img/startup-and-play-square.png" alt="Startup and Play" /></a></h1>';
-    }
-    ?>
+  <div class="wrapper">
+    <h1 class="logo"><a href="/"><img src="/wp-content/themes/startupandplay/img/startup-and-play-square.png" alt="Startup and Play" /></a></h1>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="main-nav">
+          <ul class="nav navbar-nav navbar-right">
+             <?php wp_nav_menu(array('container' => 'false' )); ?>
+          </ul>
+        </div>
+      </div>
+    </nav>

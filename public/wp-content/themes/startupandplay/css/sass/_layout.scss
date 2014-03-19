@@ -2,15 +2,26 @@ body {
   @include sans;
   div.wrapper {
     position: relative;
+    nav.navbar {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      right: 0;
+      z-index: 100;
+      background-color: $white;
+      border-color: transparent;
+      @include vendor-prefix(border-radius, 0);
+    }
+
     h1.logo {
       position: fixed;
       overflow: hidden;
       height: 50px;
       width: 50px;
-      top: 10px;
-      left: 10px;
+      top: 0px;
+      left: 15px;
       margin: 0px;
-      z-index: 100;
+      z-index: 101;
       a {
         display: block;
         height: 100%;
@@ -56,6 +67,7 @@ body {
     }
     div.main {
       position: relative;
+      margin-top: 50px;
       clear: both;
       color: #333;
       section.main-front {
@@ -246,6 +258,9 @@ body {
       }
       &.no-preload {
         padding: 10px 15%;
+        @include breakpoint(max-small) {
+          padding: 10px 10%;
+        }
         nav {
           ul {
             height: 30px;
