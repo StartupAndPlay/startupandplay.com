@@ -3,8 +3,8 @@ get_header();
 
 if(is_page('contact') OR is_page('apply-to-showcase')) {
   if ( function_exists( 'wpcf7_enqueue_scripts' ) ) {
+    define('DONOTCACHEPAGE', true);
     wpcf7_enqueue_scripts();
-    wpcf7_enqueue_styles();
   }
 }
 ?>
