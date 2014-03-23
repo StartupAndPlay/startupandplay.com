@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="google-site-verification" content="Xt_HP6hygvKQH5SDo_bXPCvYdX51-THQTx6cERu_n7c" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
     <link rel="icon" href="/wp-content/themes/startupandplay/img/favicon.png" />
     <title><?php wp_title('|'); ?></title>
