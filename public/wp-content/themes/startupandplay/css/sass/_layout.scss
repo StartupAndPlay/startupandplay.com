@@ -1,4 +1,6 @@
 body {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   @include sans;
   div.wrapper {
     position: relative;
@@ -36,12 +38,14 @@ body {
       position: fixed;
       width: 100%;
       height: 450px;
+      padding-top: 50px;
       top: 0;
       right: 0;
       left: 0;
       bottom: 0;
       @include breakpoint(max-med) {
         position: absolute;
+        padding-top: 0px;
       }
       div.clear {
         position: absolute;
