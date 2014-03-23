@@ -8,7 +8,7 @@ function enqueue_scripts() {
   wp_enqueue_script('main', get_bloginfo('template_directory') . '/js/main.js', array('jquery'), null, true);
 
   // HTML5 & responsive fallbacks
-  //wp_enqueue_script('modernizr', get_bloginfo('template_directory') . '/js/modernizr.js', false, null, false);
+  wp_enqueue_script('modernizr', get_bloginfo('template_directory') . '/js/modernizr.js', false, null, false);
   //wp_enqueue_script('respond', get_bloginfo('template_directory') . '/js/respond.min.js', false, null, false);
 
   // Font Awesome stylesheet 
