@@ -19,9 +19,21 @@
         } else { ?>
           <footer class="no-preload">
             <nav>
-              <ul>
-                <?php wp_nav_menu(array('menu' => 'main-navigation','container' => 'false' )); ?>
-              </ul>
+              <div class="row">
+                <div class="col-sm-6">
+                  <ul class="menu">
+                    <?php wp_nav_menu(array('menu' => 'main-navigation','container' => 'false' )); ?>
+                  </ul>
+                </div>
+                <div class="col-sm-6">
+                  <ul class="social">
+                    <li><a href="https://twitter.com/startupandplay" target="_blank"><i class="fa fa-twitter-square"></i></a></li>
+                    <li><a href="https://www.facebook.com/StartupAndPlay" target="_blank"><i class="fa fa-facebook-square"></i></a></li>
+                    <li><a href="https://plus.google.com/+Startupandplay/" target="_blank"><i class="fa fa-google-plus-square"></i></a></li>
+                    <li><a href="https://github.com/StartupAndPlay" target="_blank"><i class="fa fa-github-square"></i></a></li>
+                  </ul>
+                </div>
+              </div>
             </nav>
           </footer><?php
         } ?>

@@ -266,16 +266,39 @@ body {
           padding: 10px 10%;
         }
         nav {
+          max-width: 800px;
+          margin: 0 auto;
+          border-top: 1px solid $gray;
           ul {
             height: 30px;
-            max-width: 800px;
-            border-top: 1px solid $gray;
-            margin: 0 auto;
             padding: 0;
+            &.menu {
+              float: left;
+              @include breakpoint(max-small) {
+                float: none;
+                margin: 0 auto;
+                text-align: center;
+              }
+            }
+            &.social {
+              float: right;
+              @include breakpoint(max-small) {
+                float: none;
+                margin: 0 auto;
+                text-align: center;
+              }
+              i.fa {
+                font-size: 1.8em;
+              }
+            }
             li {
-              display: block;
+              display: inline;
               float: left;
               padding: 5px;
+              @include breakpoint(max-small) {
+                float: none;
+                
+              }
               a {
                 font-size: .75em;
                 &:hover {
