@@ -129,15 +129,20 @@ body {
               color: $white;
             }
             div.btn {
-              color: $white;
+              padding: 0px;
               border-color: $white;
+              &:hover {
+                border-color: darken($white, 10%);
+              }
               a {
+                padding: 8px 12px;
                 display: block;
                 height: 100%;
                 width: 100%;
                 color: $white;
                 &:hover {
                   text-decoration: none;
+                  color: darken($white, 10%);
                 }
               }
             }
