@@ -8,27 +8,38 @@
 get_header(); ?>
 
 <div class="main">
-  <section class="main-page">
+  <section class="main-page team">
     <div class="page-content">
       <article class="page-post">
 
         <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-    
+
           <h1><?php the_title(); ?></h1><?php
 
           $teamRepeater = get_field('team_repeater');
           foreach ($teamRepeater as $member) {
-            $name = $member['member_name'];
+
             $avatar = $member['member_avatar'];
-              $avatarID = $avatar['id'];
-            $bio = $member['member_bio'];
+              $avatarURL = $avatar['url'];
+              $avatarAlt = $avatar['alt'];
+              $avatarTitle = $avatar['title'];
 
-            echo $name.$bio;
+            echo '<div class="row">';
+            echo '<div class="col-md-12 member">';
+            echo '<img src="'.$avatarURL.'" title="'.$avatarTitle.'" alt='.$avatarAlt.'>';
+            echo '<h2>'.$member['member_name'].'</h2>';
+            echo '<ul>';
+            if($member['member_twitter']) {
+              echo '<li><a href="https://twitter.com/'.$member['member_twitter'].'"><i class="fa fa-twitter-square"></i></a></li>';
+            }
+            if($member['member_google']) {
+              echo '<li><a href="https://plus.google.com/'.$member['member_google'].'"><i class="fa fa-google-plus-square"></i></a></li>';
+            }
+            echo '</ul>';
+            echo '<p>'.$member['member_bio'].'</p>';
+            echo '</div></div>';
+          } ?>
 
-          }
-          ?>
-                    
-                
           <?php endwhile; else: ?>
           
               <p><?php _e('Sorry, this page does not exist.'); ?></p>

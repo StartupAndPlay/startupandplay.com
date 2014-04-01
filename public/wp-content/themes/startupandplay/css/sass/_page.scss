@@ -19,6 +19,33 @@ body {
           }
         }
       }
+    &.team {
+      div.member {
+        text-align: center;
+        img {
+          margin: 15px;
+          @include border-radius(50%);
+        }
+        h2 {
+          margin: 10px 0px;
+        }
+        ul {
+          padding: 0;
+          list-style: none;
+          list-style-image: none;
+          li {
+            display: inline;
+            padding: 5px;
+            font-size: 1.8em;
+            a {
+              i {
+
+              }
+            }
+          }
+        }
+      }
+    }
     }
   }
 }
