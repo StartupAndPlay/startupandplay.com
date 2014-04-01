@@ -30,10 +30,10 @@ get_header(); ?>
             echo '<h2>'.$member['member_name'].'</h2>';
             echo '<ul>';
             if($member['member_twitter']) {
-              echo '<li><a href="https://twitter.com/'.$member['member_twitter'].'"><i class="fa fa-twitter-square"></i></a></li>';
+              echo '<li><a href="https://twitter.com/'.$member['member_twitter'].'" target="_blank"><i class="fa fa-twitter-square"></i></a></li>';
             }
             if($member['member_google']) {
-              echo '<li><a href="https://plus.google.com/'.$member['member_google'].'"><i class="fa fa-google-plus-square"></i></a></li>';
+              echo '<li><a href="https://plus.google.com/'.$member['member_google'].'" target="_blank"><i class="fa fa-google-plus-square"></i></a></li>';
             }
             echo '</ul>';
             echo '<p>'.$member['member_bio'].'</p>';
