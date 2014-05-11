@@ -1,27 +1,19 @@
 <?php
 
-if ('wp-optimize-common.php' == basename($_SERVER['SCRIPT_FILENAME']))
-	die ('Please do not access this file directly. Thanks!');
+# --------------------------------------- #
+# prevent file from being accessed directly
+# --------------------------------------- #
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
 // common functions
 if (! defined('WPO_PLUGIN_MAIN_PATH'))
 	define('WPO_PLUGIN_MAIN_PATH', plugin_dir_path( __FILE__ ));
             
-if (! defined('WPO_PLUGIN_PATH'))
-	define('WPO_PLUGIN_PATH', plugin_dir_url( __FILE__ ));
+if (! defined('WPO_PLUGIN_URL'))
+	define('WPO_PLUGIN_URL', plugin_dir_url( __FILE__ ));
 	
-if (! defined('WP_CONTENT_DIR'))
-    define('WP_CONTENT_DIR', ABSPATH . 'wp-content');
-
-if (! defined('WP_CONTENT_URL'))
-    define('WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
-
-if (! defined('WP_ADMIN_URL'))
-    define('WP_ADMIN_URL', get_option('siteurl') . '/wp-admin');
-
-if (! defined('WP_PLUGIN_DIR'))
-    define('WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins');
-
 if (! defined('OPTION_NAME_SCHEDULE'))
     define('OPTION_NAME_SCHEDULE', 'wp-optimize-schedule');	
 
@@ -43,6 +35,30 @@ if (! defined('OPTION_NAME_ENABLE_ADMIN_MENU'))
 if (! defined('OPTION_NAME_TOTAL_CLEANED'))
     define('OPTION_NAME_TOTAL_CLEANED', 'wp-optimize-total-cleaned');
 	
+
+/**
+ * wpo_detectDBType()
+ * 
+ * @return void
+ */
+function wpo_detectDBType() {
+
+	global $wpdb;
+    //global $table_prefix;
+	$tablestype = $wpdb->get_results("SHOW TABLE STATUS WHERE Name = '$wpdb->options'");
+	foreach($tablestype as  $tabletype) {
+		$table_engine = $tabletype->Engine;
+	}	
+	
+	$wpo_table_type = strtolower(strval($table_engine));
+	
+if (! defined('WPO_TABLE_TYPE'))      
+        define( WPO_TABLE_TYPE,$wpo_table_type);
+
+return $wpo_table_type;
+       
+}
+
 /*
  * function wpo_getRetainInfo()
  * 
@@ -94,24 +110,10 @@ function wpo_debugLog($message) {
  */
 function wpo_headerImage(){
 	
-	$text = '<img src="'.WPO_PLUGIN_PATH.'/wp-optimize.png" border="0" alt="WP-Optimize" title="WP-Optimize" width="310px"/><br />';
-    //$text .= '<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.ruhanirabin.com%2Fwp-optimize%2F&amp;layout=standard&amp;show_faces=true&amp;width=450&amp;action=like&amp;font=lucida+grande&amp;colorscheme=light&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:400px; height:26px;" allowTransparency="true"></iframe>'
-	$text .='<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.ruhanirabin.com%2Fwp-optimize%2F&amp;width=400&amp;height=46&amp;colorscheme=light&amp;layout=standard&amp;action=like&amp;show_faces=false&amp;send=true&amp;" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:400px; height:46px;" allowTransparency="true"></iframe>';
+	$text = '<img src="'.WPO_PLUGIN_URL.'/wp-optimize.png" border="0" alt="WP-Optimize" title="WP-Optimize" width="310px" height="auto"/><br />';
+
+	$text .='<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.ruhanirabin.com%2Fwp-optimize%2F&amp;width=310&amp;height=46&amp;colorscheme=light&amp;layout=standard&amp;action=like&amp;show_faces=false&amp;send=true&amp;" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:310px; height:46px;" allowTransparency="true"></iframe>';
 	echo $text;
-	$total_cleaned = get_option(OPTION_NAME_TOTAL_CLEANED);
-    $total_cleaned_num = floatval($total_cleaned);
-    
-    if ($total_cleaned_num  > 0){
-        echo '<h3>';
-        _e('Total clean up overall','wp-optimize');
-        echo ': ';
-        echo '<font color="green">';
-        echo $total_cleaned.' '.__('Kb', 'wp-optimize');
-        echo '</font>';
-        echo '</h3>';
-        echo '<br />';
-        
-    }    
 	
 }
 
@@ -176,6 +178,7 @@ function wpo_cron_action() {
 			
             
                 // trash posts
+				// TODO:  query trashed posts and cleanup metadata 
     			$clean = "DELETE FROM $wpdb->posts WHERE post_status = 'trash'";
                 if ($retention_enabled == 'true') {
                     $clean .= ' and post_modified < NOW() - INTERVAL ' .  $retention_period . ' WEEK';
@@ -194,13 +197,25 @@ function wpo_cron_action() {
                 $comments = $wpdb->query( $clean );			
             			
             // trashed comments
-    			//$clean = "DELETE FROM $wpdb->comments WHERE comment_approved = 'post-trashed'";
-    			$clean = "DELETE FROM $wpdb->comments WHERE comment_approved = 'trash'";
+			// TODO:  query trashed comments and cleanup metadata 
+                $clean = "DELETE FROM $wpdb->comments WHERE comment_approved = 'trash'";
                 if ($retention_enabled == 'true') {
     				$clean .= ' and comment_date < NOW() - INTERVAL ' . $retention_period . ' WEEK';
                 }
                 $clean .= ';';			
                 $commentstrash = $wpdb->query( $clean );
+                
+			// TODO:  still need to test now cleaning up comments meta tables 
+//                $clean = "DELETE FROM $wpdb->commentmeta WHERE comment_id NOT IN ( SELECT comment_id FROM $wpdb->comments )";
+//                $clean .= ';';			
+//                $commentstrash1 = $wpdb->query( $clean );                
+
+			// TODO:  still need to test now cleaning up comments meta tables - removing akismet related settings 
+//                $clean = "DELETE FROM $wpdb->commentmeta WHERE meta_key LIKE '%akismet%'";
+//                $clean .= ';';			
+//                $commentstrash2 = $wpdb->query( $clean );                
+
+
 			}
             
             // transient options
@@ -211,10 +226,12 @@ function wpo_cron_action() {
             }
 
             // postmeta
+			// TODO:  refactor this with proper query
             if ($this_options['postmeta'] == 'true'){
     			$clean = "DELETE pm FROM  $wpdb->postmeta  pm LEFT JOIN  $wpdb->posts  wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL";
                 $clean .= ';';			
-                $postmeta = $wpdb->query( $clean );
+                 
+				//$postmeta = $wpdb->query( $clean );
             }
 
             // unused tags
@@ -225,6 +242,9 @@ function wpo_cron_action() {
             }
 			
 		//db optimize part - optimize
+        // disble optimization if innoDB
+        if (WPO_TABLE_TYPE != 'innodb'){
+
         if ($this_options['optimize'] == 'true'){            
     
             $db_tables = $wpdb->get_results('SHOW TABLES',ARRAY_A);
@@ -240,12 +260,13 @@ function wpo_cron_action() {
     		list($part1, $part2) = wpo_getCurrentDBSize();
      
             update_option( OPTION_NAME_LAST_OPT, $thisdate );
-            wpo_updateTotalCleaned($part2);
+            wpo_updateTotalCleaned(strval($part2));
             wpo_debugLog('Updating options with value +'.$part2);
 
         } // endif $this_options['optimize'] 
+        } //end if if (WPO_TABLE_TYPE != 'innodb'){
 		
-	}	
+	}	// end if ( get_option(OPTION_NAME_SCHEDULE) == 'true')
 }	
 
 /*
@@ -315,6 +336,27 @@ function wpo_PluginOptionsSetDefaults() {
     	
 } 
 
+
+/**
+ * wpo_format_size()
+ * Function: Format Bytes Into KB/MB
+ * @param mixed $rawSize
+ * @return
+ */
+  if(!function_exists('wpo_format_size')) {
+
+	function wpo_format_size($rawSize) {
+		if($rawSize / 1073741824 > 1)
+			return number_format_i18n($rawSize/1048576, 1) . ' '.__('Gb', 'wp-optimize');
+		else if ($rawSize / 1048576 > 1)
+			return number_format_i18n($rawSize/1048576, 1) . ' '.__('Mb', 'wp-optimize');
+		else if ($rawSize / 1024 > 1)
+			return number_format_i18n($rawSize/1024, 1) . ' '.__('Kb', 'wp-optimize');
+		else
+			return number_format_i18n($rawSize, 0) . ' '.__('bytes', 'wp-optimize');
+	}
+}
+
 /*
  * function wpo_getCurrentDBSize()
  * 
@@ -325,35 +367,28 @@ function wpo_PluginOptionsSetDefaults() {
  * @return array $total size, $gain
  */
 function wpo_getCurrentDBSize(){
-	$tot_data = 0; $total_gain = 0; $total_db_space = 0; $total_db_space_a = 0;
-	$tot_idx = 0;
-	$tot_all = 0;
-	$local_query = 'SHOW TABLE STATUS FROM `'. DB_NAME.'`';
-	$result = mysql_query($local_query);
-	if (mysql_num_rows($result) && is_resource($result)){
-		while ($row = mysql_fetch_array($result))
-		{
-			$tot_data = $row['Data_length'];
-			$tot_idx  = $row['Index_length'];
-			$total = $tot_data + $tot_idx;
-			$total = $total / 1024 ;
-			$total = round ($total,3);
-
-			$total_db_space = $tot_data + $tot_idx;
-			$total_db_space = $total_db_space / 1024 ;
-			$total_db_space_a += $total_db_space;
-			$total_db_space = round ($total_db_space,3);
-			
-			$gain= $row['Data_free'];
-			$gain = $gain / 1024 ;
-			$total_gain += $gain;
-			$gain = round ($gain,3);
-		
-			
-		}
-	return array (round($total_db_space_a,3), round($total_gain,3));	
+	global $wpdb;
+	$total_gain = 0;
+	$total_size = 0;
+	$no = 0;
+	$row_usage = 0;
+	$data_usage = 0;
+	$index_usage = 0;
+	$overhead_usage = 0;
+	$tablesstatus = $wpdb->get_results("SHOW TABLE STATUS");
+	foreach($tablesstatus as  $tablestatus) {
+		$row_usage += $tablestatus->Rows;
+		$data_usage += $tablestatus->Data_length;
+		$index_usage +=  $tablestatus->Index_length;
+		$overhead_usage += $tablestatus->Data_free;
+		$total_gain += $tablestatus->Data_free;
+	}	
+	
+	$total_size = $data_usage + $index_usage;
+	return array (wpo_format_size($total_size), wpo_format_size($total_gain));
+    //$wpdb->flush();
 	}
-} // end of function wpo_getCurrentDBSize
+ // end of function wpo_getCurrentDBSize
 
 /*
  * function wpo_updateTotalCleaned($current)
@@ -377,7 +412,7 @@ function wpo_updateTotalCleaned($current){
     
     return $total_now; 	
 	
-} // end of function wpo_getCurrentDBSize
+} // end of function wpo_updateTotalCleaned
 
 /*
  * function wpo_cleanUpSystem($cleanupType)
@@ -401,13 +436,13 @@ function wpo_cleanUpSystem($cleanupType){
 			$transient_options = $wpdb->query( $clean );
             $message .= $transient_options.' '.__('transient options deleted', 'wp-optimize').'<br>';
             break;
-
+		// TODO:  need to use proper query
         case "postmeta":
             $clean = "DELETE pm FROM  $wpdb->postmeta  pm LEFT JOIN  $wpdb->posts  wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL";
             $clean .= ';';
 			
-			$postmeta = $wpdb->query( $clean );
-            $message .= $postmeta.' '.__('orphaned postmeta deleted', 'wp-optimize').'<br>';
+			//$postmeta = $wpdb->query( $clean );
+            //$message .= $postmeta.' '.__('orphaned postmeta deleted', 'wp-optimize').'<br>';
             break;
 
         case "tags":
@@ -439,7 +474,9 @@ function wpo_cleanUpSystem($cleanupType){
             $autodraft = $wpdb->query( $clean );
             $message .= $autodraft.' '.__('auto drafts deleted', 'wp-optimize').'<br>';
 
-            $clean = "DELETE FROM $wpdb->posts WHERE post_status = 'trash'";
+            
+			// TODO:  query trashed posts and cleanup metadata
+			$clean = "DELETE FROM $wpdb->posts WHERE post_status = 'trash'";
             if ($retention_enabled == 'true') {
                 $clean .= ' and post_modified < NOW() - INTERVAL ' .  $retention_period . ' WEEK';
             }
@@ -458,8 +495,8 @@ function wpo_cleanUpSystem($cleanupType){
 			
             $comments = $wpdb->query( $clean );
             $message .= $comments.' '.__('spam comments deleted', 'wp-optimize').'<br>';
-
-            //$clean = "DELETE FROM $wpdb->comments WHERE comment_approved = 'post-trashed'";
+            
+            // TODO:  query trashed comments and cleanup metadata 
             $clean = "DELETE FROM $wpdb->comments WHERE comment_approved = 'trash'";
             if ($retention_enabled == 'true') {
 				$clean .= ' and comment_date < NOW() - INTERVAL ' . $retention_period . ' WEEK';
@@ -467,7 +504,18 @@ function wpo_cleanUpSystem($cleanupType){
             $clean .= ';';			
             $commentstrash = $wpdb->query( $clean );
             $message .= $commentstrash.' '.__('items removed from Trash', 'wp-optimize').'<br>';
+            
+    		// TODO:  still need to test now cleaning up comments meta tables
+//            $clean = "DELETE FROM $wpdb->commentmeta WHERE comment_id NOT IN ( SELECT comment_id FROM $wpdb->comments )";
+//            $clean .= ';';			
+//            $commentstrash_meta = $wpdb->query( $clean );
+//            $message .= $commentstrash_meta.' '.__('unused comment metadata items removed', 'wp-optimize').'<br>';                
 
+	   	    // TODO:  still need to test now cleaning up comments meta tables - removing akismet related settings 
+//            $clean = "DELETE FROM $wpdb->commentmeta WHERE meta_key LIKE '%akismet%'";
+//            $clean .= ';';			
+//            $commentstrash_meta2 = $wpdb->query( $clean );               
+//            $message .= $commentstrash_meta2.' '.__('unused akismet comment metadata items removed', 'wp-optimize').'<br>';
             break;
 
         case "unapproved":
@@ -603,9 +651,27 @@ function wpo_getInfo($cleanupType){
             $sql .= ';';			
             $comments = $wpdb->get_var( $sql );
             if(!$comments == NULL || !$comments == 0){
-              $message .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$comments.' '.__('spam comments found', 'wp-optimize').' | <a href="edit-comments.php?comment_status=spam">'.' '.__('Review Spams', 'wp-optimize').'</a>';
+              $message .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$comments.' '.__('spam comments found', 'wp-optimize').' | <a href="edit-comments.php?comment_status=spam">'.' '.__('Review', 'wp-optimize').'</a>';
             } else
               $message .='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.__('No spam comments found', 'wp-optimize');
+              
+            // TODO: still need to test 2 more sections for info - still need to test
+//            $sql = "SELECT * FROM $wpdb->commentmeta WHERE comment_id NOT IN ( SELECT comment_id FROM $wpdb->comments )";
+//            $sql .= ';';			
+//            $comments_meta = $wpdb->query( $sql );
+//            if(!$comments_meta == NULL || !$comments_meta == 0){
+//              $message .= '&nbsp;|&nbsp;'.$comments_meta.' '.__('Unused comment meta found', 'wp-optimize');
+//            } 
+//
+//
+//            $sql = "SELECT * FROM $wpdb->commentmeta WHERE meta_key LIKE '%akismet%'";
+//            $sql .= ';';			
+//            $comments_meta2 = $wpdb->query( $sql );
+//            if(!$comments_meta2 == NULL || !$comments_meta2 == 0){
+//              $message .= '&nbsp;|&nbsp;'.$comments_meta2.' '.__('additional Akismet junk data found', 'wp-optimize');
+//            } 
+
+
             break;
 
         case "unapproved":
@@ -616,7 +682,7 @@ function wpo_getInfo($cleanupType){
             $sql .= ';';
 			$comments = $wpdb->get_var( $sql );
             if(!$comments == NULL || !$comments == 0){
-              $message .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$comments.' '.__('unapproved comments found', 'wp-optimize').' | <a href="edit-comments.php?comment_status=moderated">'.' '.__('Review Unapproved Comments', 'wp-optimize').'</a>';;
+              $message .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$comments.' '.__('unapproved comments found', 'wp-optimize').' | <a href="edit-comments.php?comment_status=moderated">'.' '.__('Review', 'wp-optimize').'</a>';;
             } else
               $message .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.__('No unapproved comments found', 'wp-optimize');
 
