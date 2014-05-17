@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form" id="mailgun">
+<form class="form-horizontal" role="form" id="mailgun" method="POST">
   <input type="hidden" value="form-contact">
   <div class="form-group">
     <label for="contact_name" class="col-sm-2 control-label">Name</label>
