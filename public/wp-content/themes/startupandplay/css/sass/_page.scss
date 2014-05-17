@@ -17,6 +17,16 @@ body {
           div {
             font-weight: 300;
           }
+          form {
+            display: block;
+            margin-top: 25px;
+            padding-top: 25px;
+            padding-bottom: 25px;
+            border-top: 1px dotted $h-gray;
+            button {
+              margin-left: -10px;
+            }
+          }
         }
       }
     &.team {
