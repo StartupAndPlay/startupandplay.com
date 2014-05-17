@@ -15,22 +15,25 @@ body {
       @include vendor-prefix(border-radius, 0);
     }
 
-    h1.logo {
-      position: fixed;
-      overflow: hidden;
-      height: 50px;
-      width: 50px;
-      top: 0px;
-      left: 15px;
-      margin: 0px;
-      z-index: 101;
-      a {
-        display: block;
-        height: 100%;
-        width: 100%;
-        img {
-          height: auto;
+    div.nav-container {
+      position: relative;
+      h1.logo {
+        position: absolute;
+        overflow: hidden;
+        height: 50px;
+        width: 50px;
+        top: 0px;
+        left: 25px;
+        margin: 0px;
+        z-index: 101;
+        a {
+          display: block;
+          height: 100%;
           width: 100%;
+          img {
+            height: auto;
+            width: 100%;
+          }
         }
       }
     }

@@ -31,9 +31,9 @@
 </head>
 <body <?php body_class(); ?>>
   <div class="wrapper">
-    <h1 class="logo"><a href="/"><img src="/wp-content/themes/startupandplay/img/startup-and-play-square.png" alt="Startup and Play" /></a></h1>
     <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
+      <div class="container nav-container">
+        <h1 class="logo"><a href="/"><img src="/wp-content/themes/startupandplay/img/startup-and-play-square.png" alt="Startup and Play" /></a></h1>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
             <span class="sr-only">Toggle navigation</span>
