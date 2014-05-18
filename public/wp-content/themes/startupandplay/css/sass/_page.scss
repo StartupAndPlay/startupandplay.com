@@ -17,7 +17,7 @@ body {
           div {
             font-weight: 300;
           }
-          form {
+          form#mailgun {
             display: block;
             margin-top: 25px;
             padding-top: 25px;
@@ -26,6 +26,13 @@ body {
             button {
               margin-left: -10px;
             }
+          }
+          div#response {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            border-top: 1px dotted gray;
+            text-align: center;
           }
         }
       }
