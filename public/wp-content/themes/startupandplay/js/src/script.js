@@ -76,7 +76,7 @@ jQuery(document).ready(function($) {
     if(data.status === 'success') {
       response.text('Submission sent succesfully.');
     } else {
-      response.text('Submission failed to send, please send directory to submissions@startupandplay.com');
+      response.text('Submission failed to send, please email us directly at submissions[at]startupandplay.com');
     }
 
     mailgun.fadeOut(800, function() {
