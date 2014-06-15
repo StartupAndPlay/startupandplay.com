@@ -42,6 +42,12 @@ jQuery(document).ready(function($) {
 
   var mailgunURL, mailgun, response;
 
+  if(!window.location.origin) {
+
+    window.location.origin = window.location.protocol + "//" + window.location.hostname;
+
+  }
+
   mailgunURL = window.location.origin + '/ajax/mailgun.php';
 
   $('#mailgun').on('submit',function(e) {
