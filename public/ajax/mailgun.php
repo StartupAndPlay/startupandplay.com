@@ -48,7 +48,7 @@ function sendMailgun($data) {
 
     $name = $data['contact_name'];
     $email = $data['contact_email'];
-    $content = $data['contact_message'];
+    $content = stripslashes($data['contact_message']);
 
     $messageBody = "Contact: $name ($email)\n\nMessage: $content";
 
@@ -57,7 +57,7 @@ function sendMailgun($data) {
     $venture = $data['apply_venture_name'];
     $name = $data['apply_name'];
     $email = $data['apply_email'];
-    $content = $data['apply_pitch'];
+    $content = stripslashes($data['apply_pitch']);
 
     $messageBody = "Contact: $name ($email)\n\nVenture: $venture\n\nPitch: $content";
 
