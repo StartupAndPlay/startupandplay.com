@@ -1,10 +1,10 @@
-﻿=== WP-Optimize ===
+=== WP-Optimize ===
 Contributors: ruhanirabin
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LTCMF6JDX94QS
 Tags: comments, spam, optimize, database, revisions, users, posts, trash, schedule, automatic, clean, phpmyadmin, meta, postmeta, responsive, mobile
-Requires at least: 3.7
-Tested up to: 3.9.1.nightly
-Stable tag: 1.8.6
+Requires at least: 3.8
+Tested up to: 4.0-beta3
+Stable tag: 1.8.9
 License: GPLv2+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Simple but effective plugin allows you to extensively clean up your WordPress da
 
 == Description ==
 
-WP-Optimize is an extensive WordPress database cleanup and optimization tool. It doesn't require PhpMyAdmin to clean and optimize your database tables. 
+WP-Optimize is an extensive WordPress database cleanup and optimization tool. It doesn't require PhpMyAdmin to clean and optimize your database tables.
 
 Please show your support for this plugin by giving it [a rating](http://wordpress.org/support/view/plugin-reviews/wp-optimize?rate=5#postform) :)
 
@@ -24,7 +24,9 @@ Please join GitHub and collaborate.
 
 *   Removal of stale post revisions
 *   Removal of stale unapproved and spam comments
-*   Removal of trshed comments
+*   Removal of trashed comments
+*   Removal of akismet metadata from comments
+*   Removal of other stale metadata from comments
 *   Mobile device friendly, now you can optimize your site on the go
 *   Removal of all trackbacks and pingbacks
 *   Cleaning up auto draft posts
@@ -61,34 +63,25 @@ You will be credited inside the plugin screen and the plugin listing at WordPres
 
 
 **Translators are welcome to send their Translated Files to be included.**
-Existing translators should join [GitHub](https://github.com/ruhanirabin/WP-Optimize) to submit their translations too. 
+Existing translators should join [Translation Utility](http://wp-managed.com/projects/wp-optimize) to submit their translations. 
 
-[Download the RAW .POT file](https://raw.githubusercontent.com/ruhanirabin/WP-Optimize/master/languages/wp-optimize.pot). This is for the translators, who wants to translate to new language. 
+You must have an account in order to edit translation - [Get the free account here](http://wp-managed.com/wp-login.php?action=register). 
 
-You can **Email translations to plugins(at)ruhanirabin.com**
+Once you get your account password in your email [Log in here to edit language](http://wp-managed.com/login?redirect_to=http%3A%2F%2Fwp-managed.com%2Fprojects%2Fwp-optimize)
 
 **WP-Optimize Translators:**
 
-*   Language ru_RU: Русский язык - Виталий МакЛауд (Эликсир жизни) - http://www.visbiz.org/
-*   Language zh_TW: 正體中文語系檔案由香腸炒魷魚(香腸)翻譯。 -  http://sofree.cc
-*   Language zh_CN: 简体中文语言包 由 SoumaHoshino 提供 - http://moesora.com/
+*   Language de_DE: Rene Wolf - http://www.fluchtsportler.de
 *   Language fr_FR: Stéphane Benoit. - http://www.gnosticisme.com
-*   Language de_DE: Kniebremser - http://www.fluchtsportler.de
-*   Language lv   : Tulkotāji - http://trendfor.lv
-*   Language pt_BR: Leonardo Kfoury - http://www.kfoury.com.br/site/
-*   Language fa_IR: Morteza Amiri - http://www.GameSiders.com/
-*   Language es_ES: Navone Juan - http://navonejuan.com.ar/
+*   Language lv   : Juris Orlovs - http://trendfor.lv
 *   Language tr_TR: Hakan Er tarafından Türkçe Dili - http://hakanertr.wordpress.com/
-*   Language id_ID: Nasrulhaq Muiz - http://al-badar.net/
 *   Language sl_SI: Tomi Sambrailo - http://www.refuzed.it/
-*   Language nb_NO: Simen Eggen - http://www.simeneggen.com
-*   Language nl_NL: Mischa ter Smitten - http://blog.tersmitten.nl/
-*   Language sk_SK: Patrik Žec (PATWIST) - http://patwist.com
-*   Language lt_LT: Su pagarba Bronislav - http://www.internetiniusvetainiukurimas.com/
-*   Language it_IT: Diego Belli
-*   Language pl_PL: Kornel
-*   Language ja   : stranger-jp
+*   Language ka_GE: Givi Tabatadze - http://tagiweb.com
+*   Language zh_CN: Maie - http://maie.name
+*   Language es_ES: Navone Juan -  http://navonej.com.ar/
 
+** Some languages are removed from the above list, because translators did not update the languages for current version **
+[See a list of currently editable available languages at](http://wp-managed.com/projects/wp-optimize)
 
 == Installation ==
 
@@ -125,10 +118,10 @@ InnoDB Table formats not supported. WP-Optimize will disable some features if it
 No I can't. Please make a backup of your entire database before using this Plugin for the first time. Also backup your database when you upgrade to a MAJOR NEW version (for example - v0.9.8 to 1.5.5 ).
 
 = Is there any bug in this plugin =
-The plugin is a development on the go - that means there are unforseen situations and bugs. So I would recommend you to test it out on your local system or make a backup of your database (just to be extra careful).
+The plugin is a development on the go - that means there are unforeseen situations and bugs. So I would recommend you to test it out on your local system or make a backup of your database (just to be extra careful).
 
 = Every time I clear transient options, it comes back automatically =
-WordPress automatically creates transient options. It is pretty difficult to completley get rid of it. This is why everytime you clean transient options, you will notice new transient options has been created. My best advice would be clear the transient options on a schedule. So, for example it may create 50 transient option in a week and you clear it weekly so the next 50 transient option comes in. Rather than having 100 transient option, you will have 50 per week.
+WordPress automatically creates transient options. It is pretty difficult to completely get rid of it. This is why everytime you clean transient options, you will notice new transient options has been created. My best advice would be clear the transient options on a schedule. So, for example it may create 50 transient option in a week and you clear it weekly so the next 50 transient option comes in. Rather than having 100 transient option, you will have 50 per week.
 
 = Optimization does not have any effect on database / it is not optimizing the database =
 Some of the shared web hosting company does not allow scripts to run OPTIMIZE command via SQL statements. If you are hosted with these web hosts, the optimize action will not be able to optimize your database. Please consult your web hosting company regarding this matter.
@@ -151,6 +144,16 @@ Please check your database for corrupted tables. That can happen, usually your w
 5. Mobile View Bottom (Actual screen from Galaxy Note 3)
 
 == Changelog ==
+
+= 1.8.9 =
+* ONE MILLION+ Downloads. THANK YOU!!
+* Language updates platform - see readme file for details. 
+* Mixed type tables optimization supported and in BETA 
+* Removal of akismet metadata from comments
+* Removal of other stale metadata from comments
+* InnoDB tables won't be optimized. 
+* Main screen user selection will be saved. Red items selection will not be saved
+* Scheduled time display will be shown according to WordPress blog local time
 
 = 1.8.6 =
 * Language updates

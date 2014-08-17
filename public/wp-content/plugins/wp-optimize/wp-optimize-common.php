@@ -36,24 +36,48 @@ if (! defined('OPTION_NAME_TOTAL_CLEANED'))
     define('OPTION_NAME_TOTAL_CLEANED', 'wp-optimize-total-cleaned');
 	
 
+function wpo_readFeed($rss_url, $number_of_itmes){
+
+    include_once( ABSPATH . WPINC . '/feed.php' );
+    $rss = fetch_feed( $rss_url );
+
+    if ( ! is_wp_error( $rss ) ) { // Checks that the object is created correctly
+
+            // Figure out how many total items there are, but limit it to 5. 
+            $maxitems = $rss->get_item_quantity( $number_of_itmes ); 
+
+            // Build an array of all the items, starting with element 0 (first element).
+            $rss_items = $rss->get_items( 0, $maxitems );
+            if ($maxitems > 0) {
+                return $rss_items;
+            }
+    }
+    else {
+        $rss_items = NULL;
+        return $rss_items;
+    }
+    
+}
+
+
 /**
  * wpo_detectDBType()
- * 
+ * this function is redundant 
  * @return void
  */
 function wpo_detectDBType() {
 
 	global $wpdb;
     //global $table_prefix;
-	$tablestype = $wpdb->get_results("SHOW TABLE STATUS WHERE Name = '$wpdb->options'");
+	$tablestype = $wpdb->get_results("SHOW TABLE STATUS WHERE Name = `$wpdb->options`");
 	foreach($tablestype as  $tabletype) {
 		$table_engine = $tabletype->Engine;
 	}	
 	
 	$wpo_table_type = strtolower(strval($table_engine));
 	
-if (! defined('WPO_TABLE_TYPE'))      
-        define( WPO_TABLE_TYPE,$wpo_table_type);
+//if (! defined('WPO_TABLE_TYPE'))      
+//        define( WPO_TABLE_TYPE,$wpo_table_type);
 
 return $wpo_table_type;
        
@@ -138,6 +162,8 @@ function wpo_removeOptions(){
 	delete_option( OPTION_NAME_TOTAL_CLEANED );	
 	
     delete_option( 'wp-optimize-auto' );	
+    delete_option( 'wp-optimize-settings' );
+
 }
 
 /*
@@ -159,7 +185,7 @@ function wpo_cron_action() {
 			$this_options = get_option('wp-optimize-auto');
             // revisions
             if ($this_options['revisions'] == 'true'){
-    			$clean = "DELETE FROM $wpdb->posts WHERE post_type = 'revision'";
+    			$clean = "DELETE FROM `$wpdb->posts` WHERE post_type = 'revision'";
                 if ($retention_enabled == 'true') {
                     $clean .= ' and post_modified < NOW() - INTERVAL ' .  $retention_period . ' WEEK';
                 }
@@ -169,7 +195,7 @@ function wpo_cron_action() {
             
             // auto drafts
             if ($this_options['drafts'] == 'true'){			
-                $clean = "DELETE FROM $wpdb->posts WHERE post_status = 'auto-draft'";
+                $clean = "DELETE FROM `$wpdb->posts` WHERE post_status = 'auto-draft'";
                 if ($retention_enabled == 'true') {
                     $clean .= ' and post_modified < NOW() - INTERVAL ' .  $retention_period . ' WEEK';
                 }
@@ -179,7 +205,7 @@ function wpo_cron_action() {
             
                 // trash posts
 				// TODO:  query trashed posts and cleanup metadata 
-    			$clean = "DELETE FROM $wpdb->posts WHERE post_status = 'trash'";
+    			$clean = "DELETE FROM `$wpdb->posts` WHERE post_status = 'trash'";
                 if ($retention_enabled == 'true') {
                     $clean .= ' and post_modified < NOW() - INTERVAL ' .  $retention_period . ' WEEK';
                 }
@@ -189,7 +215,7 @@ function wpo_cron_action() {
             
             // spam comments
             if ($this_options['spams'] == 'true'){	
-    			$clean = "DELETE FROM $wpdb->comments WHERE comment_approved = 'spam'";
+    			$clean = "DELETE FROM `$wpdb->comments` WHERE comment_approved = 'spam'";
                 if ($retention_enabled == 'true') {
     				$clean .= ' and comment_date < NOW() - INTERVAL ' . $retention_period . ' WEEK';
                 }
@@ -198,7 +224,7 @@ function wpo_cron_action() {
             			
             // trashed comments
 			// TODO:  query trashed comments and cleanup metadata 
-                $clean = "DELETE FROM $wpdb->comments WHERE comment_approved = 'trash'";
+                $clean = "DELETE FROM `$wpdb->comments` WHERE comment_approved = 'trash'";
                 if ($retention_enabled == 'true') {
     				$clean .= ' and comment_date < NOW() - INTERVAL ' . $retention_period . ' WEEK';
                 }
@@ -206,21 +232,21 @@ function wpo_cron_action() {
                 $commentstrash = $wpdb->query( $clean );
                 
 			// TODO:  still need to test now cleaning up comments meta tables 
-//                $clean = "DELETE FROM $wpdb->commentmeta WHERE comment_id NOT IN ( SELECT comment_id FROM $wpdb->comments )";
-//                $clean .= ';';			
-//                $commentstrash1 = $wpdb->query( $clean );                
+                $clean = "DELETE FROM `$wpdb->commentmeta` WHERE comment_id NOT IN ( SELECT comment_id FROM `$wpdb->comments` )";
+                $clean .= ';';			
+                $commentstrash1 = $wpdb->query( $clean );                
 
 			// TODO:  still need to test now cleaning up comments meta tables - removing akismet related settings 
-//                $clean = "DELETE FROM $wpdb->commentmeta WHERE meta_key LIKE '%akismet%'";
-//                $clean .= ';';			
-//                $commentstrash2 = $wpdb->query( $clean );                
+                $clean = "DELETE FROM `$wpdb->commentmeta` WHERE meta_key LIKE '%akismet%'";
+                $clean .= ';';			
+                $commentstrash2 = $wpdb->query( $clean );                
 
 
 			}
             
             // transient options
             if ($this_options['transient'] == 'true'){
-    			$clean = "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_%' OR option_name LIKE '_site_transient_%'";
+    			$clean = "DELETE FROM `$wpdb->options` WHERE option_name LIKE '_transient_%' OR option_name LIKE '_site_transient_%'";
                 $clean .= ';';			
                 $transient_options = $wpdb->query( $clean );
             }
@@ -228,7 +254,7 @@ function wpo_cron_action() {
             // postmeta
 			// TODO:  refactor this with proper query
             if ($this_options['postmeta'] == 'true'){
-    			$clean = "DELETE pm FROM  $wpdb->postmeta  pm LEFT JOIN  $wpdb->posts  wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL";
+    			$clean = "DELETE pm FROM  `$wpdb->postmeta`  pm LEFT JOIN  `$wpdb->posts`  wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL";
                 $clean .= ';';			
                  
 				//$postmeta = $wpdb->query( $clean );
@@ -236,36 +262,34 @@ function wpo_cron_action() {
 
             // unused tags
             if ($this_options['tags'] == 'true'){            
-    			//$clean = "DELETE t,tt FROM  $wpdb->terms t INNER JOIN $wpdb->term_taxonomy tt ON t.term_id=tt.term_id WHERE tt.taxonomy='post_tag' AND tt.count=0";
+    			//$clean = "DELETE t,tt FROM  `$wpdb->terms` t INNER JOIN `$wpdb->term_taxonomy` tt ON t.term_id=tt.term_id WHERE tt.taxonomy='post_tag' AND tt.count=0";
                 //$clean .= ';';			
                 //$tags = $wpdb->query( $clean );
             }
 			
 		//db optimize part - optimize
-        // disble optimization if innoDB
-        if (WPO_TABLE_TYPE != 'innodb'){
-
         if ($this_options['optimize'] == 'true'){            
     
             $db_tables = $wpdb->get_results('SHOW TABLES',ARRAY_A);
     		foreach ($db_tables as $table){
     			$t = array_values($table);
-    			$wpdb->query("OPTIMIZE TABLE ".$t[0]);
+    			$wpdb->query("OPTIMIZE TABLE `".$t[0]."`");
                 wpo_debugLog('optimizing .... '.$t[0]);
     		}
     		
     		//$dateformat = __('l jS \of F Y h:i:s A');
-    		$dateformat = 'l jS \of F Y h:i:s A';
-            $thisdate = date($dateformat);
+    		//$dateformat = 'l jS \of F Y h:i:s A';
+            //$thisdate = date($dateformat);
+            //$thisdate = gmdate(get_option('date_format') . ' ' . get_option('time_format'), $time() + (get_option('gmt_offset')));
     		list($part1, $part2) = wpo_getCurrentDBSize();
      
-            update_option( OPTION_NAME_LAST_OPT, $thisdate );
+            $thistime = current_time( "timestamp", 0 );
+            $thedate = gmdate(get_option('date_format') . ' ' . get_option('time_format'), $thistime );
+            update_option( OPTION_NAME_LAST_OPT, $thedate );
             wpo_updateTotalCleaned(strval($part2));
             wpo_debugLog('Updating options with value +'.$part2);
 
-        } // endif $this_options['optimize'] 
-        } //end if if (WPO_TABLE_TYPE != 'innodb'){
-		
+        } // endif $this_options['optimize'] 		
 	}	// end if ( get_option(OPTION_NAME_SCHEDULE) == 'true')
 }	
 
@@ -333,6 +357,24 @@ function wpo_PluginOptionsSetDefaults() {
     
     	update_option( 'wp-optimize-auto', $new_options );
         }
+
+        // settings for main screen
+        if ( get_option( 'wp-optimize-settings' ) !== false ) {
+		// The option already exists, so we just update it.
+
+	} else {
+        // 'revisions', 'drafts', 'spams', 'unapproved', 'transient', 'postmeta', 'tags' 
+    	$new_options_main = array(
+    		'user-revisions' => 'true',
+    		'user-drafts' => 'true',
+    		'user-spams' => 'true',
+    		'user-unapproved' => 'true',
+    		'user-transient' => 'false',
+    		'user-optimize' => 'true'
+    	);
+    
+    	update_option( 'wp-optimize-settings', $new_options_main );
+        }
     	
 } 
 
@@ -376,15 +418,22 @@ function wpo_getCurrentDBSize(){
 	$index_usage = 0;
 	$overhead_usage = 0;
 	$tablesstatus = $wpdb->get_results("SHOW TABLE STATUS");
-	foreach($tablesstatus as  $tablestatus) {
+	
+        wpo_debugLog('Checking DB size .... ');
+        foreach($tablesstatus as  $tablestatus) {
 		$row_usage += $tablestatus->Rows;
 		$data_usage += $tablestatus->Data_length;
 		$index_usage +=  $tablestatus->Index_length;
-		$overhead_usage += $tablestatus->Data_free;
-		$total_gain += $tablestatus->Data_free;
+                
+                if ($tablestatus->Engine != 'innodb'){
+                    $overhead_usage += $tablestatus->Data_free;
+                    $total_gain += $tablestatus->Data_free;
+                }
 	}	
 	
 	$total_size = $data_usage + $index_usage;
+        wpo_debugLog('Total Size .... '.$total_size);
+        wpo_debugLog('Total Gain .... '.$total_gain);
 	return array (wpo_format_size($total_size), wpo_format_size($total_gain));
     //$wpdb->flush();
 	}
@@ -400,7 +449,7 @@ function wpo_getCurrentDBSize(){
  * @return total size
  */
 function wpo_updateTotalCleaned($current){
-	$previously_saved = get_option(OPTION_NAME_TOTAL_CLEANED,'0');
+    $previously_saved = get_option(OPTION_NAME_TOTAL_CLEANED,'0');
     $previously_saved = floatval($previously_saved);
 	
     $converted_current = floatval($current);
@@ -430,7 +479,8 @@ function wpo_cleanUpSystem($cleanupType){
 	
     switch ($cleanupType) {
         case "transient_options":
-            $clean = "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_%' OR option_name LIKE '_site_transient_%'";
+           // backticks
+            $clean = "DELETE FROM `$wpdb->options` WHERE option_name LIKE '_transient_%' OR option_name LIKE '_site_transient_%'";
             $clean .= ';';
 			
 			$transient_options = $wpdb->query( $clean );
@@ -438,7 +488,7 @@ function wpo_cleanUpSystem($cleanupType){
             break;
 		// TODO:  need to use proper query
         case "postmeta":
-            $clean = "DELETE pm FROM  $wpdb->postmeta  pm LEFT JOIN  $wpdb->posts  wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL";
+            $clean = "DELETE pm FROM  `$wpdb->postmeta`  pm LEFT JOIN  `$wpdb->posts`  wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL";
             $clean .= ';';
 			
 			//$postmeta = $wpdb->query( $clean );
@@ -446,7 +496,7 @@ function wpo_cleanUpSystem($cleanupType){
             break;
 
         case "tags":
-//            $clean = "DELETE t,tt FROM  $wpdb->terms t INNER JOIN $wpdb->term_taxonomy tt ON t.term_id=tt.term_id WHERE tt.taxonomy='post_tag' AND tt.count=0";
+//            $clean = "DELETE t,tt FROM  `$wpdb->terms` t INNER JOIN `$wpdb->term_taxonomy` tt ON t.term_id=tt.term_id WHERE tt.taxonomy='post_tag' AND tt.count=0";
 //            $clean .= ';';
 //			
 //			$tags = $wpdb->query( $clean );
@@ -454,7 +504,7 @@ function wpo_cleanUpSystem($cleanupType){
             break;
 
 		case "revisions":
-            $clean = "DELETE FROM $wpdb->posts WHERE post_type = 'revision'";
+            $clean = "DELETE FROM `$wpdb->posts` WHERE post_type = 'revision'";
             if ($retention_enabled == 'true') {
                 $clean .= ' and post_modified < NOW() - INTERVAL ' .  $retention_period . ' WEEK';
             }
@@ -465,7 +515,7 @@ function wpo_cleanUpSystem($cleanupType){
             break;
 
         case "autodraft":
-            $clean = "DELETE FROM $wpdb->posts WHERE post_status = 'auto-draft'";
+            $clean = "DELETE FROM `$wpdb->posts` WHERE post_status = 'auto-draft'";
             if ($retention_enabled == 'true') {
                 $clean .= ' and post_modified < NOW() - INTERVAL ' .  $retention_period . ' WEEK';
             }
@@ -476,7 +526,7 @@ function wpo_cleanUpSystem($cleanupType){
 
             
 			// TODO:  query trashed posts and cleanup metadata
-			$clean = "DELETE FROM $wpdb->posts WHERE post_status = 'trash'";
+			$clean = "DELETE FROM `$wpdb->posts` WHERE post_status = 'trash'";
             if ($retention_enabled == 'true') {
                 $clean .= ' and post_modified < NOW() - INTERVAL ' .  $retention_period . ' WEEK';
             }
@@ -487,7 +537,7 @@ function wpo_cleanUpSystem($cleanupType){
             break;
 
         case "spam":
-            $clean = "DELETE FROM $wpdb->comments WHERE comment_approved = 'spam'";
+            $clean = "DELETE FROM `$wpdb->comments` WHERE comment_approved = 'spam'";
             if ($retention_enabled == 'true') {
 				$clean .= ' and comment_date < NOW() - INTERVAL ' . $retention_period . ' WEEK';
             }
@@ -497,7 +547,7 @@ function wpo_cleanUpSystem($cleanupType){
             $message .= $comments.' '.__('spam comments deleted', 'wp-optimize').'<br>';
             
             // TODO:  query trashed comments and cleanup metadata 
-            $clean = "DELETE FROM $wpdb->comments WHERE comment_approved = 'trash'";
+            $clean = "DELETE FROM `$wpdb->comments` WHERE comment_approved = 'trash'";
             if ($retention_enabled == 'true') {
 				$clean .= ' and comment_date < NOW() - INTERVAL ' . $retention_period . ' WEEK';
             }
@@ -506,35 +556,36 @@ function wpo_cleanUpSystem($cleanupType){
             $message .= $commentstrash.' '.__('items removed from Trash', 'wp-optimize').'<br>';
             
     		// TODO:  still need to test now cleaning up comments meta tables
-//            $clean = "DELETE FROM $wpdb->commentmeta WHERE comment_id NOT IN ( SELECT comment_id FROM $wpdb->comments )";
-//            $clean .= ';';			
-//            $commentstrash_meta = $wpdb->query( $clean );
-//            $message .= $commentstrash_meta.' '.__('unused comment metadata items removed', 'wp-optimize').'<br>';                
+            $clean = "DELETE FROM `$wpdb->commentmeta` WHERE comment_id NOT IN ( SELECT comment_id FROM `$wpdb->comments` )";
+            $clean .= ';';			
+            $commentstrash_meta = $wpdb->query( $clean );
+            $message .= $commentstrash_meta.' '.__('unused comment metadata items removed', 'wp-optimize').'<br>';                
 
 	   	    // TODO:  still need to test now cleaning up comments meta tables - removing akismet related settings 
-//            $clean = "DELETE FROM $wpdb->commentmeta WHERE meta_key LIKE '%akismet%'";
-//            $clean .= ';';			
-//            $commentstrash_meta2 = $wpdb->query( $clean );               
-//            $message .= $commentstrash_meta2.' '.__('unused akismet comment metadata items removed', 'wp-optimize').'<br>';
+            $clean = "DELETE FROM `$wpdb->commentmeta` WHERE meta_key LIKE '%akismet%'";
+            $clean .= ';';			
+            $commentstrash_meta2 = $wpdb->query( $clean );               
+            $message .= $commentstrash_meta2.' '.__('unused akismet comment metadata items removed', 'wp-optimize').'<br>';
             break;
 
         case "unapproved":
-            $clean = "DELETE FROM $wpdb->comments WHERE comment_approved = '0'";
+            $clean = "DELETE FROM `$wpdb->comments` WHERE comment_approved = '0'";
             if ($retention_enabled == 'true') {
 				$clean .= ' and comment_date < NOW() - INTERVAL ' . $retention_period . ' WEEK';
             }
-            $clean .= ';';	            $comments = $wpdb->query( $clean );
+            $clean .= ';';
+            $comments = $wpdb->query( $clean );
             $message .= $comments.' '.__('unapproved comments deleted', 'wp-optimize').'<br>';
             break;
 			
         case "pingbacks":
-            $clean = "DELETE FROM $wpdb->comments WHERE comment_type = 'pingback';";
+            $clean = "DELETE FROM `$wpdb->comments` WHERE comment_type = 'pingback';";
             $comments = $wpdb->query( $clean );
             $message .= $comments.' '.__('pingbacks deleted', 'wp-optimize').'<br>';
             break;
 
         case "trackbacks":
-            $clean = "DELETE FROM $wpdb->comments WHERE comment_type = 'trackback';";
+            $clean = "DELETE FROM `$wpdb->comments` WHERE comment_type = 'trackback';";
             $comments = $wpdb->query( $clean );
             $message .= $comments.' '.__('trackbacks deleted', 'wp-optimize').'<br>';
             break;			
@@ -580,7 +631,7 @@ function wpo_getInfo($cleanupType){
 	
     switch ($cleanupType) {
         case "transient_options":
-            $sql = "SELECT COUNT(*) FROM $wpdb->options WHERE option_name LIKE '_transient_%' OR option_name LIKE '_site_transient_%'";
+            $sql = "SELECT COUNT(*) FROM `$wpdb->options` WHERE option_name LIKE '_transient_%' OR option_name LIKE '_site_transient_%'";
             $sql .= ';';
             $transient_options = $wpdb->get_var( $sql );
 
@@ -591,7 +642,7 @@ function wpo_getInfo($cleanupType){
             break;
 
         case "postmeta":
-            $sql = "SELECT COUNT(*) FROM  $wpdb->postmeta  pm LEFT JOIN  $wpdb->posts  wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL";
+            $sql = "SELECT COUNT(*) FROM  `$wpdb->postmeta`  pm LEFT JOIN  `$wpdb->posts`  wp ON wp.ID = pm.post_id WHERE wp.ID IS NULL";
             $sql .= ';';
             $postmeta = $wpdb->get_var( $sql );
 
@@ -602,7 +653,7 @@ function wpo_getInfo($cleanupType){
             break;
 
         case "tags":
-            $sql = "SELECT COUNT(*) FROM  $wpdb->terms t INNER JOIN $wpdb->term_taxonomy tt ON t.term_id=tt.term_id WHERE tt.taxonomy='post_tag' AND tt.count=0";
+            $sql = "SELECT COUNT(*) FROM  `$wpdb->terms` t INNER JOIN `$wpdb->term_taxonomy` tt ON t.term_id=tt.term_id WHERE tt.taxonomy='post_tag' AND tt.count=0";
             $sql .= ';';
             $tags = $wpdb->get_var( $sql );
 
@@ -613,7 +664,7 @@ function wpo_getInfo($cleanupType){
             break;
 
 		case "revisions":
-            $sql = "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type = 'revision'";
+            $sql = "SELECT COUNT(*) FROM `$wpdb->posts` WHERE post_type = 'revision'";
 			
             if ($retention_enabled == 'true') {
                 $sql .= ' and post_modified < NOW() - INTERVAL ' .  $retention_period . ' WEEK';
@@ -628,7 +679,7 @@ function wpo_getInfo($cleanupType){
             break;
 
         case "autodraft":
-            $sql = "SELECT COUNT(*) FROM $wpdb->posts WHERE post_status = 'auto-draft'";
+            $sql = "SELECT COUNT(*) FROM `$wpdb->posts` WHERE post_status = 'auto-draft'";
 
             if ($retention_enabled == 'true') {
                 $sql .= ' and post_modified < NOW() - INTERVAL ' .  $retention_period . ' WEEK';
@@ -644,7 +695,7 @@ function wpo_getInfo($cleanupType){
 			
 			
         case "spam":
-            $sql = "SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = 'spam'";
+            $sql = "SELECT COUNT(*) FROM `$wpdb->comments` WHERE comment_approved = 'spam'";
             if ($retention_enabled == 'true') {
                 $sql .= ' and comment_date < NOW() - INTERVAL ' . $retention_period . ' WEEK';
             }
@@ -675,7 +726,7 @@ function wpo_getInfo($cleanupType){
             break;
 
         case "unapproved":
-            $sql = "SELECT COUNT(*) FROM $wpdb->comments WHERE comment_approved = '0'";
+            $sql = "SELECT COUNT(*) FROM `$wpdb->comments` WHERE comment_approved = '0'";
             if ($retention_enabled == 'true') {
                 $sql .= ' and comment_date < NOW() - INTERVAL ' . $retention_period . ' WEEK';
             }
@@ -689,7 +740,7 @@ function wpo_getInfo($cleanupType){
             break;
 
         case "pingbacks":
-            $sql = "SELECT COUNT(*) FROM $wpdb->comments WHERE comment_type='pingback';";
+            $sql = "SELECT COUNT(*) FROM `$wpdb->comments` WHERE comment_type='pingback';";
             $comments = $wpdb->get_var( $sql );
             if(!$comments == NULL || !$comments == 0){
               $message .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$comments.' '.__('Pingbacks found', 'wp-optimize');
@@ -699,7 +750,7 @@ function wpo_getInfo($cleanupType){
             break;
 			
         case "trackbacks":
-            $sql = "SELECT COUNT(*) FROM $wpdb->comments WHERE comment_type='trackback';";
+            $sql = "SELECT COUNT(*) FROM `$wpdb->comments` WHERE comment_type='trackback';";
             $comments = $wpdb->get_var( $sql );
             if(!$comments == NULL || !$comments == 0){
               $message .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$comments.' '.__('Trackbacks found', 'wp-optimize');

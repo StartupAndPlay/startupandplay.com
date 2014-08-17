@@ -29,7 +29,7 @@ if ( ! defined( 'WPINC' ) ) {
 	  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 		<input type="hidden" name="cmd" value="_s-xclick">
 		<input type="hidden" name="hosted_button_id" value="LTCMF6JDX94QS">
-		<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG_global.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online.">
+		<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG_global.gif" border="0" name="submit" alt="PayPal ï¿½ The safer, easier way to pay online.">
 		<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 	  </form>
     
@@ -47,9 +47,9 @@ if ( ! defined( 'WPINC' ) ) {
 		<div class="postbox">
 			<div class="inside">
 	<h3><?php _e('Translators','wp-optimize'); ?></h3><br />
-	<h4><a href="<?php _e('http://www.ruhanirabin.com/','wp-optimize'); ?>" target="_blank" alt="" title=""><?php _e('Default Language by Ruhani Rabin (Change this text and the link inside translation file)','wp-optimize') ?></a></h4>
+	<h3><a href="<?php _e('http://(Translator Website)','wp-optimize'); ?>" target="_blank" alt="" title=""><?php _e('(Translator name)','wp-optimize') ?></a></h3>
 	<p>	
-	<b><a href="<?php echo WPO_PLUGIN_URL.'languages/wp-optimize.pot'; ?>" target="_blank" title=""><?php _e('Download .POT File to translate','wp-optimize'); ?></a> | <?php _e('Email your translations to','wp-optimize'); ?> <a href="mailto:plugins@ruhanirabin.com">plugins@ruhanirabin.com</a></b>
+	<b><a href="http://ruhanirabin.github.io/WP-Optimize/translations/" target="_blank"><?php _e('Read Translation Instructions','wp-optimize'); ?></a></b>
 	</p>
 	<br />
 		<br />
@@ -57,11 +57,15 @@ if ( ! defined( 'WPINC' ) ) {
 	
 	<h3><?php _e('Plugin Resources','wp-optimize'); ?></h3>
 	<h4>
-	<p><a href="http://wordpress.org/plugins/wp-optimize/" target="_blank"><?php _e('Plugin Homepage', 'wp-optimize'); ?></a></p>
-    <p><a href="https://github.com/ruhanirabin/WP-Optimize/issues" target="_blank"><?php _e('Support (GitHub)', 'wp-optimize'); ?></a></p>
-    <p><a href="http://wordpress.org/plugins/wp-optimize/changelog/" target="_blank"><?php _e('Change Log', 'wp-optimize'); ?></a></p>
-    <p><a href="http://wordpress.org/plugins/wp-optimize/faq/" target="_blank"><?php _e('FAQ', 'wp-optimize'); ?></a></p>
-    </h4>
+        <p><a href="http://wp-managed.com/wp-login.php?action=register" target="_blank"><?php _e('Get a Translator Account', 'wp-optimize'); ?></a></p>
+        <p><a href="http://wp-managed.com/login?redirect_to=http%3A%2F%2Fwp-managed.com%2Fprojects%2Fwp-optimize" target="_blank"><?php _e('Plugin Translation Portal (needs translator account)', 'wp-optimize'); ?></a></p>
+        <p><a href="mailto:plugins@ruhanirabin.com" target="_blank"><?php _e('Request New Language', 'wp-optimize'); ?></a></p>
+        <p><a href="http://ruhanirabin.github.io/WP-Optimize/" target="_blank"><?php _e('Plugin Homepage', 'wp-optimize'); ?></a></p>
+        <p><a href="https://github.com/ruhanirabin/WP-Optimize/issues" target="_blank"><?php _e('Support (GitHub)', 'wp-optimize'); ?></a></p>
+        <p><a href="mailto:plugins+support@ruhanirabin.com" target="_blank"><?php _e('Support E-mail', 'wp-optimize'); ?></a></p>
+        <p><a href="http://wordpress.org/plugins/wp-optimize/changelog/" target="_blank"><?php _e('Change Log', 'wp-optimize'); ?></a></p>
+        <p><a href="http://wordpress.org/plugins/wp-optimize/faq/" target="_blank"><?php _e('FAQ', 'wp-optimize'); ?></a></p>
+        </h4>
 			</div>
 		</div>	
 </div>
@@ -69,17 +73,17 @@ if ( ! defined( 'WPINC' ) ) {
 <div class="wpo_col wpo_span_1_of_3">
 		<div class="postbox">
 			<div class="inside">
-		<h3><?php _e('Development Log','wp-optimize'); ?></h3>
+		<h3><?php _e('GitHub Development Log','wp-optimize'); ?></h3>
 		<?php // Get RSS Feed(s)
 		include_once( ABSPATH . WPINC . '/feed.php' );
 
 		// Get a SimplePie feed object from the specified feed source.
-		$rss = fetch_feed( 'http://plugins.trac.wordpress.org/log/wp-optimize?limit=20&mode=stop_on_copy&format=rss' );
+		$rss = fetch_feed( 'https://github.com/ruhanirabin/wp-optimize/commits/master.atom' );
 
 		if ( ! is_wp_error( $rss ) ) : // Checks that the object is created correctly
 
 			// Figure out how many total items there are, but limit it to 5. 
-			$maxitems = $rss->get_item_quantity( 5 ); 
+			$maxitems = $rss->get_item_quantity( 8 ); 
 
 			// Build an array of all the items, starting with element 0 (first element).
 			$rss_items = $rss->get_items( 0, $maxitems );
@@ -94,11 +98,12 @@ if ( ! defined( 'WPINC' ) ) {
 				<?php // Loop through each feed item and display each item as a hyperlink. ?>
 				<?php foreach ( $rss_items as $item ) : ?>
 					<li>
-						<b><?php printf( __( 'Update %s', 'wp-optimize' ), $item->get_date('j F Y | g:i a') ); ?></b>
-						<p><small>
+						<p>
 						<?php //echo esc_html( $item->get_description() ); ?>
-						<?php echo $item->get_description(); ?>
-						</small></p>
+						<a href="<?php echo $item->get_link(); ?>" title="<?php echo $item->get_title(); ?>" target="_blank"><?php echo $item->get_title(); ?></a>
+                                                &nbsp;
+                                                <small><?php echo $item->get_date('j F Y | g:i a') ; ?></small>
+						</p>
 					</li>
 				<?php endforeach; ?>
 			<?php endif; ?>
