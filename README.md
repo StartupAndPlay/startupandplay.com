@@ -1,7 +1,9 @@
-![image](http://startupandplay.com/wp-content/themes/startupandplay/img/startup-and-play-wide.png)
+![image](https://raw.githubusercontent.com/StartupAndPlay/startupandplay.com/master/public/wp-content/themes/startupandplay/img/src/startup-and-play-wide.png)
 
 StartupAndPlay
 ==============
+
+This project is no longer under development. Startup And Play is no longer active. Read the farewell message [here](https://github.com/StartupAndPlay/goodbye).
 
 A custom theme for Startup and Play, a startup social, inspired by Medium.com.
 
