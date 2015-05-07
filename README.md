@@ -3,7 +3,7 @@
 StartupAndPlay
 ==============
 
-This project is no longer under development. Startup And Play is no longer active. Read the farewell message [here](https://github.com/StartupAndPlay/goodbye).
+**This project is no longer under development. Startup And Play is no longer active. Read the farewell message [here](https://github.com/StartupAndPlay/goodbye).**
 
 A custom theme for Startup and Play, a startup social, inspired by Medium.com.
 
